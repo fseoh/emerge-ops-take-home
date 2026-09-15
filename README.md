@@ -33,28 +33,6 @@ Synthetic exports live in `data/`. The snapshot was taken **September 15, 2026 a
 
 Students by city: NYC ~2,000, Sacramento ~750, Boston ~250. The data is not perfectly clean. Real exports never are.
 
-## The funnel you're working on
-
-We only care about three stage conversions:
-
-| Stage | What it measures |
-|---|---|
-| CA → First Video | Activation |
-| First Video → Course Complete | Course completion among starters |
-| Course Complete → Permit | Permit pass among completers |
-
-For reference, our NYC funnel tracker measured these in July 2026:
-
-| | Jul 1, 2026 | Jul 16, 2026 |
-|---|---|---|
-| CA → First Video | 68.8% | 67.5% |
-| First Video → Course Complete | 31.7% | 49.0% |
-| Course Complete → Permit | 35.6% | 46.4% |
-
-These are for reference. Your numbers from this dataset won't match exactly.
-
----
-
 ## The task: A community plan
 
 Design a community program that moves more starters through the course. Keep it to what a team of ~10 can actually run. Cover:
