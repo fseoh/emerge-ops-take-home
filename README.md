@@ -30,8 +30,15 @@ Synthetic exports live in `data/`. The snapshot was taken **September 15, 2026 a
 | `data/students.csv` | one row per student (user summary) | ~3,000 |
 | `data/lesson_events.csv` | one row per lesson a student completed | ~20,000 |
 | `data/lessons.csv` | one row per lesson in the course | 21 |
+| `data/seats_by_city.csv` | one row per city (training seats we can fund) | 3 |
 
-Students by city: NYC ~2,000, Sacramento ~750, Boston ~250. The data is not perfectly clean. Real exports never are.
+The data is not perfectly clean. Real exports never are. Demand already outstrips supply — we have roughly one seat for every ten students who sign up:
+
+| City | Students | Seats |
+|---|---|---|
+| NYC | ~2,000 | 200 |
+| Sacramento | ~750 | 75 |
+| Boston | ~250 | 25 |
 
 ## The task: A community plan
 
