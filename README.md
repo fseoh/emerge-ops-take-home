@@ -1,4 +1,4 @@
-# Emerge Career: Ops Take-Home ("1 in 10")
+# Emerge Career: Ops Take-Home
 
 Thanks for taking the time. This is the work you'd do in your first 90 days, not a puzzle.
 
