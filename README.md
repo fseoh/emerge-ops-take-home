@@ -35,7 +35,7 @@ Students by city: NYC ~2,000, Sacramento ~750, Boston ~250. The data is not perf
 
 ## The task: A community plan
 
-Design a community program that moves more starters through the course. Keep it to what a team of ~10 can actually run. Cover:
+Design a community program that moves more starters through the course. Cover:
 
 - **Who it targets** (use the data to define the segment and size it)
 - **What it is** (formats, cadence, who runs it)
