@@ -2,7 +2,7 @@
 
 Thanks for taking the time. This is the work you'd do in your first 90 days, not a puzzle.
 
-**Time box: 3 hours.** Stop at 3. If you run short, get the plan and the memo down, then sketch the rest.
+**Time box: 3 hours.**
 
 **Use Claude Code (or your AI tool of choice) for the heavy lifting.** We care about your judgment and how you direct the tool, not whether you hand-write pandas. Read `CLAUDE.md` first; it sets the rules your AI tool should follow in this repo.
 
