@@ -72,5 +72,4 @@ Send a zip or a repo link.
 ## Ground rules
 
 - The data is synthetic. No real students are in it.
-- Don't send messages, post anything, or contact anyone.
 - Questions? Email us. If we can't answer fast, make a call, write down your assumption, and keep going.
