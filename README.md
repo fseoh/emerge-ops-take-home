@@ -56,10 +56,10 @@ Send a zip or a repo link.
 
 ## How we'll evaluate
 
-- **Critical thinking.** Did you dig into the data to find where and why students actually drop, handle recent signups honestly, and separate correlation from cause?
-- **Strategy.** Does the plan fit a small team, move the right number, and respect that our students have been through a lot?
-- **AI fluency.** Did you use the tool well and catch it when it was wrong?
-- **Prioritization & execution.** Does the plan use the data specifically? Something unfinished with a clear rationale beats something polished and narrow.
+- **Critical thinking**
+- **Strategy**
+- **AI fluency**
+- **Prioritization & execution**
 
 ## Ground rules
 
