@@ -2,7 +2,7 @@
 
 Thanks for taking the time. This is the work you'd do in your first 90 days, not a puzzle.
 
-**Time box: 3 hours.** Stop at 3. If you run short, finish Part 1 and the memo, then sketch the rest.
+**Time box: 3 hours.** Stop at 3. If you run short, get the plan and the memo down, then sketch the rest.
 
 **Use Claude Code (or your AI tool of choice) for the heavy lifting.** We care about your judgment and how you direct the tool, not whether you hand-write pandas. Read `CLAUDE.md` first; it sets the rules your AI tool should follow in this repo.
 
@@ -51,68 +51,35 @@ For reference, our NYC funnel tracker measured these in July 2026:
 | First Video → Course Complete | 31.7% | 49.0% |
 | Course Complete → Permit | 35.6% | 46.4% |
 
-Your numbers from this dataset won't match exactly. Tell us why.
+These are for reference. Your numbers from this dataset won't match exactly.
 
 ---
 
-## Part 1: Diagnose the funnel (about 75 min)
-
-Build a view someone on our team could open Monday morning. Any format works: HTML, notebook, Markdown tables, or a spreadsheet.
-
-It should answer:
-
-1. **Stage conversion** for the three stages above, overall and by city. Say how you handled students who signed up too recently to have finished.
-2. **Where in the 21 lessons do starters drop?** Show the lesson-by-lesson curve. Name the point after which students almost always finish.
-3. **What separates students who make it past that point from those who don't?** Look at the training plan, community, device, referral source, and city fields. Be careful about what's cause and what's correlation.
-4. **Who can we still help this week?** A list of current students worth reaching now, with your rule for picking them.
-
-## Part 2: The community plan (about 75 min)
-
-### 2a. Plan
+## The task: A community plan
 
 Design a community program that moves more starters through the course. Keep it to what a team of ~10 can actually run. Cover:
 
 - **Who it targets** (use the data to define the segment and size it)
-- **What it is** (formats, cadence, who runs it, rough weekly hours or cost)
-- **How it differs by city,** if it should
-- **The one number you'd move** and by how much in 90 days
-- **How you'd prove it worked.** Some of these signals are self-selected. Tell us how you'd test it.
-
-### 2b. Outreach drafts
-
-Write **3 messages** (SMS or group chat) to real `user_id`s from your Part 1 list. Ground each one in that student's data. Put them in `outbox/`, one file each, named `<user_id>.md`. **Do not send anything.**
-
-### 2c. Automation spec
-
-Spec (or code) the trigger that would draft these messages automatically. Cover:
-
-- What event or state change fires it, and how you avoid messaging the same person every day
-- Timing (when in their day, how soon after they stall)
-- Who never gets an automated message
-- Where a human reviews before anything goes out
-- What you'd check before turning it on for real
+- **What it is** (formats, cadence, who runs it)
+- **How you'd measure it** (the one number you'd move, and how you'd prove it — some signals are self-selected)
 
 ---
 
 ## Deliverables
 
-1. **Your analysis:** code, notebook, or spreadsheet that rebuilds your numbers from `data/`. Put it in `analysis/`.
-2. **Your Monday view** from Part 1.
-3. **`COMMUNITY_PLAN.md`** (Part 2a) and **`AUTOMATION.md`** (Part 2c).
-4. **`outbox/`** with 3 message drafts.
-5. **`MEMO.md`**, half a page max, using the template already in this repo.
-6. **`ai_usage/`**: your key prompts or a session transcript. We want to see how you steered the tool, including where you pushed back on it.
+1. **`COMMUNITY_PLAN.md`**: your plan.
+2. **Any analysis** that backs it up — code, notebook, spreadsheet, or tables. Put it in `analysis/`. We want to see the numbers your plan rests on and be able to rebuild them from `data/`.
+3. **`MEMO.md`**, half a page max, using the template already in this repo.
+4. **`ai_usage/`**: your key prompts or a session transcript. We want to see how you steered the tool, including where you pushed back on it.
 
 Send a zip or a repo link.
 
 ## How we'll evaluate
 
-- **Funnel read.** Did you find the real drop-off point and handle recent signups honestly?
-- **Judgment.** Do you separate correlation from cause, and does your plan fit a small team?
-- **Specificity.** Do the messages and the plan use the data, or could they be about anyone?
-- **Care.** Our students have been through a lot. Does your outreach respect that? Does your automation protect them from spam and mistakes?
-- **AI leverage.** Did you use the tool well and catch it when it was wrong?
-- **Prioritization.** Something unfinished with a clear rationale beats something polished and narrow.
+- **Critical thinking.** Did you dig into the data to find where and why students actually drop, handle recent signups honestly, and separate correlation from cause?
+- **Strategy.** Does the plan fit a small team, move the right number, and respect that our students have been through a lot?
+- **AI fluency.** Did you use the tool well and catch it when it was wrong?
+- **Prioritization & execution.** Does the plan use the data specifically? Something unfinished with a clear rationale beats something polished and narrow.
 
 ## Ground rules
 
