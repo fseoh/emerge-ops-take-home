@@ -41,14 +41,17 @@ Design a community program that moves more starters through the course. Keep it 
 - **What it is** (formats, cadence, who runs it)
 - **How you'd measure it** (the one number you'd move, and how you'd prove it — some signals are self-selected)
 
+Also build a **dashboard** the team could use to run this plan day to day — who to reach, how the target number is trending, whether it's working. Any format works.
+
 ---
 
 ## Deliverables
 
 1. **`COMMUNITY_PLAN.md`**: your plan.
-2. **Any analysis** that backs it up — code, notebook, spreadsheet, or tables. Put it in `analysis/`. We want to see the numbers your plan rests on and be able to rebuild them from `data/`.
-3. **`MEMO.md`**, half a page max, using the template already in this repo.
-4. **`ai_usage/`**: your key prompts or a session transcript. We want to see how you steered the tool, including where you pushed back on it.
+2. **A dashboard** to operationalize the plan. Any format works.
+3. **Any analysis** that backs it up — code, notebook, spreadsheet, or tables. Put it in `analysis/`. We want to see the numbers your plan rests on and be able to rebuild them from `data/`.
+4. **`MEMO.md`**, half a page max, using the template already in this repo.
+5. **`ai_usage/`**: your key prompts or a session transcript. We want to see how you steered the tool, including where you pushed back on it.
 
 Send a zip or a repo link.
 
