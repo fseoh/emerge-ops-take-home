@@ -1,0 +1,187 @@
+
+== Row counts (raw)
+students.csv: 3009 rows, 30 columns
+lesson_events.csv: 20383 rows, 1998 distinct users
+lessons.csv: 21 rows
+seats_by_city.csv: 3 rows
+
+== Leading/trailing whitespace (all string columns, all files)
+students.city: leading=0 trailing=10 values=["'NYC '"]
+(columns not listed have none)
+
+== Duplicates
+students duplicate user_id: 0
+students fully duplicated rows: 0
+lesson_events fully duplicated rows: 0
+lesson_events duplicate (user_id, lesson_number): 0
+
+== Test / internal accounts
+user_id not matching u_######: 9 -> ['test_01', 'test_02', 'test_03', 'test_04', 'test_05', 'test_06', 'test_07', 'test_08', 'test_09']
+referral_source = internal: 9
+same rows? True
+dropping 9 test rows (union of both rules)
+lesson_events rows belonging to test accounts: 0
+user_id       city          status lessons_completed
+test_01        NYC        inactive                 2
+test_02        NYC     not_started                 0
+test_03        NYC     not_started                 0
+test_04        NYC course_complete                21
+test_05        NYC        inactive                 3
+test_06     Boston     not_started                 0
+test_07        NYC        inactive                 2
+test_08        NYC     in_progress                10
+test_09 Sacramento     not_started                 0
+real students after drop: 3000
+
+== City labels (real students)
+raw labels (repr shows hidden spaces):
+city
+'NYC'           1963
+'Sacramento'     750
+'Boston'         244
+'New York'        14
+'nyc'             13
+'NYC '            10
+'BOS'              6
+rows whose label changed: 43
+  city_raw   city  rows
+     'BOS' Boston     6
+    'NYC '    NYC    10
+'New York'    NYC    14
+     'nyc'    NYC    13
+normalized counts:
+city
+NYC           2000
+Sacramento     750
+Boston         250
+cities missing from seats_by_city.csv: none
+
+== Types and ranges (real students)
+signup_at: blank=0 unparseable=0 after_snapshot=0
+first_video_at: blank=1002 unparseable=0 after_snapshot=0
+last_lesson_completed_at: blank=1002 unparseable=0 after_snapshot=0
+course_completed_at: blank=2304 unparseable=0 after_snapshot=0
+last_seen_at: blank=0 unparseable=0 after_snapshot=0
+last_logged_in_at: blank=0 unparseable=0 after_snapshot=0
+plan_created_at: blank=1119 unparseable=0 after_snapshot=0
+plan_target_permit_date: blank=1654 unparseable=0 after_snapshot=297
+permit_exam_date: blank=2630 unparseable=0 after_snapshot=44
+lessons_completed: non_numeric=0 min=0 max=21
+engagement_7d_minutes: non_numeric=0 min=0 max=236
+engagement_3d_minutes: non_numeric=0 min=0 max=162
+study_hall_sessions_attended: non_numeric=0 min=0 max=6
+coach_calls_completed: non_numeric=0 min=0 max=3
+permit_attempts: non_numeric=0 min=0 max=2
+referral_source values: ['friend_family', 'paid_social', 'parole_probation_officer', 'reentry_org', 'workforce_center']
+
+== lesson_events.csv integrity
+lesson_number outside 1-21: 0
+completed_at after snapshot: 0
+user_ids not in students.csv: 0
+minutes_watched range: 6-66; quiz_score_pct range: 28-100
+events before signup: 0; events after last_seen_at: 0
+users with gaps (max lesson != lessons done): 0
+events finished before the previous lesson: 100 rows, 100 users, lesson numbers {2: 100}
+
+== Summary fields vs event log (real students)
+lessons_completed != max event lesson: 14
+  summary higher: 14  summary lower: 0
+  difference distribution: {1: 14}
+  by status: {'in_progress': 8, 'inactive': 6}
+  summary > 0 but no events at all: 0
+ user_id      status  lessons_completed  ev_max_lesson
+u_100392 in_progress                 11             10
+u_101037    inactive                  8              7
+u_101099 in_progress                  8              7
+u_101982    inactive                 12             11
+u_102136 in_progress                 18             17
+u_102481    inactive                 17             16
+u_102552 in_progress                  7              6
+u_104062    inactive                  8              7
+u_104249    inactive                 19             18
+u_104425 in_progress                 19             18
+u_104667 in_progress                 13             12
+u_105225 in_progress                 12             11
+u_105502 in_progress                 19             18
+u_105839    inactive                 10              9
+first_video_at blank vs lesson-1 event disagree: 0
+first_video_at != lesson-1 event time: 0
+course_completed_at blank vs lesson-21 event disagree: 0
+permit passed without lesson-21 event: 0
+last_lesson_completed_at earlier than first_video_at: 12 (all within lesson-2-before-lesson-1 group: True)
+last_lesson_completed_at != latest event time: 12
+
+== Engagement fields (real students)
+engagement_3d_minutes > engagement_7d_minutes: 11
+ user_id           signup_at  engagement_7d_minutes  engagement_3d_minutes
+u_103839 2026-07-28 07:37:13                     51                     87
+u_100209 2026-08-08 09:16:33                     76                     94
+u_105733 2026-08-16 22:49:19                     27                     35
+u_103729 2026-08-24 08:39:01                    119                    158
+u_102696 2026-08-27 04:14:30                     62                    101
+u_100329 2026-09-02 16:41:56                     55                     68
+u_104624 2026-09-03 11:57:15                     91                    106
+u_102130 2026-09-03 13:12:11                    107                    132
+u_103191 2026-09-04 13:51:14                     35                     62
+u_101845 2026-09-07 15:57:25                     99                    135
+u_104220 2026-09-08 17:00:18                     88                    102
+Window test (dictionary does not say how the windows are counted):
+  snapshot is a Tuesday
+  lessons in last 72h only on Sat/Sun: 65 students; 3d minutes = 0 for 0
+  any lesson in last 72h: 145 students; 3d minutes = 0 for 0
+  any lesson in last 7d: 233 students; 7d minutes = 0 for 0
+  last seen > 7d before snapshot: 2687; 7d minutes > 0 for 0
+  last seen > 72h before snapshot: 2786; 3d minutes > 0 for 3 (all in the 3d > 7d group: True)
+
+== Status vs other fields (real students)
+in_progress but not seen for 14+ days: 0
+inactive but seen within 14 days: 0
+status x lessons done per event log:
+ev_max_lesson       0  1-20   21
+status                          
+course_complete     0     0  326
+in_progress         0   264    0
+inactive            0  1009    0
+not_started       968     0    0
+permit_failed       0     0   52
+permit_passed       0     0  274
+permit_scheduled    0     0   44
+withdrawn          34    29    0
+last_logged_in_at after last_seen_at: 0
+has_training_plan=no with plan fields filled: 0
+has_training_plan=yes with no target permit date: 535
+study_hall > 0 without group chat: 0
+permit_attempts x permit_result:
+permit_result    (blank)  failed  passed
+permit_attempts                         
+0                   2674       0       0
+1                      0      41     238
+2                      0      11      36
+
+== Coach calls vs lesson progress (real students)
+coach_calls_completed is a count only; no file records when calls happened
+coach_calls_completed     0    1    2    3   All
+highest_lesson                                  
+0                      1002    0    0    0  1002
+1                       110   99   74    0   283
+2                       112   97   39    0   248
+3                       122  126   57    0   305
+4                        77   83   31    0   191
+5-20                      0  118  107   50   275
+21                        0  290  272  134   696
+All                    1423  813  580  184  3000
+0 lessons with a call: 0
+0 calls who reached lesson 5+: 0 of 1423 with 0 calls
+3 calls with highest lesson <= 4: 0
+
+== Signups by month (real students)
+signup_at
+2026-03    511
+2026-04    469
+2026-05    498
+2026-06    426
+2026-07    488
+2026-08    448
+2026-09    160
+Freq: M
+signup range: 2026-03-02 00:33:16 to 2026-09-11 23:55:22

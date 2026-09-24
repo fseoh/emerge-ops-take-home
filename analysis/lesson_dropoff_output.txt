@@ -1,0 +1,92 @@
+Pool: first video on or before 2026-07-18 06:00:00 -> 1447 students
+Comparison: signed up on or before 2026-06-19 06:00:00 and watched first video -> 1167 students
+Includes withdrawn students (withdrawing is a drop-off). Test accounts already excluded.
+
+== 1. Highest lesson reached per lesson_events.csv (21 = finished)
+stop_rate = stopped at N / reached N
+        video_min  stopped pct_of_pool  reached stop_rate  in_progress  withdrawn  stopped_jun19_cohort
+lesson                                                                                                 
+1               8      194       13.4%     1447     13.4%            0          6                   147
+2              32      167       11.5%     1253     13.3%            0          4                   137
+3              44      209       14.4%     1086     19.2%            0          2                   166
+4              41      147       10.2%      877     16.8%            0          0                   126
+5              26       10        0.7%      730      1.4%            0          0                     8
+6              22        8        0.6%      720      1.1%            0          0                     6
+7              18       10        0.7%      712      1.4%            0          0                     9
+8              17        6        0.4%      702      0.9%            0          0                     6
+9              15       11        0.8%      696      1.6%            0          0                    10
+10             12        9        0.6%      685      1.3%            0          1                     6
+11             16        7        0.5%      676      1.0%            0          1                     7
+12             20        6        0.4%      669      0.9%            0          0                     6
+13             19        6        0.4%      663      0.9%            0          0                     3
+14             17       11        0.8%      657      1.7%            0          1                    10
+15             16        3        0.2%      646      0.5%            1          0                     1
+16             18        6        0.4%      643      0.9%            0          0                     5
+17             15        6        0.4%      637      0.9%            0          0                     5
+18             25       12        0.8%      631      1.9%            0          0                    11
+19             15        7        0.5%      619      1.1%            1          1                     6
+20             15        7        0.5%      612      1.1%            1          0                     5
+21             12      605       41.8%      605         -            0          0                   487
+non-finishers: 842; stopped at lessons 1-4: 717 (85.2%)
+reached lesson 5: 730; of those finished: 605 (82.9%)
+Jun-19 cohort: non-finishers 680; stopped at 1-4: 576
+
+== 2. Stopped at N (never completed N+1): days since last lesson completion, as of snapshot
+last completion uses the latest event timestamp (not last_lesson_completed_at; see DATA_NOTES flag 3)
+              n  median_days  max_days  min_days  seen_last_14d
+stopped_at                                                     
+1           194        127.8     196.1      59.4              0
+2           167        128.9     194.0      53.6              0
+3           209        120.3     193.5      51.9              0
+4           147        118.7     188.5      49.5              0
+5            10        109.4     162.3      57.8              0
+6             8         99.3     153.3      49.3              0
+7            10        123.9     173.9      40.3              0
+8             6         89.7     158.5      69.5              0
+9            11        126.7     183.3      47.7              0
+10            9         80.6     172.4      53.5              0
+11            7        135.4     170.3      79.4              0
+12            6        121.5     151.3      74.3              0
+13            6         62.7     111.6      40.6              0
+14           11        109.6     168.8      42.3              0
+15            3         42.3     174.5       2.9              1
+16            6        134.9     162.3      41.4              0
+17            6        118.9     147.7      43.5              0
+18           12        109.1     167.3      30.5              0
+19            7         87.4     148.9       4.5              1
+20            7         85.3     136.5       3.4              1
+stopped at 1-4: most recent lesson was 49.5 days ago; seen in last 14 days: 0
+all non-finishers seen in last 14 days: 3
+
+== 3. Days between consecutive lesson completions (pool)
+           n  median   p75  negative  median_excl_negative
+1->2    1253    1.95  3.41        78                  2.00
+2->3    1086    2.02  4.01         0                  2.02
+3->4     877    2.03  4.00         0                  2.03
+4->5     730    1.99  3.86         0                  1.99
+5->6     720    1.02  2.01         0                  1.02
+6->7     712    1.02  2.01         0                  1.02
+7->8     702    1.03  2.01         0                  1.03
+8->9     696    1.03  2.03         0                  1.03
+9->10    685    1.03  2.01         0                  1.03
+10->11   676    1.02  2.01         0                  1.02
+11->12   669    1.04  2.03         0                  1.04
+12->13   663    1.03  2.03         0                  1.03
+13->14   657    1.05  2.05         0                  1.05
+14->15   646    1.04  2.04         0                  1.04
+15->16   643    1.02  2.03         0                  1.02
+16->17   637    1.02  1.99         0                  1.02
+17->18   631    1.05  2.06         0                  1.05
+18->19   619    1.03  2.03         0                  1.03
+19->20   612    1.05  2.04         0                  1.05
+20->21   605    1.02  2.02         0                  1.02
+negative gaps = lesson 2 timestamped before lesson 1 (DATA_NOTES flag 2)
+
+== 4. Stopped at lessons 1-4: had a coach call or not (call dates are not in the data)
+            0 calls  >=1 call  pct_with_call
+stopped_at                                  
+1                79       115           59.3
+2                75        92           55.1
+3                81       128           61.2
+4                64        83           56.5
+had >=1 call and still stopped at 1-4: 418 of 717 (58.3%); status {'inactive': 408, 'withdrawn': 10}

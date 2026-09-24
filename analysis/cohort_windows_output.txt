@@ -1,0 +1,37 @@
+== Days between stages (students who reached the later stage)
+                                   n  median  p75  p90  p95
+step                                                       
+Signup -> First Video           1998       0    3    6    9
+First Video -> Course Complete   696      34   42   52   59
+Course Complete -> Exam taken    326      18   28   34   40
+Signup -> Permit passed          274      57   67   78   88
+negative durations: signup->FV 0, FV->CC 0, CC->exam 0
+
+== Cutoffs (snapshot 2026-09-15 06:00:00 minus the 95% window)
+FV/CA:        signed up on or before        2026-09-06 06:00:00
+CC/FV:        first video on or before      2026-07-18 06:00:00
+Permit/CC:    course complete on or before  2026-08-06 06:00:00
+Permit/CA:    signed up on or before        2026-06-19 06:00:00
+
+== Stage rates by signup month, NO cutoff (shows the time-to-finish problem)
+               CA   FV   CC  Permit            FV/CA            CC/FV       Permit/CC
+signup_month                                                                         
+2026-03       511  347  153      70  67.9% (347/511)  44.1% (153/347)  45.8% (70/153)
+2026-04       469  312  125      46  66.5% (312/469)  40.1% (125/312)  36.8% (46/125)
+2026-05       498  339  135      63  68.1% (339/498)  39.8% (135/339)  46.7% (63/135)
+2026-06       426  291  129      57  68.3% (291/426)  44.3% (129/291)  44.2% (57/129)
+2026-07       488  329  116      36  67.4% (329/488)  35.3% (116/329)  31.0% (36/116)
+2026-08       448  289   38       2  64.5% (289/448)   13.1% (38/289)     5.3% (2/38)
+2026-09       160   91    0       0   56.9% (91/160)      0.0% (0/91)       n/a (0/0)
+
+== Stage rates with per-stage cutoffs (all 3 cities, 3,000 real students)
+FV/CA      66.8% (1947/2916)  signups 2026-03-02 to 2026-09-06; excluded 84 newer signups
+CC/FV      41.8% (605/1447)  first videos 2026-03-02 to 2026-07-18; excluded 551 newer first videos
+Permit/CC  44.1% (235/533)  completions 2026-03-24 to 2026-08-05; excluded 163 newer completions
+Permit/CA  12.3% (212/1727)  signups 2026-03-02 to 2026-06-19
+
+== Mature cohort: signed up on or before 2026-06-19 (every stage has had time)
+CA 1727 -> FV 1167 -> CC 487 -> Permit 212
+FV/CA 67.6% (1167/1727) | CC/FV 41.7% (487/1167) | Permit/CC 43.5% (212/487) | Permit/CA 12.3% (212/1727)
+students lost at each step: CA->FV 560, FV->CC 680, CC->Permit 275
+still pending in this cohort: permit_scheduled 1, course_complete without exam 233, in_progress 0
