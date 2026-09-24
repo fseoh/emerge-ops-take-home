@@ -132,5 +132,26 @@ with_call = early.loc[early.coach_calls_completed > 0]
 report(f"had >=1 call and still stopped at 1-4: {len(with_call)} of {len(early)} "
        f"({len(with_call) / len(early):.1%}); status {with_call.status.value_counts().to_dict()}")
 
+# ---------------------------------------------------------------- 5. training plan x group chat
+report()
+report("== 5. Training plan x group chat: share reaching lesson 5+ (pool)")
+report("joined_group_chat is yes/no only; no join date exists, so order vs. progress is unknown")
+pool["reached_5"] = pool.ev_max_lesson >= 5
+t5 = pool.groupby(["has_training_plan", "joined_group_chat"]).reached_5.agg(n="size", reached_5="sum")
+t5["stopped_1_4"] = t5.n - t5.reached_5
+t5["pct_of_pool"] = (t5.n / len(pool) * 100).round(1)
+t5["pct_reached_5"] = (t5.reached_5 / t5.n * 100).round(1)
+report(t5.to_string())
+plans = pool.loc[pool.has_training_plan == "yes"].copy()
+plans["plan_created_at"] = pd.to_datetime(plans.plan_created_at)
+report(f"plan holders: {len(plans)}; plan created before first video: "
+       f"{int((plans.plan_created_at <= plans.ev_first_video_at).sum())}; "
+       f"median hours signup -> plan: "
+       f"{((plans.plan_created_at - plans.signup_at).dt.total_seconds() / 3600).median():.2f}")
+before_plan = ev.merge(plans[["user_id", "plan_created_at"]], on="user_id")
+before_plan = before_plan.loc[before_plan.completed_at < before_plan.plan_created_at]
+done_at_plan = before_plan.groupby("user_id").lesson_number.max().reindex(plans.user_id).fillna(0)
+report(f"lessons already done when plan was created: {done_at_plan.value_counts().sort_index().astype(int).to_dict()}")
+
 (OUT / "lesson_dropoff_output.txt").write_text("\n".join(lines) + "\n")
 print(f"\nwrote {OUT / 'lesson_dropoff_output.txt'}")

@@ -90,3 +90,14 @@ stopped_at
 3                81       128           61.2
 4                64        83           56.5
 had >=1 call and still stopped at 1-4: 418 of 717 (58.3%); status {'inactive': 408, 'withdrawn': 10}
+
+== 5. Training plan x group chat: share reaching lesson 5+ (pool)
+joined_group_chat is yes/no only; no join date exists, so order vs. progress is unknown
+                                       n  reached_5  stopped_1_4  pct_of_pool  pct_reached_5
+has_training_plan joined_group_chat                                                         
+no                no                 324         76          248         22.4           23.5
+                  yes                193        122           71         13.3           63.2
+yes               no                 600        279          321         41.5           46.5
+                  yes                330        253           77         22.8           76.7
+plan holders: 930; plan created before first video: 712; median hours signup -> plan: 0.77
+lessons already done when plan was created: {0.0: 712, 1.0: 216, 2.0: 2}

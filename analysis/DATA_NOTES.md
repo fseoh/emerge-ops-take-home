@@ -62,9 +62,11 @@ The raw values stay in the cleaned file. A `flag_*` column marks each affected r
   - gaps in the event log
   - duplicate IDs or duplicate event rows
 
-## Open question: coach calls and lesson 5
+## Open questions for Emerge
 
-**Status: needs an answer from Emerge before any analysis treats coach calls as a lever.**
+Both need answers before any analysis treats these fields as levers.
+
+### 1. Coach calls and lesson 5
 
 **What's missing.** `coach_calls_completed` is a count. No file records when a call happened. So we can't tell which lesson a student was on before or after a call. Nothing documents a coach-call requirement: `lessons.csv` has no prerequisite field, and the only unlock rule in the dictionary is "Lessons unlock in order."
 
@@ -100,6 +102,31 @@ The raw values stay in the cleaned file. A `flag_*` column marks each affected r
 **Ask Emerge:**
 1. Is a coach call required or automatically triggered at a specific lesson?
 2. Can we get the call log with dates? That would let us measure lesson progress before and after the first call.
+
+### 2. When students join the group chat
+
+**What's missing.** `joined_group_chat` is yes/no. No file records a join date. The dictionary says "The invite is offered at signup," which tells us when the invite goes out, not when the student joins. A student could join on day one, or after finishing several lessons. So we can't tell whether joining the chat comes before a student starts succeeding or after.
+
+**Why it matters.** Chat membership is the field most strongly tied to getting past lesson 4. Pool: first video by Jul 18, n = 1,447 (from `lesson_dropoff.py`, table 5):
+
+| Training plan | Group chat | n | % of pool | Reached lesson 5+ |
+|---|---|---|---|---|
+| yes | yes | 330 | 22.8% | 76.7% (253/330) |
+| no | yes | 193 | 13.3% | 63.2% (122/193) |
+| yes | no | 600 | 41.5% | 46.5% (279/600) |
+| no | no | 324 | 22.4% | 23.5% (76/324) |
+
+If students join the chat *after* progressing, some of this gap runs the other way: progress leads to joining, not joining to progress. On top of that, joining is the student's own choice (CLAUDE.md rule 7), so members may just be more motivated. Both problems would make the chat look more effective than it is.
+
+**Compare with training plans, where timing is known.** `plan_created_at` exists. All 930 plan holders in the pool made their plan before or right after lesson 1: 712 before any lesson, 216 after lesson 1, and 2 after lesson 2. Median time from signup to plan: 0.77 hours. So the plan always comes before the lesson 1–4 stall zone. That rules out the timing problem for plans, though not the fact that students choose them.
+
+**Related.** Study hall is announced only in the chat, so `study_hall_sessions_attended` has the same timing problem. It is also a count with no dates.
+
+**Working assumption.** Treat chat membership as a marker of students more likely to progress, not as proof the chat causes progress. Any plan that uses the chat should test it (for example, a randomized chat-invite nudge) rather than assume the 76.7% vs 46.5% gap will carry over.
+
+**Ask Emerge:**
+1. Can we get WhatsApp group join dates per student (from the group admin log or the invite-link tracking)?
+2. Is the invite sent only at signup, or again later (for example, by a coach, or after a milestone)?
 
 ## Assumptions
 
