@@ -6,6 +6,7 @@ Every count below comes from `analysis/clean_data.py`, `analysis/cohort_windows.
 python3 analysis/clean_data.py
 python3 analysis/cohort_windows.py
 python3 analysis/lesson_dropoff.py
+python3 analysis/pilot_sizing.py
 ```
 
 It reads `data/` (read-only) and writes:
@@ -178,3 +179,15 @@ Students lost at each step: 560 before First Video, **680 between First Video an
 - `permit_exam_date` is the most recent attempt. For the 47 students with 2 attempts, "Course Complete → Exam" measures to the second exam. This makes the window longer, which is the safe direction.
 - July's lower rates (CC/FV 35.3%, Permit/CC 31.0%, no cutoff) may be partly timing. With these cutoffs July counts only in part, so it doesn't drive any conclusion.
 - The cutoffs are one choice (95th percentile). A 90th percentile window would add more recent students at the cost of more that are still unfinished. Rerun with a different `PCT` in the script to test sensitivity.
+
+## Dashboard (`Dashboard/index.html`)
+
+Built by `analysis/dashboard_data.py` from `students_clean.csv` and `data/`. It uses the same cutoffs as the other scripts. It adds these definitions:
+
+- **Monthly lesson-5 metric.** Students are grouped by first-video month. A student counts only after their 21-day window has closed (first video on or before snapshot minus 21 days, 2026-08-25). August is partial: 97 of 120 segment students count. September has none yet.
+- **Monthly funnel rates.** FV/CA by signup month, CC/FV by first-video month, Permit/CC by course-completion month. Each uses the same 95th-percentile cutoff as `cohort_windows.py`. A month is marked partial when some of its students are past the cutoff.
+- **Small months.** March has only 4 course completions, so its Permit/CC point (50.0%, 2/4) is not meaningful. The chart shows it with a wide interval.
+- **Intervals.** Whiskers are 95% Wilson score intervals, computed in the page from each month's numerator and denominator. They show sampling noise only.
+- **Group chat share by month** (in `dashboard_data.json`, not charted) uses the current `joined_group_chat` flag. There is no join date, so it can't show when students joined.
+- **Snapshot history.** `Dashboard/snapshot_history.csv` gets one row per export, keyed by `SNAPSHOT`. Update `SNAPSHOT` in the scripts when a new export arrives. Rerunning on the same export replaces that row.
+- **Pilot readout** shows no treatment or control numbers. No outreach log exists yet.

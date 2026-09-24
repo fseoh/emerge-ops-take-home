@@ -101,3 +101,21 @@ yes               no                 600        279          321         41.5   
                   yes                330        253           77         22.8           76.7
 plan holders: 930; plan created before first video: 712; median hours signup -> plan: 0.77
 lessons already done when plan was created: {0.0: 712, 1.0: 216, 2.0: 2}
+by plan only:
+                     n  reached_5  pct_reached_5
+has_training_plan                               
+no                 517        198           38.3
+yes                930        532           57.2
+plan holders: 930 of 1447 (64.3%)
+chat gap: no plan +39.7 pts, with plan +30.2 pts
+plan gap: no chat +23.0 pts, with chat +13.5 pts
+
+== 6. Fields known at signup: share reaching lesson 5+ by value (pool); p from chi-square, approximate
+joined_group_chat: p=5.3e-22 | no 38.4% (n=924), yes 71.7% (n=523)
+has_training_plan: p=8e-10 | no 38.3% (n=517), yes 57.2% (n=930)
+referral_source: p=0.0026 | friend_family 48.8% (n=248), paid_social 41.9% (n=339), parole_probation_officer 53.8% (n=273), reentry_org 55.9% (n=424), workforce_center 50.9% (n=163)
+primary_device: p=0.0013 | laptop 56.5% (n=324), phone 49.7% (n=945), shared_computer 33.0% (n=88), tablet 53.3% (n=90)
+city: p=0.78 | Boston 49.1% (n=110), NYC 50.0% (n=958), Sacramento 52.0% (n=379)
+age_band: p=0.73 | 18-24 50.6% (n=233), 25-34 49.8% (n=518), 35-44 50.2% (n=426), 45-54 54.4% (n=193), 55+ 45.5% (n=77)
+preferred_language: p=0.46 | en 49.9% (n=1193), es 52.7% (n=245), ht 66.7% (n=9)
+signup_month: p=0.87 | 2026-03 51.9% (n=347), 2026-04 49.4% (n=312), 2026-05 49.6% (n=339), 2026-06 52.2% (n=291), 2026-07 48.1% (n=158)

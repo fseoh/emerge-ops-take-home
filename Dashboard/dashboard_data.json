@@ -1,0 +1,698 @@
+{
+ "snapshot": "2026-09-15 06:00",
+ "window_days": 21,
+ "cutoffs": {
+  "fv_ca_signup_by": "2026-09-06",
+  "cc_fv_first_video_by": "2026-07-18",
+  "permit_cc_complete_by": "2026-08-06",
+  "l5_first_video_by": "2026-08-25"
+ },
+ "data_handling": {
+  "raw_rows": 3009,
+  "real_students": 3000,
+  "test_rows_dropped": 9,
+  "city_labels_normalized": 43,
+  "lessons_mismatch": 14,
+  "by_city": {
+   "NYC": 2000,
+   "Sacramento": 750,
+   "Boston": 250
+  }
+ },
+ "kpis": {
+  "segment_l5_baseline": {
+   "num": 267,
+   "den": 600,
+   "pct": 44.5
+  },
+  "wide_l5_baseline": {
+   "num": 337,
+   "den": 924,
+   "pct": 36.5
+  },
+  "cc_fv": {
+   "num": 605,
+   "den": 1447,
+   "pct": 41.8
+  },
+  "early_share_of_nonfinishers": {
+   "num": 717,
+   "den": 842,
+   "pct": 85.2
+  },
+  "reached5_finished": {
+   "num": 605,
+   "den": 730,
+   "pct": 82.9
+  },
+  "segment_share_of_pool": {
+   "num": 600,
+   "den": 1447,
+   "pct": 41.5
+  },
+  "segment_share_of_stoppers": {
+   "num": 321,
+   "den": 717,
+   "pct": 44.8
+  },
+  "eligible_now": 63,
+  "eligible_now_by_city": {
+   "NYC": 49,
+   "Sacramento": 13,
+   "Boston": 1
+  },
+  "eligible_now_by_language": {
+   "en": 55,
+   "es": 8
+  },
+  "chat_gap_plan_holders": 30.2,
+  "pool_n": 1447
+ },
+ "monthly": [
+  {
+   "month": "2026-03",
+   "signups": 511,
+   "first_videos": 320,
+   "segment_new": 139,
+   "l5_segment": {
+    "num": 65,
+    "den": 139,
+    "pct": 46.8
+   },
+   "l5_other": {
+    "num": 99,
+    "den": 181,
+    "pct": 54.7
+   },
+   "l5_all": {
+    "num": 164,
+    "den": 320,
+    "pct": 51.2
+   },
+   "l5_excluded": 0,
+   "chat_share": {
+    "num": 113,
+    "den": 320,
+    "pct": 35.3
+   },
+   "fv_ca": {
+    "num": 347,
+    "den": 511,
+    "pct": 67.9
+   },
+   "fv_ca_excluded": 0,
+   "cc_fv": {
+    "num": 145,
+    "den": 320,
+    "pct": 45.3
+   },
+   "cc_fv_excluded": 0,
+   "permit_cc": {
+    "num": 2,
+    "den": 4,
+    "pct": 50.0
+   },
+   "permit_cc_excluded": 0
+  },
+  {
+   "month": "2026-04",
+   "signups": 469,
+   "first_videos": 318,
+   "segment_new": 134,
+   "l5_segment": {
+    "num": 55,
+    "den": 134,
+    "pct": 41.0
+   },
+   "l5_other": {
+    "num": 92,
+    "den": 184,
+    "pct": 50.0
+   },
+   "l5_all": {
+    "num": 147,
+    "den": 318,
+    "pct": 46.2
+   },
+   "l5_excluded": 0,
+   "chat_share": {
+    "num": 112,
+    "den": 318,
+    "pct": 35.2
+   },
+   "fv_ca": {
+    "num": 312,
+    "den": 469,
+    "pct": 66.5
+   },
+   "fv_ca_excluded": 0,
+   "cc_fv": {
+    "num": 124,
+    "den": 318,
+    "pct": 39.0
+   },
+   "cc_fv_excluded": 0,
+   "permit_cc": {
+    "num": 53,
+    "den": 118,
+    "pct": 44.9
+   },
+   "permit_cc_excluded": 0
+  },
+  {
+   "month": "2026-05",
+   "signups": 498,
+   "first_videos": 335,
+   "segment_new": 135,
+   "l5_segment": {
+    "num": 59,
+    "den": 135,
+    "pct": 43.7
+   },
+   "l5_other": {
+    "num": 94,
+    "den": 200,
+    "pct": 47.0
+   },
+   "l5_all": {
+    "num": 153,
+    "den": 335,
+    "pct": 45.7
+   },
+   "l5_excluded": 0,
+   "chat_share": {
+    "num": 125,
+    "den": 335,
+    "pct": 37.3
+   },
+   "fv_ca": {
+    "num": 339,
+    "den": 498,
+    "pct": 68.1
+   },
+   "fv_ca_excluded": 0,
+   "cc_fv": {
+    "num": 135,
+    "den": 335,
+    "pct": 40.3
+   },
+   "cc_fv_excluded": 0,
+   "permit_cc": {
+    "num": 57,
+    "den": 125,
+    "pct": 45.6
+   },
+   "permit_cc_excluded": 0
+  },
+  {
+   "month": "2026-06",
+   "signups": 426,
+   "first_videos": 296,
+   "segment_new": 121,
+   "l5_segment": {
+    "num": 60,
+    "den": 121,
+    "pct": 49.6
+   },
+   "l5_other": {
+    "num": 87,
+    "den": 175,
+    "pct": 49.7
+   },
+   "l5_all": {
+    "num": 147,
+    "den": 296,
+    "pct": 49.7
+   },
+   "l5_excluded": 0,
+   "chat_share": {
+    "num": 104,
+    "den": 296,
+    "pct": 35.1
+   },
+   "fv_ca": {
+    "num": 291,
+    "den": 426,
+    "pct": 68.3
+   },
+   "fv_ca_excluded": 0,
+   "cc_fv": {
+    "num": 130,
+    "den": 296,
+    "pct": 43.9
+   },
+   "cc_fv_excluded": 0,
+   "permit_cc": {
+    "num": 43,
+    "den": 116,
+    "pct": 37.1
+   },
+   "permit_cc_excluded": 0
+  },
+  {
+   "month": "2026-07",
+   "signups": 488,
+   "first_videos": 321,
+   "segment_new": 135,
+   "l5_segment": {
+    "num": 52,
+    "den": 135,
+    "pct": 38.5
+   },
+   "l5_other": {
+    "num": 96,
+    "den": 186,
+    "pct": 51.6
+   },
+   "l5_all": {
+    "num": 148,
+    "den": 321,
+    "pct": 46.1
+   },
+   "l5_excluded": 0,
+   "chat_share": {
+    "num": 107,
+    "den": 321,
+    "pct": 33.3
+   },
+   "fv_ca": {
+    "num": 329,
+    "den": 488,
+    "pct": 67.4
+   },
+   "fv_ca_excluded": 0,
+   "cc_fv": {
+    "num": 71,
+    "den": 178,
+    "pct": 39.9
+   },
+   "cc_fv_excluded": 143,
+   "permit_cc": {
+    "num": 68,
+    "den": 144,
+    "pct": 47.2
+   },
+   "permit_cc_excluded": 0
+  },
+  {
+   "month": "2026-08",
+   "signups": 448,
+   "first_videos": 288,
+   "segment_new": 120,
+   "l5_segment": {
+    "num": 55,
+    "den": 97,
+    "pct": 56.7
+   },
+   "l5_other": {
+    "num": 73,
+    "den": 136,
+    "pct": 53.7
+   },
+   "l5_all": {
+    "num": 128,
+    "den": 233,
+    "pct": 54.9
+   },
+   "l5_excluded": 55,
+   "chat_share": {
+    "num": 103,
+    "den": 288,
+    "pct": 35.8
+   },
+   "fv_ca": {
+    "num": 289,
+    "den": 448,
+    "pct": 64.5
+   },
+   "fv_ca_excluded": 0,
+   "cc_fv": {
+    "num": 0,
+    "den": 0,
+    "pct": null
+   },
+   "cc_fv_excluded": 288,
+   "permit_cc": {
+    "num": 12,
+    "den": 26,
+    "pct": 46.2
+   },
+   "permit_cc_excluded": 108
+  },
+  {
+   "month": "2026-09",
+   "signups": 160,
+   "first_videos": 120,
+   "segment_new": 54,
+   "l5_segment": {
+    "num": 0,
+    "den": 0,
+    "pct": null
+   },
+   "l5_other": {
+    "num": 0,
+    "den": 0,
+    "pct": null
+   },
+   "l5_all": {
+    "num": 0,
+    "den": 0,
+    "pct": null
+   },
+   "l5_excluded": 120,
+   "chat_share": {
+    "num": 38,
+    "den": 120,
+    "pct": 31.7
+   },
+   "fv_ca": {
+    "num": 40,
+    "den": 76,
+    "pct": 52.6
+   },
+   "fv_ca_excluded": 84,
+   "cc_fv": {
+    "num": 0,
+    "den": 0,
+    "pct": null
+   },
+   "cc_fv_excluded": 120,
+   "permit_cc": {
+    "num": 0,
+    "den": 0,
+    "pct": null
+   },
+   "permit_cc_excluded": 55
+  }
+ ],
+ "stops": [
+  {
+   "lesson": 1,
+   "title": "Welcome & How the CLP Works",
+   "video_min": 8,
+   "stopped": 194,
+   "reached": 1447,
+   "stop_rate": 13.4
+  },
+  {
+   "lesson": 2,
+   "title": "Inspecting Your Vehicle",
+   "video_min": 32,
+   "stopped": 167,
+   "reached": 1253,
+   "stop_rate": 13.3
+  },
+  {
+   "lesson": 3,
+   "title": "Basic Control & Shifting",
+   "video_min": 44,
+   "stopped": 209,
+   "reached": 1086,
+   "stop_rate": 19.2
+  },
+  {
+   "lesson": 4,
+   "title": "Seeing, Communicating & Speed Management",
+   "video_min": 41,
+   "stopped": 147,
+   "reached": 877,
+   "stop_rate": 16.8
+  },
+  {
+   "lesson": 5,
+   "title": "Space Management & Night Driving",
+   "video_min": 26,
+   "stopped": 10,
+   "reached": 730,
+   "stop_rate": 1.4
+  },
+  {
+   "lesson": 6,
+   "title": "Hazardous Conditions",
+   "video_min": 22,
+   "stopped": 8,
+   "reached": 720,
+   "stop_rate": 1.1
+  },
+  {
+   "lesson": 7,
+   "title": "Railroad Crossings & Emergencies",
+   "video_min": 18,
+   "stopped": 10,
+   "reached": 712,
+   "stop_rate": 1.4
+  },
+  {
+   "lesson": 8,
+   "title": "Skid Control & Crash Procedures",
+   "video_min": 17,
+   "stopped": 6,
+   "reached": 702,
+   "stop_rate": 0.9
+  },
+  {
+   "lesson": 9,
+   "title": "Hazardous Materials Basics",
+   "video_min": 15,
+   "stopped": 11,
+   "reached": 696,
+   "stop_rate": 1.6
+  },
+  {
+   "lesson": 10,
+   "title": "Distracted & Impaired Driving",
+   "video_min": 12,
+   "stopped": 9,
+   "reached": 685,
+   "stop_rate": 1.3
+  },
+  {
+   "lesson": 11,
+   "title": "Cargo Securement",
+   "video_min": 16,
+   "stopped": 7,
+   "reached": 676,
+   "stop_rate": 1.0
+  },
+  {
+   "lesson": 12,
+   "title": "Air Brakes: System Parts",
+   "video_min": 20,
+   "stopped": 6,
+   "reached": 669,
+   "stop_rate": 0.9
+  },
+  {
+   "lesson": 13,
+   "title": "Air Brakes: Dual Systems & Inspection",
+   "video_min": 19,
+   "stopped": 6,
+   "reached": 663,
+   "stop_rate": 0.9
+  },
+  {
+   "lesson": 14,
+   "title": "Air Brakes: Using Air Brakes",
+   "video_min": 17,
+   "stopped": 11,
+   "reached": 657,
+   "stop_rate": 1.7
+  },
+  {
+   "lesson": 15,
+   "title": "Combination Vehicles: Driving",
+   "video_min": 16,
+   "stopped": 3,
+   "reached": 646,
+   "stop_rate": 0.5
+  },
+  {
+   "lesson": 16,
+   "title": "Combination Vehicles: Coupling & Uncoupling",
+   "video_min": 18,
+   "stopped": 6,
+   "reached": 643,
+   "stop_rate": 0.9
+  },
+  {
+   "lesson": 17,
+   "title": "Combination Vehicles: Inspection",
+   "video_min": 15,
+   "stopped": 6,
+   "reached": 637,
+   "stop_rate": 0.9
+  },
+  {
+   "lesson": 18,
+   "title": "Practice Test: General Knowledge",
+   "video_min": 25,
+   "stopped": 12,
+   "reached": 631,
+   "stop_rate": 1.9
+  },
+  {
+   "lesson": 19,
+   "title": "Practice Test: Air Brakes",
+   "video_min": 15,
+   "stopped": 7,
+   "reached": 619,
+   "stop_rate": 1.1
+  },
+  {
+   "lesson": 20,
+   "title": "Practice Test: Combination Vehicles",
+   "video_min": 15,
+   "stopped": 7,
+   "reached": 612,
+   "stop_rate": 1.1
+  }
+ ],
+ "plan_chat": [
+  {
+   "plan": "yes",
+   "chat": "yes",
+   "n": 330,
+   "share": 22.8,
+   "reached_5": {
+    "num": 253,
+    "den": 330,
+    "pct": 76.7
+   }
+  },
+  {
+   "plan": "yes",
+   "chat": "no",
+   "n": 600,
+   "share": 41.5,
+   "reached_5": {
+    "num": 279,
+    "den": 600,
+    "pct": 46.5
+   }
+  },
+  {
+   "plan": "no",
+   "chat": "yes",
+   "n": 193,
+   "share": 13.3,
+   "reached_5": {
+    "num": 122,
+    "den": 193,
+    "pct": 63.2
+   }
+  },
+  {
+   "plan": "no",
+   "chat": "no",
+   "n": 324,
+   "share": 22.4,
+   "reached_5": {
+    "num": 76,
+    "den": 324,
+    "pct": 23.5
+   }
+  }
+ ],
+ "segment_profile": {
+  "city": {
+   "NYC": 387,
+   "Sacramento": 157,
+   "Boston": 56
+  },
+  "language": {
+   "en": 495,
+   "es": 100,
+   "ht": 5
+  },
+  "study_time": {
+   "evening": 252,
+   "morning": 136,
+   "afternoon": 116,
+   "late_night": 96
+  }
+ },
+ "mde": {
+  "segment": {
+   "per_month": 120,
+   "baseline": 44.5,
+   "rows": [
+    {
+     "months": 1,
+     "per_arm": 60,
+     "mde": 25.1
+    },
+    {
+     "months": 2,
+     "per_arm": 120,
+     "mde": 18.0
+    },
+    {
+     "months": 3,
+     "per_arm": 180,
+     "mde": 14.7
+    },
+    {
+     "months": 4,
+     "per_arm": 240,
+     "mde": 12.8
+    }
+   ]
+  },
+  "wide": {
+   "per_month": 185,
+   "baseline": 36.5,
+   "rows": [
+    {
+     "months": 1,
+     "per_arm": 92,
+     "mde": 20.5
+    },
+    {
+     "months": 2,
+     "per_arm": 185,
+     "mde": 14.4
+    },
+    {
+     "months": 3,
+     "per_arm": 277,
+     "mde": 11.7
+    },
+    {
+     "months": 4,
+     "per_arm": 370,
+     "mde": 10.1
+    }
+   ]
+  }
+ },
+ "seats": [
+  {
+   "city": "NYC",
+   "seats": 200,
+   "permits_passed": 166
+  },
+  {
+   "city": "Sacramento",
+   "seats": 75,
+   "permits_passed": 94
+  },
+  {
+   "city": "Boston",
+   "seats": 25,
+   "permits_passed": 14
+  }
+ ],
+ "history": [
+  {
+   "snapshot": "2026-09-15 06:00",
+   "real_students": 3000,
+   "cc_fv_pct": 41.8,
+   "cc_fv_den": 1447,
+   "segment_l5_21d_pct": 44.5,
+   "segment_l5_21d_den": 600,
+   "early_share_of_nonfinishers_pct": 85.2,
+   "eligible_now": 63,
+   "chat_gap_pts": 30.2
+  }
+ ]
+}

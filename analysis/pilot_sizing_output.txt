@@ -1,0 +1,64 @@
+Pool: first video on or before 2026-07-18 06:00:00 -> 1447 students
+
+== 1. Days from first video to lesson 5 (pool students who reached lesson 5)
+n=730 p50=10.1 p75=13.9 p90=17.7 p95=21.0 p99=27.9 max=34.0
+reached lesson 5 within 7 days of first video: 23.2% of those who ever did
+reached lesson 5 within 14 days of first video: 75.9% of those who ever did
+reached lesson 5 within 21 days of first video: 94.9% of those who ever did
+reached lesson 5 within 28 days of first video: 99.0% of those who ever did
+chosen window: 21 days
+
+== 2. Target segment: first video, training plan = yes, group chat = no
+segment in pool: 600 of 1447 (41.5%)
+segment stoppers (lessons 1-4): 321 of 717 pool stoppers (44.8%)
+segment baseline, reached lesson 5 within 21 days: 44.5% (267/600)
+segment reached lesson 5 ever: 46.5% (279/600)
+segment city: {'NYC': 387, 'Sacramento': 157, 'Boston': 56}
+segment preferred_language: {'en': 495, 'es': 100, 'ht': 5}
+segment plan_study_time: {'evening': 252, 'morning': 136, 'afternoon': 116, 'late_night': 96}
+plans made before completing lesson 2: 928 of 930 (99.8%)
+
+== 3. New segment students per month (by first-video month, all real students)
+ev_first_video_at
+2026-03    139
+2026-04    134
+2026-05    135
+2026-06    121
+2026-07    135
+2026-08    120
+2026-09     54
+Freq: M
+full months Mar-Aug: min 120, median 134, max 139
+sizing uses 120/month (lowest full month)
+eligible at snapshot (segment, lessons 1-4, first video in last 21 days): 63
+
+== 4. Minimum detectable effect, intent-to-treat, 50/50 split, alpha 0.05 two-sided, power 0.80
+baseline (control) rate: 44.5%
+1 month(s) of enrollment: 60 per arm -> MDE 25.1 pts (result readable 21 days after last enrollment)
+2 month(s) of enrollment: 120 per arm -> MDE 18.0 pts (result readable 21 days after last enrollment)
+3 month(s) of enrollment: 180 per arm -> MDE 14.7 pts (result readable 21 days after last enrollment)
+4 month(s) of enrollment: 240 per arm -> MDE 12.8 pts (result readable 21 days after last enrollment)
+
+Alternative population: first video + group chat = no (any plan status)
+in pool: 924; baseline within 21 days: 36.5% (337/924); lowest full month: 185
+1 month(s): 92 per arm -> MDE 20.5 pts
+2 month(s): 185 per arm -> MDE 14.4 pts
+3 month(s): 277 per arm -> MDE 11.7 pts
+4 month(s): 370 per arm -> MDE 10.1 pts
+
+Hypothetical ITT effect = share of treated who join because of outreach x effect of joining.
+Observed chat gap among plan holders (76.7% vs 46.5% = 30.2 pts) is an upper bound; it includes self-selection.
+  uptake 10%, effect = 100% of observed gap -> ITT 3.0 pts
+  uptake 10%, effect = 50% of observed gap -> ITT 1.5 pts
+  uptake 20%, effect = 100% of observed gap -> ITT 6.0 pts
+  uptake 20%, effect = 50% of observed gap -> ITT 3.0 pts
+  uptake 30%, effect = 100% of observed gap -> ITT 9.1 pts
+  uptake 30%, effect = 50% of observed gap -> ITT 4.5 pts
+  uptake 50%, effect = 100% of observed gap -> ITT 15.1 pts
+  uptake 50%, effect = 50% of observed gap -> ITT 7.5 pts
+
+== 5. Permits passed to date vs funded seats (period for seats is not stated in the data)
+      city  seats  permits_passed
+       NYC    200             166
+Sacramento     75              94
+    Boston     25              14

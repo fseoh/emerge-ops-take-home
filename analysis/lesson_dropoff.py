@@ -10,6 +10,7 @@ Needs analysis/students_clean.csv. Run in order:
   python3 analysis/lesson_dropoff.py
 Writes analysis/lesson_dropoff_output.txt.
 """
+import math
 from pathlib import Path
 
 import pandas as pd
@@ -152,6 +153,36 @@ before_plan = ev.merge(plans[["user_id", "plan_created_at"]], on="user_id")
 before_plan = before_plan.loc[before_plan.completed_at < before_plan.plan_created_at]
 done_at_plan = before_plan.groupby("user_id").lesson_number.max().reindex(plans.user_id).fillna(0)
 report(f"lessons already done when plan was created: {done_at_plan.value_counts().sort_index().astype(int).to_dict()}")
+
+plan_rate = pool.groupby("has_training_plan").reached_5.agg(n="size", reached_5="sum")
+plan_rate["pct_reached_5"] = (plan_rate.reached_5 / plan_rate.n * 100).round(1)
+report("by plan only:")
+report(plan_rate.to_string())
+report(f"plan holders: {int(plan_rate.loc['yes', 'n'])} of {len(pool)} ({plan_rate.loc['yes', 'n'] / len(pool):.1%})")
+r5 = t5.pct_reached_5
+report(f"chat gap: no plan {r5['no', 'yes'] - r5['no', 'no']:+.1f} pts, with plan {r5['yes', 'yes'] - r5['yes', 'no']:+.1f} pts")
+report(f"plan gap: no chat {r5['yes', 'no'] - r5['no', 'no']:+.1f} pts, with chat {r5['yes', 'yes'] - r5['no', 'yes']:+.1f} pts")
+
+
+# ---------------------------------------------------------------- 6. fields known at signup: stoppers vs lesson 5+
+def chi2_p(table):
+    """Pearson chi-square p-value; Wilson-Hilferty approximation (no scipy)."""
+    obs = table.to_numpy(dtype=float)
+    exp = obs.sum(axis=1, keepdims=True) * obs.sum(axis=0) / obs.sum()
+    x = ((obs - exp) ** 2 / exp).sum()
+    k = (obs.shape[0] - 1) * (obs.shape[1] - 1)
+    z = ((x / k) ** (1 / 3) - (1 - 2 / (9 * k))) / math.sqrt(2 / (9 * k))
+    return 0.5 * math.erfc(z / math.sqrt(2))
+
+
+report()
+report("== 6. Fields known at signup: share reaching lesson 5+ by value (pool); p from chi-square, approximate")
+pool["signup_month"] = pool.signup_at.dt.to_period("M").astype(str)
+for col in ["joined_group_chat", "has_training_plan", "referral_source", "primary_device",
+            "city", "age_band", "preferred_language", "signup_month"]:
+    t = pd.crosstab(pool[col], pool.reached_5)
+    rates = (t[True] / t.sum(axis=1) * 100).round(1)
+    report(f"{col}: p={chi2_p(t):.2g} | " + ", ".join(f"{k} {v}% (n={t.sum(axis=1)[k]})" for k, v in rates.items()))
 
 (OUT / "lesson_dropoff_output.txt").write_text("\n".join(lines) + "\n")
 print(f"\nwrote {OUT / 'lesson_dropoff_output.txt'}")
