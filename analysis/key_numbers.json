@@ -1,0 +1,44 @@
+{
+ "coach_calls_engagement": {
+  "pool_n": 1447,
+  "snapshot": "2026-09-15 06:00",
+  "stoppers": 717
+ },
+ "coach_calls_finishers": {
+  "pool_n": 1447,
+  "snapshot": "2026-09-15 06:00"
+ },
+ "cohort_windows": {
+  "cc_fv_den": 1447,
+  "cc_fv_num": 605,
+  "cut_all": "2026-06-19 06:00",
+  "cut_cc": "2026-07-18 06:00",
+  "cut_fv": "2026-09-06 06:00",
+  "cut_p": "2026-08-06 06:00",
+  "snapshot": "2026-09-15 06:00"
+ },
+ "lesson_dropoff": {
+  "chat_gap_plan_holders": 30.2,
+  "non_finishers": 842,
+  "pool_n": 1447,
+  "reached_5": 730,
+  "reached_5_finished": 605,
+  "snapshot": "2026-09-15 06:00",
+  "stoppers": 717
+ },
+ "pilot_sizing": {
+  "chat_gap_plan_holders": 30.2,
+  "eligible_now": 63,
+  "mde_segment_3mo": 14.7,
+  "pool_n": 1447,
+  "segment_l5_num": 267,
+  "segment_n": 600,
+  "segment_per_month": 120,
+  "segment_stoppers": 321,
+  "snapshot": "2026-09-15 06:00",
+  "stoppers": 717,
+  "wide_l5_num": 337,
+  "wide_n": 924,
+  "wide_per_month": 185
+ }
+}

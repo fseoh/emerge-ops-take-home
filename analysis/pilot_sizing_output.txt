@@ -2,10 +2,10 @@ Pool: first video on or before 2026-07-18 06:00:00 -> 1447 students
 
 == 1. Days from first video to lesson 5 (pool students who reached lesson 5)
 n=730 p50=10.1 p75=13.9 p90=17.7 p95=21.0 p99=27.9 max=34.0
-reached lesson 5 within 7 days of first video: 23.2% of those who ever did
-reached lesson 5 within 14 days of first video: 75.9% of those who ever did
-reached lesson 5 within 21 days of first video: 94.9% of those who ever did
-reached lesson 5 within 28 days of first video: 99.0% of those who ever did
+reached lesson 5 within 7 days of first video: 23.2% of those who ever did (169/730)
+reached lesson 5 within 14 days of first video: 75.9% of those who ever did (554/730)
+reached lesson 5 within 21 days of first video: 94.9% of those who ever did (693/730)
+reached lesson 5 within 28 days of first video: 99.0% of those who ever did (723/730)
 chosen window: 21 days
 
 == 2. Target segment: first video, training plan = yes, group chat = no

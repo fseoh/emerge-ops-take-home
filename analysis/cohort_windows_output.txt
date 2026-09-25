@@ -35,3 +35,8 @@ CA 1727 -> FV 1167 -> CC 487 -> Permit 212
 FV/CA 67.6% (1167/1727) | CC/FV 41.7% (487/1167) | Permit/CC 43.5% (212/487) | Permit/CA 12.3% (212/1727)
 students lost at each step: CA->FV 560, FV->CC 680, CC->Permit 275
 still pending in this cohort: permit_scheduled 1, course_complete without exam 233, in_progress 0
+
+== Permit / Course Complete by city (does city matter after the course?)
+p from chi-square, approximate. Passed vs not passed (failed, scheduled, or no exam on record).
+course complete on or before 2026-08-06 (Permit/CC cutoff): p=0.043 | Boston 31.6% (12/38), NYC 42.3% (149/352), Sacramento 51.7% (74/143)
+mature cohort: signed up on or before 2026-06-19, course complete: p=0.025 | Boston 31.4% (11/35), NYC 41.1% (132/321), Sacramento 52.7% (69/131)

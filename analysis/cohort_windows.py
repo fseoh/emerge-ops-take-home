@@ -10,18 +10,11 @@ Needs analysis/students_clean.csv. Run in order:
   python3 analysis/cohort_windows.py
 Writes analysis/cohort_windows_output.txt.
 """
-from pathlib import Path
-
 import pandas as pd
 
-OUT = Path(__file__).resolve().parent
-SNAPSHOT = pd.Timestamp("2026-09-15 06:00")  # ET, per DATA_DICTIONARY.md
-PCT = 0.95
+from definitions import OUT, PCT, SNAPSHOT, chi2_p, cutoffs, load_students, p95_days, record, stage_days
 
-d = pd.read_csv(
-    OUT / "students_clean.csv",
-    parse_dates=["signup_at", "ev_first_video_at", "ev_course_completed_at", "permit_exam_date"],
-)
+d = load_students()
 lines = []
 
 
@@ -35,44 +28,30 @@ def pct(num, den):
 
 
 # ---------------------------------------------------------------- time between stages
-signup_to_fv = (d.ev_first_video_at - d.signup_at).dt.days
-fv_to_cc = (d.ev_course_completed_at - d.ev_first_video_at).dt.days
-# permit_exam_date is the most recent attempt, so for 2-attempt students this
-# overstates time to first exam. That makes the window longer (conservative).
-taken = d.permit_result.isin(["passed", "failed"])
-cc_to_exam = (d.permit_exam_date - d.ev_course_completed_at.dt.normalize()).dt.days.where(taken)
-signup_to_permit = (d.permit_exam_date - d.signup_at.dt.normalize()).dt.days.where(d.permit_passed)
+stages = stage_days(d)  # definitions.py
+signup_to_fv = stages["Signup -> First Video"]
+fv_to_cc = stages["First Video -> Course Complete"]
+cc_to_exam = stages["Course Complete -> Exam taken"]
 
 report("== Days between stages (students who reached the later stage)")
 rows = []
-for name, s in [
-    ("Signup -> First Video", signup_to_fv),
-    ("First Video -> Course Complete", fv_to_cc),
-    ("Course Complete -> Exam taken", cc_to_exam),
-    ("Signup -> Permit passed", signup_to_permit),
-]:
+for name, s in stages.items():
     s = s.dropna()
     rows.append({
         "step": name, "n": len(s),
         "median": int(s.quantile(0.5, interpolation="higher")),
         "p75": int(s.quantile(0.75, interpolation="higher")),
         "p90": int(s.quantile(0.90, interpolation="higher")),
-        "p95": int(s.quantile(PCT, interpolation="higher")),
+        "p95": p95_days(s),  # the same number cutoffs() uses
     })
 timing = pd.DataFrame(rows).set_index("step")
 report(timing.to_string())
 report(f"negative durations: signup->FV {(signup_to_fv < 0).sum()}, FV->CC {(fv_to_cc < 0).sum()}, "
        f"CC->exam {(cc_to_exam < 0).sum()}")
 
-# ---------------------------------------------------------------- cutoffs
-def cutoff(step):
-    return SNAPSHOT - pd.Timedelta(days=int(timing.loc[step, "p95"]))
-
-
-cut_fv = cutoff("Signup -> First Video")
-cut_cc = cutoff("First Video -> Course Complete")
-cut_p = cutoff("Course Complete -> Exam taken")
-cut_all = cutoff("Signup -> Permit passed")
+# ---------------------------------------------------------------- cutoffs (definitions.py)
+cut = cutoffs(d)
+cut_fv, cut_cc, cut_p, cut_all = cut["fv"], cut["cc"], cut["p"], cut["all"]
 
 report()
 report(f"== Cutoffs (snapshot {SNAPSHOT} minus the {PCT:.0%} window)")
@@ -124,6 +103,20 @@ report(f"students lost at each step: CA->FV {ca - fv}, FV->CC {fv - cc}, CC->Per
 report(f"still pending in this cohort: permit_scheduled {int((c.status == 'permit_scheduled').sum())}, "
        f"course_complete without exam {int((c.status == 'course_complete').sum())}, "
        f"in_progress {int((c.status == 'in_progress').sum())}")
+
+# ---------------------------------------------------------------- permit by city
+report()
+report("== Permit / Course Complete by city (does city matter after the course?)")
+report("p from chi-square, approximate. Passed vs not passed (failed, scheduled, or no exam on record).")
+for label, g in [(f"course complete on or before {cut_p:%Y-%m-%d} (Permit/CC cutoff)", p_pool),
+                 (f"mature cohort: signed up on or before {cut_all:%Y-%m-%d}, course complete",
+                  c.loc[c.ev_course_complete])]:
+    t = pd.crosstab(g.city, g.permit_passed)
+    report(f"{label}: p={chi2_p(t):.2g} | "
+           + ", ".join(f"{city} {pct(int(t.loc[city, True]), int(t.loc[city].sum()))}" for city in t.index))
+
+record("cohort_windows", cut_fv=cut_fv, cut_cc=cut_cc, cut_p=cut_p, cut_all=cut_all,
+       cc_fv_num=int(cc_pool.ev_course_complete.sum()), cc_fv_den=len(cc_pool))
 
 (OUT / "cohort_windows_output.txt").write_text("\n".join(lines) + "\n")
 print(f"\nwrote {OUT / 'cohort_windows_output.txt'}")

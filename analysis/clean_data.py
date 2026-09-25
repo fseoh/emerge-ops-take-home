@@ -9,14 +9,9 @@ Run from anywhere:  python3 analysis/clean_data.py
 """
 import re
 import sys
-from pathlib import Path
-
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
-OUT = ROOT / "analysis"
-SNAPSHOT = pd.Timestamp("2026-09-15 06:00")  # ET, per DATA_DICTIONARY.md
+from definitions import DATA, OUT, ROOT, SNAPSHOT
 
 # Every raw city label must map here after strip + lowercase. Unknown labels stop the script.
 CITY_MAP = {

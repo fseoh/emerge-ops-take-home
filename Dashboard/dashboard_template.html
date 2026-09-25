@@ -150,6 +150,7 @@ table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
 th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
 th { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .03em; }
 td.num, th.num { text-align: right; padding-right: 0; padding-left: 10px; }
+td.num + td, th.num + th { padding-left: 16px; }
 tr.hl td { font-weight: 600; }
 details summary { cursor: pointer; font-size: 13px; color: var(--accent); font-weight: 600; width: max-content; }
 details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -158,12 +159,35 @@ details[open] summary { margin-bottom: 8px; }
 .facts { display: grid; gap: 4px; font-size: 13.5px; }
 .facts div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dotted var(--rule); padding-block: 3px; }
 .facts div span:last-child { font-weight: 600; }
+.facts div span:first-child { color: var(--ink-2); }
+.facts div span:last-child { text-align: right; }
+/* Long text values: label column + value column, both left-aligned, value wraps */
+.facts.text div { display: grid; grid-template-columns: minmax(110px, 34%) 1fr; gap: 4px 14px; align-items: baseline; padding-block: 6px; }
+.facts.text div span:last-child { text-align: left; font-weight: 500; color: var(--ink); line-height: 1.4; }
+.facts.text div span:first-child { font-weight: 600; font-size: 12.5px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font: 600 12.5px/1 var(--body); color: var(--ink-2); background: var(--surface); cursor: pointer;
+  border: 1px solid var(--rule); border-radius: 999px; padding: 7px 11px;
+}
+.chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.act { font-weight: 600; white-space: nowrap; }
+.act.due::before { content: "● "; color: var(--s1); }
+.act.stop::before { content: "✕ "; color: var(--muted); }
+.flag { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+tr.withdrawn td { color: var(--muted); }
+.hbars.compact { gap: 7px; }
+.hbars.compact .hbar { grid-template-columns: minmax(96px, 130px) 1fr; }
+.hbars.compact .track { height: 18px; }
 
 footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
 @media (max-width: 520px) {
   .wrap { padding-inline: 16px; }
   .hbar { grid-template-columns: 1fr; }
   .kpi .label { min-height: 0; }
+  .facts.text div { grid-template-columns: 1fr; gap: 2px; }
 }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 </style>
@@ -177,20 +201,69 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <span class="eyebrow" id="snap"></span>
   </div>
   <h1>Community Plan Tracker</h1>
-  <p class="lede">Students are lost between their first video and lesson 5. The plan invites plan holders who aren't in their city group chat into it during week one, and tests that with a randomized pilot. This page tracks the numbers behind that plan, by cohort month.</p>
+  <p class="lede">For the outreach team. Students are lost between their first video and lesson 5. The plan invites plan holders who aren't in their city group chat into it during week one, and tests that with a randomized pilot. Start with today's list, then check whether it's working.</p>
   <nav class="jump" aria-label="Sections">
-    <a href="#metric">Pilot metric</a><a href="#inflow">Who to reach</a><a href="#funnel">Funnel</a>
-    <a href="#stops">Where students stop</a><a href="#levers">Plan × chat</a><a href="#pilot">Pilot readout</a>
-    <a href="#gaps">Data gaps</a><a href="#history">History</a>
+    <a href="#test">The test</a><a href="#today">Today's list</a><a href="#metric">Is it working</a><a href="#daily">Day to day</a>
+    <a href="#variation">Progress &amp; engagement</a><a href="#stops">Where students stop</a><a href="#funnel">Funnel</a>
+    <a href="#next">Next steps</a><a href="#history">History</a>
   </nav>
 </header>
 
 <div class="kpis" id="kpis"></div>
 <div class="banner" id="pilot-banner"></div>
 
+<section id="test">
+  <div class="sec-head">
+    <span class="eyebrow">The test</span>
+    <h2>What we change, and how we know it worked</h2>
+    <p class="muted small">Same rule as COMMUNITY_PLAN.md, "The test". Written down before launch so the result can't be reread to fit.</p>
+  </div>
+  <div class="grid-2">
+    <div class="panel">
+      <h3>What we change</h3>
+      <div class="facts text" id="test-change"></div>
+    </div>
+    <div class="panel">
+      <h3>How we know it worked</h3>
+      <div class="facts text" id="test-measure"></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>Decision rule</h3>
+    <div class="scroll" id="t-decide"></div>
+    <p class="note" id="test-note"></p>
+  </div>
+</section>
+
+<section id="today">
+  <div class="sec-head">
+    <span class="eyebrow">Re-engagement · today</span>
+    <h2>Who to reach today</h2>
+    <p class="muted small" id="today-sub"></p>
+  </div>
+  <div class="grid-2">
+    <div class="panel">
+      <h3>Outreach rules (from the plan)</h3>
+      <div class="facts text" id="rules"></div>
+      <p class="note" id="rules-note"></p>
+    </div>
+    <div class="panel">
+      <h3>Where today's contactable students are</h3>
+      <p class="muted small">Highest lesson reached, contactable students only.</p>
+      <div class="hbars compact" id="q-lessons"></div>
+      <div class="facts" id="q-facts"></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="chips" id="q-filter" role="group" aria-label="Filter the list"></div>
+    <div class="scroll" id="t-queue"></div>
+    <p class="muted small">User IDs only. Nothing is sent from this page.</p>
+  </div>
+</section>
+
 <section id="metric">
   <div class="sec-head">
-    <span class="eyebrow">Primary pilot metric</span>
+    <span class="eyebrow">Is it working · primary pilot metric</span>
     <h2>Reached lesson 5 within 21 days of first video</h2>
     <p class="muted small" id="metric-sub"></p>
   </div>
@@ -205,25 +278,69 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <p class="note" id="l5-note"></p>
     <details><summary>Show table</summary><div class="scroll" id="t-l5"></div></details>
   </div>
+  <div class="panel">
+    <h3>How fast students reach lesson 5</h3>
+    <p class="muted small" id="curve-sub"></p>
+    <div class="legend">
+      <span><i style="--c:var(--s1)"></i>Target segment (plan, no chat)</span>
+      <span><i style="--c:var(--s2)"></i>Everyone else in the pool</span>
+    </div>
+    <div id="c-curve"></div>
+    <p class="note" id="curve-note"></p>
+    <details><summary>Show table</summary><div class="scroll" id="t-curve"></div></details>
+  </div>
 </section>
 
-<section id="inflow">
+<section id="pilot">
   <div class="sec-head">
-    <span class="eyebrow">Outreach volume</span>
-    <h2>New students entering the target segment</h2>
-    <p class="muted small">Students with a first video, a training plan, and no group chat, by first-video month. This is the pilot's enrollment flow.</p>
+    <span class="eyebrow">Is it working · pilot readout</span>
+    <h2>Treatment vs control</h2>
+    <p class="muted small">Intent-to-treat: everyone assigned to outreach vs everyone in control, whether or not they replied or joined. Randomized 50/50 at entry.</p>
+  </div>
+  <div class="panel">
+    <div class="scroll" id="t-pilot"></div>
+  </div>
+  <div class="panel">
+    <h3>Smallest lift the pilot can detect</h3>
+    <p class="muted small">Percentage points. α = 0.05 two-sided, 80% power, 50/50 split, lowest full month of volume.</p>
+    <div class="scroll" id="t-mde"></div>
+    <p class="note">A 3-month pilot on the segment only detects a large effect. Widening to all first-video students not in the chat is the recommended design, with plan holders pre-registered as the main subgroup.</p>
+    <p class="muted small">Owners and cadence are in <a href="#next">Next steps</a>.</p>
+  </div>
+</section>
+
+<section id="daily">
+  <div class="sec-head">
+    <span class="eyebrow">Day to day</span>
+    <h2>Daily inflow and activity</h2>
+    <p class="muted small" id="daily-sub"></p>
   </div>
   <div class="grid-2">
     <div class="panel">
-      <h3>Segment entries per month</h3>
+      <h3>New target-segment students per day</h3>
+      <p class="muted small">First video, training plan, not in the chat. Each one enters the outreach list.</p>
+      <div id="c-seg-day"></div>
+      <p class="muted small" id="seg-day-note"></p>
+    </div>
+    <div class="panel">
+      <h3>Students who completed a lesson, per day</h3>
+      <p class="muted small">All real students. A daily pulse of engagement, not a pilot result.</p>
+      <div id="c-active-day"></div>
+      <p class="muted small" id="active-day-note"></p>
+    </div>
+  </div>
+  <details><summary>Show daily table</summary><div class="scroll" id="t-daily"></div></details>
+  <div class="grid-2">
+    <div class="panel">
+      <h3>Monthly segment entries</h3>
       <div id="c-inflow"></div>
       <p class="muted small" id="inflow-note"></p>
       <details><summary>Show table</summary><div class="scroll" id="t-inflow"></div></details>
     </div>
     <div class="panel">
-      <h3>Eligible for outreach at the snapshot</h3>
-      <p class="muted small">In the segment, still at lessons 1–4, first video in the last 21 days.</p>
-      <div class="facts" id="eligible"></div>
+      <h3>Students inside their 21-day window</h3>
+      <p class="muted small" id="pipe-sub"></p>
+      <div class="scroll" id="t-pipe"></div>
       <h3>Segment profile</h3>
       <p class="muted small" id="profile-sub"></p>
       <div class="facts" id="profile"></div>
@@ -231,14 +348,25 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </div>
 </section>
 
-<section id="funnel">
+<section id="variation">
   <div class="sec-head">
-    <span class="eyebrow">Funnel</span>
-    <h2>Stage rates by cohort month</h2>
-    <p class="muted small">Each rate counts only students old enough to have reached the next stage (95th-percentile time to stage). Hollow points are months where some students are still too new. Missing points have none old enough yet.</p>
+    <span class="eyebrow">Variation in progress &amp; engagement</span>
+    <h2>Who reaches lesson 5</h2>
+    <p class="muted small" id="var-sub"></p>
   </div>
-  <div class="grid-3" id="funnel-grid"></div>
-  <details><summary>Show table</summary><div class="scroll" id="t-funnel"></div></details>
+  <div class="grid-2">
+    <div class="panel">
+      <h3>Training plan × group chat</h3>
+      <div class="hbars" id="hbars"></div>
+      <p class="note">Both are student choices, and chat joins have no date. These gaps are correlation, not cause. The pilot is how we find out.</p>
+      <div class="facts" id="gaps-facts"></div>
+    </div>
+    <div class="panel">
+      <h3>By student profile</h3>
+      <p class="muted small">Grey bars; the pool average is marked. Small groups are noisy: check n before acting.</p>
+      <div id="var-groups" style="display:grid;gap:14px"></div>
+    </div>
+  </div>
 </section>
 
 <section id="stops">
@@ -258,55 +386,27 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </div>
 </section>
 
-<section id="levers">
+<section id="funnel">
   <div class="sec-head">
-    <span class="eyebrow">Levers</span>
-    <h2>Training plan × group chat</h2>
-    <p class="muted small" id="levers-sub"></p>
+    <span class="eyebrow">Funnel</span>
+    <h2>Stage rates by cohort month</h2>
+    <p class="muted small">Each rate counts only students old enough to have reached the next stage (95th-percentile time to stage). Hollow points are months where some students are still too new. Missing points have none old enough yet.</p>
   </div>
-  <div class="grid-2">
-    <div class="panel">
-      <h3>Share reaching lesson 5 or later</h3>
-      <div class="hbars" id="hbars"></div>
-    </div>
-    <div class="panel">
-      <h3>What this does and doesn't show</h3>
-      <p class="note">Both fields are student choices. Joining the chat has no date, so we can't tell if joining comes before progress or because of it. These gaps are correlation, not cause. The pilot is how we find out.</p>
-      <div class="facts" id="gaps-facts"></div>
-    </div>
-  </div>
+  <div class="grid-3" id="funnel-grid"></div>
+  <details><summary>Show table</summary><div class="scroll" id="t-funnel"></div></details>
 </section>
 
-<section id="pilot">
+<section id="next">
   <div class="sec-head">
-    <span class="eyebrow">Pilot readout</span>
-    <h2>Treatment vs control</h2>
-    <p class="muted small">Intent-to-treat: everyone assigned to outreach vs everyone in control, whether or not they replied or joined. Randomized 50/50 at entry.</p>
+    <span class="eyebrow">Next steps</span>
+    <h2>What has to happen, who owns it</h2>
+    <p class="muted small">From COMMUNITY_PLAN.md. Role names are placeholders.</p>
   </div>
+  <div class="panel"><div class="scroll" id="t-next"></div></div>
   <div class="panel">
-    <div class="scroll" id="t-pilot"></div>
+    <h3>Gaps that limit what we can claim</h3>
+    <div class="scroll" id="t-gaps"></div>
   </div>
-  <div class="grid-2">
-    <div class="panel">
-      <h3>Smallest lift the pilot can detect</h3>
-      <p class="muted small">Percentage points. α = 0.05 two-sided, 80% power, 50/50 split, lowest full month of volume.</p>
-      <div class="scroll" id="t-mde"></div>
-      <p class="note">A 3-month pilot on the segment only detects a large effect. Widening to all first-video students not in the chat is the recommended design, with plan holders pre-registered as the main subgroup.</p>
-    </div>
-    <div class="panel">
-      <h3>Owners and cadence</h3>
-      <div class="scroll" id="t-owners"></div>
-      <p class="muted small">Role names are placeholders.</p>
-    </div>
-  </div>
-</section>
-
-<section id="gaps">
-  <div class="sec-head">
-    <span class="eyebrow">Data to start logging</span>
-    <h2>Gaps that limit what we can claim</h2>
-  </div>
-  <div class="panel"><div class="scroll" id="t-gaps"></div></div>
   <div class="grid-2">
     <div class="panel">
       <h3>Funded seats vs permits passed so far</h3>
@@ -366,6 +466,7 @@ function table(head, rows, numCols = [], hl = () => false) {
     r.map((c, i) => `<td class="${numCols.includes(i) ? "num" : ""}">${c}</td>`).join("") + "</tr>").join("");
   return `<table><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table>`;
 }
+const valPos = v => v > 60 ? `right:calc(${100 - v}% + 8px);left:auto` : `left:calc(${v}% + 8px)`;
 const facts = pairs => pairs.map(([k, v]) => `<div><span>${k}</span><span>${v}</span></div>`).join("");
 
 /* ---------- SVG charts ---------- */
@@ -426,7 +527,8 @@ function hoverColumns(svg, n, colX, colW, top, h, cross, tip, wrap, html) {
   }
 }
 
-/* cfg: {cats, series:[{name,color,points:[{v,num,den,partial}|null]}], y:[lo,hi], ticks, height, ref, tipFor(i), label} */
+/* cfg: {cats, series:[{name,color,points:[{v,num,den,partial}|null]}], y:[lo,hi], ticks, height, ref, tipFor(i), label,
+         showCat(i) (optional), dots (default true), ci (default true), vref: {i, label} (optional)} */
 function lineChart(host, cfg) {
   mountChart(host, (W, tip, wrap) => {
     const H = cfg.height || 240;
@@ -441,7 +543,11 @@ function lineChart(host, cfg) {
       S("line", { x1: m.l, x2: m.l + iw, y1: Y(t), y2: Y(t), class: t === y0 ? "base" : "grid" }, svg);
       txt(svg, m.l - 8, Y(t) + 4, t + "%", "axis", "end");
     });
-    cfg.cats.forEach((c, i) => txt(svg, X(i), H - 6, c, "axis"));
+    cfg.cats.forEach((c, i) => { if (!cfg.showCat || cfg.showCat(i)) txt(svg, X(i), H - 6, c, "axis"); });
+    if (cfg.vref) {
+      S("line", { x1: X(cfg.vref.i), x2: X(cfg.vref.i), y1: m.t, y2: m.t + ih, class: "ref" }, svg);
+      txt(svg, X(cfg.vref.i) - 6, m.t + 12, cfg.vref.label, "reflabel", "end");
+    }
     if (cfg.ref) {
       S("line", { x1: m.l, x2: m.l + iw, y1: Y(cfg.ref.v), y2: Y(cfg.ref.v), class: "ref" }, svg);
       txt(svg, m.l + 6, Y(cfg.ref.v) + 16, cfg.ref.label, "reflabel", "start");
@@ -451,7 +557,7 @@ function lineChart(host, cfg) {
     cfg.series.forEach((s, si) => {
       const dx = k > 1 ? (si - (k - 1) / 2) * 7 : 0;
       const pts = s.points.map((p, i) => p && p.v != null ? { ...p, x: X(i) + dx, y: Y(p.v) } : null);
-      pts.forEach(p => {
+      if (cfg.ci !== false) pts.forEach(p => {
         if (!p || !p.den) return;
         const w = wilson(p.num, p.den);
         S("line", { x1: p.x, x2: p.x, y1: Y(w[0]), y2: Y(w[1]), class: "ci", style: `stroke:${s.color}` }, svg);
@@ -461,7 +567,7 @@ function lineChart(host, cfg) {
         if (!a || !b) continue;
         S("line", { x1: a.x, y1: a.y, x2: b.x, y2: b.y, class: "ln" + (a.partial || b.partial ? " dash" : ""), style: `stroke:${s.color}` }, svg);
       }
-      pts.forEach(p => {
+      if (cfg.dots !== false) pts.forEach(p => {
         if (!p) return;
         S("circle", { cx: p.x, cy: p.y, r: 4.5, class: "dot",
           style: p.partial ? `fill:var(--surface);stroke:${s.color}` : `fill:${s.color};stroke:var(--surface)` }, svg);
@@ -493,7 +599,8 @@ function barChart(host, cfg) {
       txt(svg, m.l - 8, Y(t) + 4, t + (cfg.unit || ""), "axis", "end");
     });
     const every = band < 22 ? 2 : 1;
-    cfg.cats.forEach((c, i) => { if (i % every === 0 || i === n - 1) txt(svg, X(i), H - 6, c, "axis"); });
+    const show = cfg.showCat || (i => i % every === 0 || i === n - 1);
+    cfg.cats.forEach((c, i) => { if (show(i)) txt(svg, X(i), H - 6, c, "axis"); });
     cfg.values.forEach((d, i) => {
       const h = Math.max(1, Y(y0) - Y(d.v));
       const path = S("path", { d: topRounded(X(i) - bw / 2, Y(d.v), bw, h, 4) }, svg);
@@ -512,21 +619,47 @@ const K = D.kpis, C = D.cutoffs, M = D.monthly;
 $("snap").textContent = `Snapshot ${dLabel(D.snapshot)}, ${D.snapshot.slice(11)} ET`;
 const byCity = o => Object.entries(o).map(([k, v]) => `${k} ${v}`).join(" · ");
 const LANG = { en: "English", es: "Spanish", ht: "Haitian Creole" };
+const Q = D.queue_summary, R = D.rules;
 $("kpis").innerHTML = [
+  { label: "First touch due", value: nf(Q.touch1_due),
+    sub: `Day ${R.touch1[0]}–${R.touch1[1]} after first video · contactable students` },
+  { label: "Second touch due", value: nf(Q.touch2_due),
+    sub: `Day ${R.touch2[0]}–${R.touch2[1]}, still not in the chat` },
+  { label: "Contactable in the 21-day window", value: nf(Q.contactable),
+    sub: `${nf(Q.eligible)} eligible, ${nf(Q.withdrawn_excluded)} withdrawn left out` },
+  { label: `No lesson in ${R.quiet_days}+ days`, value: nf(Q.quiet), cls: "caution",
+    sub: `of ${nf(Q.contactable)} contactable · for review, not an extra touch` },
   { label: "Target segment reaching lesson 5 in 21 days", value: pct(K.segment_l5_baseline),
     sub: `${frac(K.segment_l5_baseline)} · pilot control baseline · first video by ${dLabel(C.cc_fv_first_video_by)}` },
-  { label: "Eligible for outreach today", value: nf(K.eligible_now),
-    sub: `${byCity(K.eligible_now_by_city)}` },
-  { label: "Course Complete / First Video", value: pct(K.cc_fv),
-    sub: `${frac(K.cc_fv)} · first video by ${dLabel(C.cc_fv_first_video_by)}` },
-  { label: "Non-finishers who stopped at lessons 1–4", value: pct(K.early_share_of_nonfinishers),
-    sub: `${frac(K.early_share_of_nonfinishers)} · past lesson 4, ${pct(K.reached5_finished)} finish` },
-  { label: "Chat gap among plan holders", value: `+${K.chat_gap_plan_holders}<small> pts</small>`, cls: "caution",
-    sub: "Reach lesson 5+, chat vs no chat. Correlation, not cause." },
 ].map(k => `<div class="kpi ${k.cls || ""}"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="sub">${k.sub}</div></div>`).join("");
 
 $("pilot-banner").innerHTML = `<span class="status wait">Pilot not started</span>
   <span>Treatment vs control appears once the outreach log exists (arm, send times, replies, STOP). Until then this page tracks the baseline.</span>`;
+
+/* ---------- the test ---------- */
+const MS3 = D.mde.segment.rows.find(r => r.months === 3), MW3 = D.mde.wide.rows.find(r => r.months === 3);
+$("test-change").innerHTML = facts([
+  ["The one variable", "Personal chat invite: yes or no"],
+  ["What it is", "Up to 2 texts in week 1 after first video, from the city coach or community lead, with the WhatsApp link"],
+  ["Who gets it", "Random 50/50 at entry, not chosen by staff or student"],
+  ["Same for both groups", "Signup chat invite, lessons, training plan, coach calls, study hall"],
+]);
+$("test-measure").innerHTML = facts([
+  ["Moves first", "Joined the chat within 7 days"],
+  ["Decides it", "Reached lesson 5 within 21 days of first video"],
+  ["Counted how", "Everyone assigned, whether or not they replied or joined"],
+  ["Starting point", `${pct(K.segment_l5_baseline)} (${frac(K.segment_l5_baseline)}) segment · ${pct(K.wide_l5_baseline)} (${frac(K.wide_l5_baseline)}) if widened`],
+  ["Compare against", "The pilot's own control group, not the historical rate. The real control rate is probably higher: students who joined the chat later aren't in the historical segment."],
+]);
+const setB = '<span class="status wait">Set before launch</span>';
+$("t-decide").innerHTML = table(["Result", "What it means", "Action", "Checked"], [
+  ["Invited group reaches lesson 5 more often; 95% interval of the difference stays above 0; lift at least the smallest worth scaling; opt-outs under the limit",
+    "The invite works", "Scale", "Final read"],
+  ["Invited group joins the chat no more often than control", "The text doesn't change the thing it's meant to change", "Redesign the message", "End of month 1"],
+  ["Interval includes 0", `No lift as large as the pilot could detect (${MS3.mde} pts at 3 months for the segment, ${MW3.mde} if widened). Not proof of zero effect.`, "Don't scale; report the interval", "Final read"],
+  ["Opt-out (STOP) rate over the limit", "Guardrail broken", "Pause and review", "Every 2 weeks"],
+]);
+$("test-note").innerHTML = `Before launch the program manager sets: segment only or widened, the smallest lift worth scaling, the highest acceptable STOP rate, and (if widened) when to text students with no training plan. ${setB} The data can't set them: no texts have been sent yet. Measuring "joined within 7 days" also needs chat join dates, which the data doesn't have yet.`;
 
 /* ---------- primary metric ---------- */
 $("metric-sub").textContent = `By first-video month. A student counts once their 21-day window has closed (first video by ${dLabel(C.l5_first_video_by)}). Later students are left out until then.`;
@@ -557,6 +690,36 @@ $("t-l5").innerHTML = table(
   M.map(m => [mLong(m.month), pct(m.l5_segment), frac(m.l5_segment), pct(m.l5_other), frac(m.l5_other), nf(m.l5_excluded)]),
   [1, 2, 3, 4, 5]);
 
+/* ---------- days to lesson 5 ---------- */
+const CV = D.l5_curve, EV = D.l5_ever, W21 = D.window_days;
+const c21 = CV[W21], cpt = r => ({ v: r.pct, num: r.num, den: r.den });
+$("curve-sub").textContent = `Share of each group that has reached lesson 5, by days since their first video. Pool: first video by ${dLabel(C.cc_fv_first_video_by)}, so every student has a full ${CV.length - 1} days of data. Segment n = ${nf(c21.segment.den)}, everyone else n = ${nf(c21.other.den)}.`;
+lineChart($("c-curve"), {
+  label: "Cumulative share reaching lesson 5 by days since first video, target segment vs everyone else",
+  cats: CV.map(c => String(c.day)), y: [0, 60], ticks: [0, 20, 40, 60], height: 260,
+  dots: false, ci: false, showCat: i => i % 7 === 0,
+  vref: { i: W21, label: `Day ${W21}` },
+  ref: { v: c21.segment.pct, label: `Segment by day ${W21}: ${pct(c21.segment)}` },
+  series: [
+    { name: "Target segment", color: "var(--s1)", points: CV.map(c => cpt(c.segment)) },
+    { name: "Everyone else", color: "var(--s2)", points: CV.map(c => cpt(c.other)) },
+  ],
+  tipFor: i => {
+    const c = CV[i];
+    const row = (name, col, r) => `<div><span class="sw" style="--c:${col}"></span>${name}: <b>${pct(r)}</b> (${frac(r)})</div>`;
+    return `<b>Day ${c.day} after first video</b>${row("Segment", "var(--s1)", c.segment)}${row("Everyone else", "var(--s2)", c.other)}`;
+  },
+});
+const cross = CV.find(c => c.day >= 7 && c.other.pct - c.segment.pct >= 2);
+$("curve-note").textContent = `By day ${W21}, ${pct(c21.segment)} of the segment (${frac(c21.segment)}) had reached lesson 5, vs ${pct(c21.other)} of everyone else (${frac(c21.other)}). ` +
+  (cross ? `The two groups move together until about day ${cross.day}, then the segment falls behind. ` : "") +
+  `Almost everyone who reaches lesson 5 does it by day ${W21}: ${nf(c21.segment.num)} of the ${nf(EV.segment.num)} segment students who ever got there. ` +
+  `"Everyone else" includes students who chose to join the chat, so the gap is correlation, not cause.`;
+$("t-curve").innerHTML = table(["Days since first video", "Segment", "Segment n", "Everyone else", "Everyone else n"],
+  CV.filter(c => c.day % 7 === 0 || c.day === W21).map(c => [c.day, pct(c.segment), frac(c.segment), pct(c.other), frac(c.other)])
+    .concat([["Ever", pct(EV.segment), frac(EV.segment), pct(EV.other), frac(EV.other)]]),
+  [0, 1, 2, 3, 4], i => i === 3);
+
 /* ---------- inflow ---------- */
 const snapMonth = D.snapshot.slice(0, 7);
 barChart($("c-inflow"), {
@@ -571,11 +734,6 @@ $("inflow-note").textContent = `Pilot sizing uses ${D.mde.segment.per_month} a m
 $("t-inflow").innerHTML = table(["First-video month", "Segment entries", "All first videos"],
   M.map(m => [mLong(m.month) + (m.month === snapMonth ? " (partial)" : ""), nf(m.segment_new), nf(m.first_videos)]), [1, 2]);
 
-$("eligible").innerHTML = facts([
-  ["Total", nf(K.eligible_now)],
-  ...Object.entries(K.eligible_now_by_city).map(([k, v]) => [k, nf(v)]),
-  ...Object.entries(K.eligible_now_by_language).map(([k, v]) => [LANG[k] || k, nf(v)]),
-]);
 const P = D.segment_profile;
 const STUDY = { morning: "Morning (6–11)", afternoon: "Afternoon (12–4)", evening: "Evening (5–9)", late_night: "Late night (10–11 PM)" };
 $("profile-sub").textContent = `Segment students with a first video by ${dLabel(C.cc_fv_first_video_by)}, n = ${nf(K.segment_share_of_pool.num)}. Useful for staffing and language.`;
@@ -632,14 +790,14 @@ $("t-stops").innerHTML = table(["Lesson", "Title", "Video min", "Stopped", "Reac
   ST.map(s => [s.lesson, s.title, s.video_min, nf(s.stopped), nf(s.reached), s.stop_rate.toFixed(1) + "%"]), [0, 2, 3, 4, 5]);
 
 /* ---------- plan x chat ---------- */
-$("levers-sub").textContent = `Pool: first video by ${dLabel(C.cc_fv_first_video_by)}, n = ${nf(K.pool_n)}. Reaching lesson 5 ever, per lesson_events.csv.`;
+$("var-sub").textContent = `Share reaching lesson 5 or later, ever. Pool: first video by ${dLabel(C.cc_fv_first_video_by)}, n = ${nf(K.pool_n)}, so every student had time to get there.`;
 const G = D.plan_chat;
 const gname = g => `${g.plan === "yes" ? "Plan" : "No plan"} · ${g.chat === "yes" ? "chat" : "no chat"}`;
 $("hbars").innerHTML = [...G].sort((a, b) => b.reached_5.pct - a.reached_5.pct).map(g => {
   const target = g.plan === "yes" && g.chat === "no";
   return `<div class="hbar ${target ? "target" : ""}">
     <div class="who">${gname(g)} ${target ? '<span class="tag">Target</span>' : ""}<span class="n">${nf(g.n)} students, ${g.share}% of pool</span></div>
-    <div class="track"><div class="fill" style="width:${g.reached_5.pct}%"></div><span class="val" style="left:calc(${g.reached_5.pct}% + 8px)">${pct(g.reached_5)} (${frac(g.reached_5)})</span></div>
+    <div class="track"><div class="fill" style="width:${g.reached_5.pct}%"></div><span class="val" style="${valPos(g.reached_5.pct)}">${pct(g.reached_5)} (${frac(g.reached_5)})</span></div>
   </div>`;
 }).join("");
 const gp = (p, c) => G.find(g => g.plan === p && g.chat === c).reached_5.pct;
@@ -669,17 +827,11 @@ $("t-mde").innerHTML = table(
   MS.rows.map((r, i) => [`${r.months} month${r.months > 1 ? "s" : ""}`, nf(r.per_arm), r.mde.toFixed(1), nf(MW.rows[i].per_arm), MW.rows[i].mde.toFixed(1)]),
   [1, 2, 3, 4], i => MS.rows[i].months === 3) +
   `<p class="muted small" style="margin-top:8px">Segment: ${MS.per_month}/month, baseline ${MS.baseline}%. Wider (first video, not in chat, any plan): ${MW.per_month}/month, baseline ${MW.baseline}%.</p>`;
-$("t-owners").innerHTML = table(["Owner", "Does what", "Cadence", "Watches"], [
-  ["Community lead (per city)", "Sends touches to the day's eligible list; welcomes joiners", "Daily", "% of treated who join within 7 days"],
-  ["Ops analyst", "Builds the daily list, randomizes, logs every send", "Daily list, weekly readout", "Sends logged, arm balance"],
-  ["Program manager", "Decides to scale, change, or stop", "Every 2 weeks, plus final read", "% reaching lesson 5 in 21 days, treatment vs control"],
-]);
-
 /* ---------- gaps, seats, handling ---------- */
 $("t-gaps").innerHTML = table(["Gap", "Why it matters", "Start logging", "Owner", "Status"], [
-  ["Coach calls have no dates", "Can't tell if a call unlocks lesson 5 or follows progress", "Call log: timestamp, student, coach, outcome", "Coaching lead", gapS],
+  ["Coach calls have no dates", "We assume a call doesn't unlock lesson 5, but can't tell if calls help progress or are a required step. Not a lever until we know.", "Call log: timestamp, student, coach, outcome. Who starts a call?", "Coaching lead", gapS],
   ["Chat has no join date", "Can't tell if joining comes before or after progress", "Join date from WhatsApp admin log or invite-link tracking", "Community lead", gapS],
-  ["No outreach log", "Needed for intent-to-treat analysis", "Per student: arm, send times, touches, replies, STOP", "Ops analyst", gapS],
+  ["No outreach log", "Needed for intent-to-treat analysis and for this page's pilot readout", "Per student: arm, send times, touches, replies, STOP", "Ops analyst", gapS],
   ["Seat period unknown", "Decides whether more finishers become more trainees", "Seats per city with the period they cover", "Program manager", gapS],
 ]);
 $("t-seats").innerHTML = table(["City", "Funded seats", "Permits passed so far"],
@@ -691,6 +843,128 @@ $("handling").innerHTML = facts([
   ["City labels normalized", nf(H.city_labels_normalized)],
   ["lessons_completed disagrees with event log (event log used)", nf(H.lessons_mismatch)],
   ["Real students", `${nf(H.real_students)} (${byCity(H.by_city)})`],
+]);
+
+
+/* ---------- today's list ---------- */
+const QL = D.queue;
+$("today-sub").textContent = `Target-segment students still at lessons 1–4 whose first video was in the last ${D.window_days} days, as of ${dLabel(D.snapshot)} (${D.snapshot_dow}) ${D.snapshot.slice(11)} ET. The pilot hasn't started, so no one is assigned to an arm yet: once it runs, only the treatment half gets these touches.`;
+$("rules").innerHTML = facts([
+  ["First touch", `Day ${R.touch1[0]}–${R.touch1[1]} after first video`],
+  ["Second touch", `Day ${R.touch2[0]}–${R.touch2[1]}, only if still not in the chat`],
+  ["Most touches per student", "2"],
+  ["When to send", "A plan_study_days day, in the plan_study_time window"],
+  ["Sender", "City coach or community lead, SMS with the WhatsApp link"],
+  ["Language", "preferred_language; Haitian Creole drafts need translation"],
+  ["Every message", "Reply STOP to stop texts"],
+]);
+$("rules-note").textContent = `${nf(Q.study_day_after_window)} of today's due students have no study day left inside their touch window. The plan doesn't say which rule wins; the list flags them for the community lead to decide.`;
+const LOUT = { 1: "Lesson 1", 2: "Lesson 2", 3: "Lesson 3", 4: "Lesson 4" };
+const qmax = Math.max(...Object.values(Q.by_lesson));
+$("q-lessons").innerHTML = Object.entries(Q.by_lesson).map(([l, v]) => `<div class="hbar target">
+  <div class="who">${LOUT[l] || "Lesson " + l}</div>
+  <div class="track"><div class="fill" style="width:${v / qmax * 88}%"></div><span class="val" style="left:calc(${v / qmax * 88}% + 8px)">${nf(v)}</span></div></div>`).join("");
+$("q-facts").innerHTML = facts([
+  ["Due and today is a study day", nf(Q.due_send_today)],
+  [`Active in the last 3 days`, `${nf(Q.active_3d)} of ${nf(Q.contactable)}`],
+  ["Monitor only (no touch due)", nf(Q.monitor)],
+]);
+const ORDER = { "Touch 1 due": 0, "Touch 2 due": 1, "Monitor": 2, "Do not contact (withdrawn)": 3 };
+const FILTERS = [
+  ["All", () => true], ["Touch due", q => q.action.startsWith("Touch")],
+  [`Quiet ${R.quiet_days}+ days`, q => q.quiet && q.action !== "Do not contact (withdrawn)"],
+  ...[...new Set(QL.map(q => q.city))].map(c => [c, q => q.city === c]),
+];
+let fi = 1;
+function drawQueue() {
+  const rows = QL.filter(FILTERS[fi][1]).sort((a, b) => ORDER[a.action] - ORDER[b.action] || a.day - b.day);
+  const cls = a => a.startsWith("Touch") ? "act due" : a.startsWith("Do not") ? "act stop" : "act";
+  $("t-queue").innerHTML = rows.length ? table(
+    ["Action", "user_id", "City", "Lang", "Day", "Lesson", "Last lesson", "Next study day", "Send window", "Flags"],
+    rows.map(q => [`<span class="${cls(q.action)}">${q.action}</span>`, `<code>${q.user_id}</code>`, q.city, q.language,
+      q.day, q.lesson, `${q.days_since_lesson.toFixed(1)} d ago`, q.send_day + (q.send_today ? " (today)" : ""), q.send_window,
+      `<span class="flag">${[q.study_day_after_window ? "study day after window" : "", q.quiet ? `quiet ${R.quiet_days}+ d` : "",
+        q.language === "ht" ? "needs translation" : "", q.active_3d ? "" : "not active 3 d"].filter(Boolean).join(" · ") || "–"}</span>`]),
+    [4, 5]).replace(/<tr class="">(<td[^>]*><span class="act stop")/g, '<tr class="withdrawn">$1')
+    : '<p class="muted small">No students match.</p>';
+  $("t-queue").insertAdjacentHTML("afterbegin", `<p class="muted small" style="margin-bottom:6px">${nf(rows.length)} student${rows.length === 1 ? "" : "s"}</p>`);
+}
+$("q-filter").innerHTML = FILTERS.map(([name], i) => `<button type="button" class="chip" data-i="${i}" aria-pressed="${i === fi}">${name}</button>`).join("");
+$("q-filter").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  fi = +b.dataset.i;
+  $("q-filter").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  drawQueue();
+});
+drawQueue();
+
+/* ---------- daily ---------- */
+const DY = D.daily;
+const dShort = s => { const [, m, d] = s.split("-"); return `${MON[+m - 1]} ${+d}`; };
+const avg = a => a.reduce((x, y) => x + y, 0) / a.length;
+$("daily-sub").textContent = `Last ${DY.length} full days, ${dShort(DY[0].date)} to ${dShort(DY[DY.length - 1].date)}. The snapshot day is left out because it runs only to ${D.snapshot.slice(11)}.`;
+const mondays = i => DY[i].dow === "Mon";
+const segMax = Math.max(...DY.map(x => x.segment_entries));
+barChart($("c-seg-day"), {
+  label: "New target-segment students per day",
+  cats: DY.map(x => dShort(x.date)), y: [0, Math.ceil(segMax / 5) * 5],
+  ticks: [0, Math.ceil(segMax / 5) * 5 / 2, Math.ceil(segMax / 5) * 5], height: 200,
+  values: DY.map(x => ({ v: x.segment_entries, color: "var(--s1)" })), showCat: mondays,
+  tipFor: i => `<b>${DY[i].dow} ${dShort(DY[i].date)}</b><br>${nf(DY[i].segment_entries)} new segment students<br>of ${nf(DY[i].first_videos)} first videos`,
+});
+const last7 = DY.slice(-7), prev = DY.slice(0, -7);
+$("seg-day-note").textContent = `Last 7 days: ${avg(last7.map(x => x.segment_entries)).toFixed(1)} a day vs ${avg(prev.map(x => x.segment_entries)).toFixed(1)} over the ${prev.length} days before. Axis labels mark Mondays.`;
+const actMax = Math.max(...DY.map(x => x.students_active));
+const actTop = Math.ceil(actMax / 40) * 40;
+barChart($("c-active-day"), {
+  label: "Students who completed at least one lesson, per day",
+  cats: DY.map(x => dShort(x.date)), y: [0, actTop], ticks: [0, actTop / 2, actTop], height: 200,
+  values: DY.map(x => ({ v: x.students_active, color: "var(--bar-muted)" })), showCat: mondays,
+  tipFor: i => `<b>${DY[i].dow} ${dShort(DY[i].date)}</b><br>${nf(DY[i].students_active)} students completed a lesson<br>${nf(DY[i].lessons_1_4)} completions in lessons 1–4`,
+});
+$("active-day-note").textContent = `Last 7 days: ${avg(last7.map(x => x.students_active)).toFixed(0)} students a day vs ${avg(prev.map(x => x.students_active)).toFixed(0)} before. This moves with signup volume; use the lesson-5 metric to judge the pilot.`;
+$("t-daily").innerHTML = table(["Date", "Day", "First videos", "Segment entries", "Students active", "Lessons 1–4 completed"],
+  [...DY].reverse().map(x => [dShort(x.date), x.dow, nf(x.first_videos), nf(x.segment_entries), nf(x.students_active), nf(x.lessons_1_4)]), [2, 3, 4, 5]);
+
+const PIPE = D.window_pipeline;
+$("pipe-sub").textContent = `First video in the last ${D.window_days} days, withdrawn left out, by highest lesson so far.`;
+$("t-pipe").innerHTML = table(["Highest lesson", "Target segment", "Everyone else"],
+  PIPE.map(p => [p.lesson, nf(p.segment), nf(p.other)]).concat([["Total", nf(PIPE.reduce((a, p) => a + p.segment, 0)), nf(PIPE.reduce((a, p) => a + p.other, 0))]]),
+  [1, 2], i => i === PIPE.length);
+
+/* ---------- variation by profile ---------- */
+const V = D.variation;
+const DEV = { phone: "Phone", laptop: "Laptop", tablet: "Tablet", shared_computer: "Shared computer" };
+const STL = { morning: "Morning", afternoon: "Afternoon", evening: "Evening", late_night: "Late night" };
+const groupsV = [
+  ["City", V.city, x => x], ["Language", V.language, x => LANG[x] || x],
+  ["Device", V.device, x => DEV[x] || x], [`Planned study time (plan holders, n = ${nf(V.plan_holders)})`, V.study_time, x => STL[x] || x],
+];
+$("var-groups").innerHTML = groupsV.map(([title, rows, lab]) => `<div><div class="eyebrow" style="margin-bottom:8px">${title}</div>
+  <div class="hbars compact">${rows.map(r => {
+    const w = wilson(r.reached_5.num, r.reached_5.den);
+    return `<div class="hbar"><div class="who">${lab(r.value)} <span class="n">n ${nf(r.reached_5.den)}${r.reached_5.den < 100 ? " · small group" : ""}</span></div>
+    <div class="track" title="95% interval ${w[0].toFixed(0)}–${w[1].toFixed(0)}%"><div class="fill" style="width:${r.reached_5.pct}%"></div>
+    <div style="position:absolute;top:-3px;bottom:-3px;left:${V.pool_all.pct}%;border-left:2px dashed var(--ink-2)"></div>
+    <span class="val" style="${valPos(r.reached_5.pct)}">${pct(r.reached_5)}</span></div></div>`;
+  }).join("")}</div></div>`).join("") +
+  `<p class="muted small">Dashed line: pool average ${pct(V.pool_all)} (${frac(V.pool_all)}). Hover a bar for its 95% interval.</p>`;
+
+/* ---------- next steps ---------- */
+const stOpen = '<span class="status wait">Open</span>', stDaily = '<span class="status live">Recurring</span>';
+$("t-next").innerHTML = table(["Step", "Owner", "Cadence", "Metric or output", "Status"], [
+  ["Start the outreach log: arm, sender, send times, touches, replies, STOP", "Ops analyst", "Before launch", "Every send logged", stOpen],
+  ["Pick the randomized population: segment only, or everyone not in the chat (recommended)", "Program manager", "Before launch", "Pre-registered design", stOpen],
+  ["Write down the success rule: smallest lift worth scaling, highest acceptable STOP rate", "Program manager", "Before launch", "Decision rule on file", stOpen],
+  ["If widened: set a default send time for students with no training plan", "Program manager", "Before launch", "Timing rule covers every enrolled student", stOpen],
+  ["Review the text drafts in outbox/; get Haitian Creole translated", "Community lead", "Before launch", "Approved drafts in 3 languages", stOpen],
+  ["Build today's list, randomize 50/50 at entry, send touches to the treatment half", "Ops analyst · community lead", "Daily", "Sends logged, arm balance", stDaily],
+  ["Welcome new joiners in the city chat", "Community lead (per city)", "Daily", "% of treated who join within 7 days", stDaily],
+  ["Go/no-go on the join rate: if outreach doesn't lift joins, redesign the message", "Program manager", "End of month 1", "Join rate, treatment vs control", stOpen],
+  ["Read out the primary metric, intent-to-treat", "Program manager", "Every 2 weeks, plus final read", "% reaching lesson 5 in 21 days", stOpen],
+  ["Get WhatsApp join dates per student", "Community lead", "Once, then ongoing", "Join date on file", stOpen],
+  ["Ask whether a coach call is required and who starts it; get a dated call log", "Coaching lead", "Once, then ongoing", "Call log with dates", stOpen],
+  ["Confirm what period the funded seats cover", "Program manager", "Once", "Seats per city per period", stOpen],
 ]);
 
 /* ---------- history ---------- */

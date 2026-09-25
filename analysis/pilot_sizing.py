@@ -7,23 +7,15 @@ Needs analysis/students_clean.csv. Run in order:
   python3 analysis/pilot_sizing.py
 Writes analysis/pilot_sizing_output.txt.
 """
-import math
-from pathlib import Path
-
 import pandas as pd
 
-OUT = Path(__file__).resolve().parent
-DATA = OUT.parent / "data"
-SNAPSHOT = pd.Timestamp("2026-09-15 06:00")  # ET, per DATA_DICTIONARY.md
-PCT = 0.95  # same window rule as cohort_windows.py
-Z_ALPHA = 1.959964  # two-sided alpha = 0.05
-Z_POWER = 0.841621  # power = 0.80
+from definitions import (DATA, OUT, SNAPSHOT, WINDOW, add_flags, cc_pool, cutoffs, eligible_now, load_events,
+                         load_students, lowest_full_month, mde, record)
 
 pd.set_option("display.width", 250)
-d = pd.read_csv(OUT / "students_clean.csv",
-                parse_dates=["signup_at", "ev_first_video_at", "ev_course_completed_at", "plan_created_at"])
-ev = pd.read_csv(DATA / "lesson_events.csv", parse_dates=["completed_at"])
-ev = ev.loc[ev.user_id.isin(d.user_id)]
+d = load_students()
+ev = load_events(d)
+d = add_flags(d, ev)
 seats = pd.read_csv(DATA / "seats_by_city.csv")
 lines = []
 
@@ -33,13 +25,9 @@ def report(msg=""):
     lines.append(str(msg))
 
 
-# ---------------------------------------------------------------- pool (same rule as cohort_windows.py)
-fv_to_cc = (d.ev_course_completed_at - d.ev_first_video_at).dt.days.dropna()
-cut_cc = SNAPSHOT - pd.Timedelta(days=int(fv_to_cc.quantile(PCT, interpolation="higher")))
-d["l5_at"] = d.user_id.map(ev.loc[ev.lesson_number == 5].set_index("user_id").completed_at)
-d["fv_to_l5_days"] = (d.l5_at - d.ev_first_video_at).dt.total_seconds() / 86400
-d["segment"] = d.ev_first_video & (d.has_training_plan == "yes") & (d.joined_group_chat == "no")
-pool = d.loc[d.ev_first_video & (d.ev_first_video_at <= cut_cc)]
+# ---------------------------------------------------------------- pool (definitions.py)
+cut_cc = cutoffs(d)["cc"]
+pool = cc_pool(d, cutoffs(d))
 report(f"Pool: first video on or before {cut_cc} -> {len(pool)} students")
 
 # ---------------------------------------------------------------- 1. metric window
@@ -49,24 +37,24 @@ r = pool.fv_to_l5_days.dropna()
 report(f"n={len(r)} " + " ".join(f"p{int(q * 100)}={r.quantile(q):.1f}" for q in [0.5, 0.75, 0.9, 0.95, 0.99])
        + f" max={r.max():.1f}")
 for w in [7, 14, 21, 28]:
-    report(f"reached lesson 5 within {w} days of first video: {(r <= w).mean():.1%} of those who ever did")
-WINDOW = 21
-report(f"chosen window: {WINDOW} days")
+    report(f"reached lesson 5 within {w} days of first video: {(r <= w).mean():.1%} of those who ever did "
+           f"({int((r <= w).sum())}/{len(r)})")
+report(f"chosen window: {WINDOW} days")  # WINDOW lives in definitions.py
 
 # ---------------------------------------------------------------- 2. segment
 report()
 report("== 2. Target segment: first video, training plan = yes, group chat = no")
 seg = pool.loc[pool.segment]
-stoppers = pool.loc[pool.ev_max_lesson <= 4]
-seg_stop = seg.loc[seg.ev_max_lesson <= 4]
+stoppers = pool.loc[pool.stopper]
+seg_stop = seg.loc[seg.stopper]
 report(f"segment in pool: {len(seg)} of {len(pool)} ({len(seg) / len(pool):.1%})")
 report(f"segment stoppers (lessons 1-4): {len(seg_stop)} of {len(stoppers)} pool stoppers "
        f"({len(seg_stop) / len(stoppers):.1%})")
-base_n = int((seg.fv_to_l5_days <= WINDOW).sum())
+base_n = int(seg.l5_in_window.sum())
 baseline = base_n / len(seg)
 report(f"segment baseline, reached lesson 5 within {WINDOW} days: {baseline:.1%} ({base_n}/{len(seg)})")
-report(f"segment reached lesson 5 ever: {(seg.ev_max_lesson >= 5).mean():.1%} "
-       f"({int((seg.ev_max_lesson >= 5).sum())}/{len(seg)})")
+report(f"segment reached lesson 5 ever: {seg.reached_5.mean():.1%} "
+       f"({int(seg.reached_5.sum())}/{len(seg)})")
 report(f"segment city: {seg.city.value_counts().to_dict()}")
 report(f"segment preferred_language: {seg.preferred_language.value_counts().to_dict()}")
 report(f"segment plan_study_time: {seg.plan_study_time.value_counts().to_dict()}")
@@ -86,28 +74,16 @@ monthly = seg_all.ev_first_video_at.dt.to_period("M").value_counts().sort_index(
 report(monthly.to_string())
 full = monthly.loc[monthly.index < SNAPSHOT.to_period("M")]
 report(f"full months Mar-Aug: min {full.min()}, median {full.median():.0f}, max {full.max()}")
-per_month = int(full.min())  # conservative
+per_month = lowest_full_month(seg_all.ev_first_video_at)  # conservative
 report(f"sizing uses {per_month}/month (lowest full month)")
 
-eligible_now = d.loc[d.segment & (d.ev_max_lesson <= 4)
-                     & (d.ev_first_video_at > SNAPSHOT - pd.Timedelta(days=WINDOW))]
-report(f"eligible at snapshot (segment, lessons 1-4, first video in last {WINDOW} days): {len(eligible_now)}")
+eligible = eligible_now(d)
+report(f"eligible at snapshot (segment, lessons 1-4, first video in last {WINDOW} days): {len(eligible)}")
 
 # ---------------------------------------------------------------- 4. pilot sizing
 report()
 report(f"== 4. Minimum detectable effect, intent-to-treat, 50/50 split, alpha 0.05 two-sided, power 0.80")
 report(f"baseline (control) rate: {baseline:.1%}")
-
-
-def mde(p0, n_arm):
-    lo, hi = 0.0, 1 - p0
-    for _ in range(60):
-        delta = (lo + hi) / 2
-        p1 = p0 + delta
-        need = (Z_ALPHA * math.sqrt(2 * ((p0 + p1) / 2) * (1 - (p0 + p1) / 2) / n_arm)
-                + Z_POWER * math.sqrt((p0 * (1 - p0) + p1 * (1 - p1)) / n_arm))
-        lo, hi = (delta, hi) if need > delta else (lo, delta)
-    return hi
 
 
 for months in [1, 2, 3, 4]:
@@ -117,20 +93,17 @@ for months in [1, 2, 3, 4]:
 
 report()
 report("Alternative population: first video + group chat = no (any plan status)")
-wide = pool.loc[pool.ev_first_video & (pool.joined_group_chat == "no")]
-wide_base = (wide.fv_to_l5_days <= WINDOW).mean()
-wide_monthly = d.loc[d.ev_first_video & (d.joined_group_chat == "no")].ev_first_video_at.dt.to_period("M") \
-    .value_counts().sort_index()
-wide_per_month = int(wide_monthly.loc[wide_monthly.index < SNAPSHOT.to_period("M")].min())
+wide = pool.loc[pool.no_chat]
+wide_base = wide.l5_in_window.mean()
+wide_per_month = lowest_full_month(d.loc[d.no_chat].ev_first_video_at)
 report(f"in pool: {len(wide)}; baseline within {WINDOW} days: {wide_base:.1%} "
-       f"({int((wide.fv_to_l5_days <= WINDOW).sum())}/{len(wide)}); lowest full month: {wide_per_month}")
+       f"({int(wide.l5_in_window.sum())}/{len(wide)}); lowest full month: {wide_per_month}")
 for months in [1, 2, 3, 4]:
     n_arm = wide_per_month * months // 2
     report(f"{months} month(s): {n_arm} per arm -> MDE {mde(wide_base, n_arm) * 100:.1f} pts")
 
 plan_holders = pool.loc[pool.has_training_plan == "yes"]
-reach = plan_holders.groupby("joined_group_chat").apply(lambda g: (g.ev_max_lesson >= 5).mean(),
-                                                        include_groups=False)
+reach = plan_holders.groupby("joined_group_chat").reached_5.mean()
 gap = reach["yes"] - reach["no"]
 report()
 report("Hypothetical ITT effect = share of treated who join because of outreach x effect of joining.")
@@ -146,6 +119,12 @@ report()
 report("== 5. Permits passed to date vs funded seats (period for seats is not stated in the data)")
 passed = d.loc[d.permit_passed].groupby("city").size()
 report(seats.assign(permits_passed=seats.city.map(passed)).to_string(index=False))
+
+record("pilot_sizing", pool_n=len(pool), segment_n=len(seg), segment_l5_num=base_n,
+       stoppers=len(stoppers), segment_stoppers=len(seg_stop), eligible_now=len(eligible),
+       segment_per_month=per_month, wide_n=len(wide), wide_l5_num=int(wide.l5_in_window.sum()),
+       wide_per_month=wide_per_month, chat_gap_plan_holders=round(float(gap * 100), 1),
+       mde_segment_3mo=round(mde(baseline, per_month * 3 // 2) * 100, 1))
 
 (OUT / "pilot_sizing_output.txt").write_text("\n".join(lines) + "\n")
 print(f"\nwrote {OUT / 'pilot_sizing_output.txt'}")

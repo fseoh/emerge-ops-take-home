@@ -8,16 +8,9 @@ Two groups:
 Needs analysis/students_clean.csv (run analysis/clean_data.py first).
 Writes analysis/coach_calls_finishers_output.txt.
 """
-from pathlib import Path
+from definitions import OUT, cc_pool, cutoffs, load_students, record
 
-import pandas as pd
-
-OUT = Path(__file__).resolve().parent
-SNAPSHOT = pd.Timestamp("2026-09-15 06:00")  # ET, per DATA_DICTIONARY.md
-PCT = 0.95  # same window rule as cohort_windows.py / lesson_dropoff.py
-
-d = pd.read_csv(OUT / "students_clean.csv",
-                parse_dates=["ev_first_video_at", "ev_course_completed_at"])
+d = load_students()
 lines = []
 
 
@@ -37,14 +30,16 @@ def dist(group, label):
     report()
 
 
-gap = (d.ev_course_completed_at - d.ev_first_video_at).dt.days.dropna()
-cut_cc = SNAPSHOT - pd.Timedelta(days=int(gap.quantile(PCT, interpolation="higher")))
+cut = cutoffs(d)  # definitions.py
+cut_cc = cut["cc"]
 
-pool = d.loc[d.ev_first_video & (d.ev_first_video_at <= cut_cc)]
+pool = cc_pool(d, cut)
 report(f"Real students: {len(d)} (test accounts excluded by clean_data.py)")
 report(f"CC/FV pool: first video on or before {cut_cc} -> {len(pool)} students")
 report()
 dist(pool.loc[pool.ev_max_lesson == 21], f"1. CC/FV pool (first video <= {cut_cc.date()})")
 dist(d.loc[d.ev_max_lesson == 21], "2. All real students, no window")
+
+record("coach_calls_finishers", pool_n=len(pool))
 
 (OUT / "coach_calls_finishers_output.txt").write_text("\n".join(lines) + "\n")

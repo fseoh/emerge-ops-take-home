@@ -13,19 +13,15 @@ Needs analysis/students_clean.csv (run analysis/clean_data.py first).
 Writes analysis/coach_calls_engagement_output.txt.
 """
 import math
-from pathlib import Path
 
 import pandas as pd
 
-OUT = Path(__file__).resolve().parent
-DATA = OUT.parent / "data"
-SNAPSHOT = pd.Timestamp("2026-09-15 06:00")  # ET, per DATA_DICTIONARY.md
-PCT = 0.95  # same window rule as cohort_windows.py / lesson_dropoff.py
+from definitions import DATA, OUT, add_flags, cc_pool, cutoffs, load_events, load_students, record
 
 pd.set_option("display.width", 250)
-d = pd.read_csv(OUT / "students_clean.csv",
-                parse_dates=["signup_at", "ev_first_video_at", "ev_course_completed_at"])
-ev = pd.read_csv(DATA / "lesson_events.csv", parse_dates=["completed_at"])
+d = load_students()
+ev = load_events(d)
+d = add_flags(d, ev)
 lessons = pd.read_csv(DATA / "lessons.csv").set_index("lesson_number")
 lines = []
 
@@ -46,9 +42,9 @@ def two_prop_p(x1, n1, x2, n2):
     return math.erfc(abs(x1 / n1 - x2 / n2) / se / math.sqrt(2)) if se else float("nan")
 
 
-gap = (d.ev_course_completed_at - d.ev_first_video_at).dt.days.dropna()
-cut_cc = SNAPSHOT - pd.Timedelta(days=int(gap.quantile(PCT, interpolation="higher")))
-pool = d.loc[d.ev_first_video & (d.ev_first_video_at <= cut_cc)].copy()
+cut = cutoffs(d)  # definitions.py
+cut_cc = cut["cc"]
+pool = cc_pool(d, cut)
 pool["calls"] = pool.coach_calls_completed.gt(0).map({False: "0", True: "1+"})
 
 # per-student early signals from the event log
@@ -93,7 +89,7 @@ report(f"Pool: first video on or before {cut_cc} -> {len(pool)} students")
 report("plan_* medians use plan holders only; l1_to_l2_days uses students who reached lesson 2")
 report()
 compare(pool, "A. Whole pool (confounded: 0-call students all stopped at lessons 1-4)")
-stop = pool.loc[pool.ev_max_lesson.between(1, 4)]
+stop = pool.loc[pool.stopper]
 compare(stop, "B. Students who stopped at lessons 1-4 (main comparison)")
 
 report("== C. Within each stopping lesson: plan, chat, signup->first video, lesson 1 quiz")
@@ -114,5 +110,7 @@ report("== D. Share with 0 calls by stopping lesson (students who stopped at 1-4
 for n in range(1, 5):
     g = stop.loc[stop.ev_max_lesson == n]
     report(f"lesson {n}: {frac(int((g.calls == '0').sum()), len(g))}")
+
+record("coach_calls_engagement", pool_n=len(pool), stoppers=len(stop))
 
 (OUT / "coach_calls_engagement_output.txt").write_text("\n".join(lines) + "\n")

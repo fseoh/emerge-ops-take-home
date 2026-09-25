@@ -1,5 +1,1682 @@
 {
  "snapshot": "2026-09-15 06:00",
+ "snapshot_dow": "Tue",
+ "rules": {
+  "touch1": [
+   0,
+   2
+  ],
+  "touch2": [
+   4,
+   5
+  ],
+  "quiet_days": 4
+ },
+ "queue": [
+  {
+   "user_id": "u_103275",
+   "city": "NYC",
+   "language": "en",
+   "day": 0,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 0.4,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Thu Sep 17",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Touch 1 due",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101845",
+   "city": "NYC",
+   "language": "en",
+   "day": 1,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 0.3,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "10-11 PM",
+   "action": "Touch 1 due",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101458",
+   "city": "NYC",
+   "language": "en",
+   "day": 1,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 1.4,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Thu Sep 17",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Touch 1 due",
+   "study_day_after_window": true
+  },
+  {
+   "user_id": "u_102874",
+   "city": "NYC",
+   "language": "es",
+   "day": 1,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 1.5,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Touch 1 due",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102563",
+   "city": "NYC",
+   "language": "en",
+   "day": 2,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 2.4,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Touch 1 due",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102302",
+   "city": "NYC",
+   "language": "en",
+   "day": 2,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 2.6,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "12-4 PM",
+   "action": "Touch 1 due",
+   "study_day_after_window": true
+  },
+  {
+   "user_id": "u_103417",
+   "city": "NYC",
+   "language": "en",
+   "day": 3,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 3.3,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "10-11 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102345",
+   "city": "NYC",
+   "language": "en",
+   "day": 3,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 3.7,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103619",
+   "city": "NYC",
+   "language": "es",
+   "day": 3,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 3.8,
+   "quiet": false,
+   "active_3d": false,
+   "send_day": "Fri Sep 18",
+   "send_today": false,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101324",
+   "city": "NYC",
+   "language": "en",
+   "day": 3,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 3.8,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102837",
+   "city": "NYC",
+   "language": "en",
+   "day": 3,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 3.9,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104473",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 4,
+   "lesson": 4,
+   "status": "in_progress",
+   "days_since_lesson": 0.4,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Touch 2 due",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102821",
+   "city": "NYC",
+   "language": "es",
+   "day": 4,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 4.8,
+   "quiet": true,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Touch 2 due",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104220",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 5,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 0.5,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Touch 2 due",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100341",
+   "city": "NYC",
+   "language": "en",
+   "day": 5,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 5.5,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Touch 2 due",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103132",
+   "city": "NYC",
+   "language": "en",
+   "day": 5,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 4.6,
+   "quiet": true,
+   "active_3d": true,
+   "send_day": "Thu Sep 17",
+   "send_today": false,
+   "send_window": "12-4 PM",
+   "action": "Touch 2 due",
+   "study_day_after_window": true
+  },
+  {
+   "user_id": "u_104856",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 6,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 4.3,
+   "quiet": true,
+   "active_3d": true,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "10-11 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101141",
+   "city": "NYC",
+   "language": "en",
+   "day": 6,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 0.3,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "10-11 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104319",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 7,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 1.6,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103662",
+   "city": "NYC",
+   "language": "en",
+   "day": 7,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 1.4,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_105322",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 7,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 5.4,
+   "quiet": true,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100519",
+   "city": "NYC",
+   "language": "en",
+   "day": 7,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 7.7,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103730",
+   "city": "NYC",
+   "language": "en",
+   "day": 7,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 3.9,
+   "quiet": false,
+   "active_3d": false,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104757",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 8,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 0.8,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102591",
+   "city": "NYC",
+   "language": "en",
+   "day": 8,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 5.4,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101285",
+   "city": "NYC",
+   "language": "en",
+   "day": 8,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 1.5,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Sat Sep 19",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_105022",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 8,
+   "lesson": 4,
+   "status": "in_progress",
+   "days_since_lesson": 0.6,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103576",
+   "city": "NYC",
+   "language": "en",
+   "day": 8,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 4.8,
+   "quiet": true,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104193",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 8,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 2.4,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Fri Sep 18",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104917",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 9,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 5.8,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102968",
+   "city": "NYC",
+   "language": "en",
+   "day": 9,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 3.3,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Thu Sep 17",
+   "send_today": false,
+   "send_window": "10-11 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103332",
+   "city": "NYC",
+   "language": "en",
+   "day": 9,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 4.7,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101129",
+   "city": "NYC",
+   "language": "en",
+   "day": 9,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 0.6,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100154",
+   "city": "NYC",
+   "language": "en",
+   "day": 10,
+   "lesson": 4,
+   "status": "in_progress",
+   "days_since_lesson": 3.5,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100977",
+   "city": "NYC",
+   "language": "en",
+   "day": 10,
+   "lesson": 4,
+   "status": "in_progress",
+   "days_since_lesson": 0.4,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102826",
+   "city": "NYC",
+   "language": "en",
+   "day": 11,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 11.5,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104624",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 11,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 4.6,
+   "quiet": true,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_105461",
+   "city": "Boston",
+   "language": "en",
+   "day": 12,
+   "lesson": 3,
+   "status": "withdrawn",
+   "days_since_lesson": 10.3,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Thu Sep 17",
+   "send_today": false,
+   "send_window": "10-11 PM",
+   "action": "Do not contact (withdrawn)",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103241",
+   "city": "NYC",
+   "language": "en",
+   "day": 12,
+   "lesson": 4,
+   "status": "in_progress",
+   "days_since_lesson": 5.4,
+   "quiet": true,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102992",
+   "city": "NYC",
+   "language": "en",
+   "day": 12,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 11.5,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100887",
+   "city": "NYC",
+   "language": "en",
+   "day": 12,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 12.7,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101744",
+   "city": "NYC",
+   "language": "en",
+   "day": 12,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 10.9,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Thu Sep 17",
+   "send_today": false,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102428",
+   "city": "NYC",
+   "language": "es",
+   "day": 13,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 13.2,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102485",
+   "city": "NYC",
+   "language": "es",
+   "day": 13,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 8.3,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Sat Sep 19",
+   "send_today": false,
+   "send_window": "10-11 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103129",
+   "city": "NYC",
+   "language": "es",
+   "day": 13,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 13.5,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100563",
+   "city": "NYC",
+   "language": "es",
+   "day": 13,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 11.7,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101998",
+   "city": "NYC",
+   "language": "es",
+   "day": 13,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 2.3,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Sat Sep 19",
+   "send_today": false,
+   "send_window": "10-11 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104676",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 13,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 6.9,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101789",
+   "city": "NYC",
+   "language": "en",
+   "day": 14,
+   "lesson": 4,
+   "status": "in_progress",
+   "days_since_lesson": 1.7,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Sun Sep 20",
+   "send_today": false,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101254",
+   "city": "NYC",
+   "language": "en",
+   "day": 14,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 8.5,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101082",
+   "city": "NYC",
+   "language": "en",
+   "day": 15,
+   "lesson": 3,
+   "status": "withdrawn",
+   "days_since_lesson": 11.5,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Do not contact (withdrawn)",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102320",
+   "city": "NYC",
+   "language": "en",
+   "day": 15,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 8.6,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100758",
+   "city": "NYC",
+   "language": "en",
+   "day": 15,
+   "lesson": 2,
+   "status": "in_progress",
+   "days_since_lesson": 14.9,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102238",
+   "city": "NYC",
+   "language": "en",
+   "day": 16,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 8.6,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100128",
+   "city": "NYC",
+   "language": "en",
+   "day": 17,
+   "lesson": 1,
+   "status": "inactive",
+   "days_since_lesson": 17.8,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Thu Sep 17",
+   "send_today": false,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102374",
+   "city": "NYC",
+   "language": "en",
+   "day": 17,
+   "lesson": 1,
+   "status": "in_progress",
+   "days_since_lesson": 17.8,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104847",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 18,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 14.5,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Sun Sep 20",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_101043",
+   "city": "NYC",
+   "language": "en",
+   "day": 18,
+   "lesson": 4,
+   "status": "in_progress",
+   "days_since_lesson": 12.4,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_102967",
+   "city": "NYC",
+   "language": "en",
+   "day": 19,
+   "lesson": 1,
+   "status": "inactive",
+   "days_since_lesson": 19.7,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "12-4 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100420",
+   "city": "NYC",
+   "language": "en",
+   "day": 20,
+   "lesson": 4,
+   "status": "withdrawn",
+   "days_since_lesson": 0.8,
+   "quiet": false,
+   "active_3d": true,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "6-11 AM",
+   "action": "Do not contact (withdrawn)",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_103318",
+   "city": "NYC",
+   "language": "en",
+   "day": 20,
+   "lesson": 2,
+   "status": "inactive",
+   "days_since_lesson": 19.5,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_104312",
+   "city": "Sacramento",
+   "language": "en",
+   "day": 20,
+   "lesson": 3,
+   "status": "in_progress",
+   "days_since_lesson": 12.4,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Wed Sep 16",
+   "send_today": false,
+   "send_window": "5-9 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  },
+  {
+   "user_id": "u_100452",
+   "city": "NYC",
+   "language": "en",
+   "day": 20,
+   "lesson": 1,
+   "status": "inactive",
+   "days_since_lesson": 20.9,
+   "quiet": true,
+   "active_3d": false,
+   "send_day": "Tue Sep 15",
+   "send_today": true,
+   "send_window": "10-11 PM",
+   "action": "Monitor",
+   "study_day_after_window": false
+  }
+ ],
+ "queue_summary": {
+  "eligible": 63,
+  "withdrawn_excluded": 3,
+  "contactable": 60,
+  "touch1_due": 6,
+  "touch2_due": 5,
+  "monitor": 49,
+  "due_send_today": 7,
+  "study_day_after_window": 3,
+  "quiet": 33,
+  "active_3d": 32,
+  "by_lesson": {
+   "1": 19,
+   "2": 14,
+   "3": 20,
+   "4": 7
+  }
+ },
+ "daily": [
+  {
+   "date": "2026-07-17",
+   "dow": "Fri",
+   "first_videos": 10,
+   "segment_entries": 6,
+   "students_active": 102,
+   "lessons_1_4": 32
+  },
+  {
+   "date": "2026-07-18",
+   "dow": "Sat",
+   "first_videos": 8,
+   "segment_entries": 3,
+   "students_active": 88,
+   "lessons_1_4": 30
+  },
+  {
+   "date": "2026-07-19",
+   "dow": "Sun",
+   "first_videos": 9,
+   "segment_entries": 2,
+   "students_active": 95,
+   "lessons_1_4": 32
+  },
+  {
+   "date": "2026-07-20",
+   "dow": "Mon",
+   "first_videos": 10,
+   "segment_entries": 5,
+   "students_active": 88,
+   "lessons_1_4": 22
+  },
+  {
+   "date": "2026-07-21",
+   "dow": "Tue",
+   "first_videos": 7,
+   "segment_entries": 2,
+   "students_active": 83,
+   "lessons_1_4": 24
+  },
+  {
+   "date": "2026-07-22",
+   "dow": "Wed",
+   "first_videos": 4,
+   "segment_entries": 1,
+   "students_active": 94,
+   "lessons_1_4": 25
+  },
+  {
+   "date": "2026-07-23",
+   "dow": "Thu",
+   "first_videos": 13,
+   "segment_entries": 5,
+   "students_active": 96,
+   "lessons_1_4": 34
+  },
+  {
+   "date": "2026-07-24",
+   "dow": "Fri",
+   "first_videos": 10,
+   "segment_entries": 7,
+   "students_active": 87,
+   "lessons_1_4": 26
+  },
+  {
+   "date": "2026-07-25",
+   "dow": "Sat",
+   "first_videos": 11,
+   "segment_entries": 7,
+   "students_active": 100,
+   "lessons_1_4": 46
+  },
+  {
+   "date": "2026-07-26",
+   "dow": "Sun",
+   "first_videos": 15,
+   "segment_entries": 8,
+   "students_active": 98,
+   "lessons_1_4": 32
+  },
+  {
+   "date": "2026-07-27",
+   "dow": "Mon",
+   "first_videos": 19,
+   "segment_entries": 9,
+   "students_active": 98,
+   "lessons_1_4": 40
+  },
+  {
+   "date": "2026-07-28",
+   "dow": "Tue",
+   "first_videos": 9,
+   "segment_entries": 5,
+   "students_active": 88,
+   "lessons_1_4": 27
+  },
+  {
+   "date": "2026-07-29",
+   "dow": "Wed",
+   "first_videos": 8,
+   "segment_entries": 3,
+   "students_active": 91,
+   "lessons_1_4": 30
+  },
+  {
+   "date": "2026-07-30",
+   "dow": "Thu",
+   "first_videos": 11,
+   "segment_entries": 5,
+   "students_active": 100,
+   "lessons_1_4": 40
+  },
+  {
+   "date": "2026-07-31",
+   "dow": "Fri",
+   "first_videos": 12,
+   "segment_entries": 3,
+   "students_active": 95,
+   "lessons_1_4": 29
+  },
+  {
+   "date": "2026-08-01",
+   "dow": "Sat",
+   "first_videos": 14,
+   "segment_entries": 7,
+   "students_active": 99,
+   "lessons_1_4": 36
+  },
+  {
+   "date": "2026-08-02",
+   "dow": "Sun",
+   "first_videos": 16,
+   "segment_entries": 8,
+   "students_active": 96,
+   "lessons_1_4": 44
+  },
+  {
+   "date": "2026-08-03",
+   "dow": "Mon",
+   "first_videos": 3,
+   "segment_entries": 1,
+   "students_active": 98,
+   "lessons_1_4": 28
+  },
+  {
+   "date": "2026-08-04",
+   "dow": "Tue",
+   "first_videos": 7,
+   "segment_entries": 5,
+   "students_active": 87,
+   "lessons_1_4": 26
+  },
+  {
+   "date": "2026-08-05",
+   "dow": "Wed",
+   "first_videos": 7,
+   "segment_entries": 2,
+   "students_active": 81,
+   "lessons_1_4": 31
+  },
+  {
+   "date": "2026-08-06",
+   "dow": "Thu",
+   "first_videos": 16,
+   "segment_entries": 4,
+   "students_active": 85,
+   "lessons_1_4": 41
+  },
+  {
+   "date": "2026-08-07",
+   "dow": "Fri",
+   "first_videos": 10,
+   "segment_entries": 3,
+   "students_active": 98,
+   "lessons_1_4": 46
+  },
+  {
+   "date": "2026-08-08",
+   "dow": "Sat",
+   "first_videos": 13,
+   "segment_entries": 5,
+   "students_active": 86,
+   "lessons_1_4": 34
+  },
+  {
+   "date": "2026-08-09",
+   "dow": "Sun",
+   "first_videos": 10,
+   "segment_entries": 3,
+   "students_active": 88,
+   "lessons_1_4": 32
+  },
+  {
+   "date": "2026-08-10",
+   "dow": "Mon",
+   "first_videos": 14,
+   "segment_entries": 4,
+   "students_active": 98,
+   "lessons_1_4": 36
+  },
+  {
+   "date": "2026-08-11",
+   "dow": "Tue",
+   "first_videos": 8,
+   "segment_entries": 4,
+   "students_active": 102,
+   "lessons_1_4": 39
+  },
+  {
+   "date": "2026-08-12",
+   "dow": "Wed",
+   "first_videos": 9,
+   "segment_entries": 2,
+   "students_active": 94,
+   "lessons_1_4": 34
+  },
+  {
+   "date": "2026-08-13",
+   "dow": "Thu",
+   "first_videos": 7,
+   "segment_entries": 5,
+   "students_active": 100,
+   "lessons_1_4": 27
+  },
+  {
+   "date": "2026-08-14",
+   "dow": "Fri",
+   "first_videos": 13,
+   "segment_entries": 5,
+   "students_active": 99,
+   "lessons_1_4": 33
+  },
+  {
+   "date": "2026-08-15",
+   "dow": "Sat",
+   "first_videos": 8,
+   "segment_entries": 3,
+   "students_active": 93,
+   "lessons_1_4": 27
+  },
+  {
+   "date": "2026-08-16",
+   "dow": "Sun",
+   "first_videos": 11,
+   "segment_entries": 6,
+   "students_active": 87,
+   "lessons_1_4": 30
+  },
+  {
+   "date": "2026-08-17",
+   "dow": "Mon",
+   "first_videos": 11,
+   "segment_entries": 5,
+   "students_active": 94,
+   "lessons_1_4": 31
+  },
+  {
+   "date": "2026-08-18",
+   "dow": "Tue",
+   "first_videos": 9,
+   "segment_entries": 3,
+   "students_active": 96,
+   "lessons_1_4": 27
+  },
+  {
+   "date": "2026-08-19",
+   "dow": "Wed",
+   "first_videos": 10,
+   "segment_entries": 3,
+   "students_active": 107,
+   "lessons_1_4": 40
+  },
+  {
+   "date": "2026-08-20",
+   "dow": "Thu",
+   "first_videos": 5,
+   "segment_entries": 3,
+   "students_active": 111,
+   "lessons_1_4": 33
+  },
+  {
+   "date": "2026-08-21",
+   "dow": "Fri",
+   "first_videos": 4,
+   "segment_entries": 3,
+   "students_active": 91,
+   "lessons_1_4": 27
+  },
+  {
+   "date": "2026-08-22",
+   "dow": "Sat",
+   "first_videos": 10,
+   "segment_entries": 5,
+   "students_active": 103,
+   "lessons_1_4": 38
+  },
+  {
+   "date": "2026-08-23",
+   "dow": "Sun",
+   "first_videos": 7,
+   "segment_entries": 2,
+   "students_active": 86,
+   "lessons_1_4": 22
+  },
+  {
+   "date": "2026-08-24",
+   "dow": "Mon",
+   "first_videos": 10,
+   "segment_entries": 6,
+   "students_active": 85,
+   "lessons_1_4": 25
+  },
+  {
+   "date": "2026-08-25",
+   "dow": "Tue",
+   "first_videos": 10,
+   "segment_entries": 3,
+   "students_active": 109,
+   "lessons_1_4": 33
+  },
+  {
+   "date": "2026-08-26",
+   "dow": "Wed",
+   "first_videos": 6,
+   "segment_entries": 3,
+   "students_active": 92,
+   "lessons_1_4": 29
+  },
+  {
+   "date": "2026-08-27",
+   "dow": "Thu",
+   "first_videos": 7,
+   "segment_entries": 5,
+   "students_active": 89,
+   "lessons_1_4": 21
+  },
+  {
+   "date": "2026-08-28",
+   "dow": "Fri",
+   "first_videos": 5,
+   "segment_entries": 2,
+   "students_active": 84,
+   "lessons_1_4": 25
+  },
+  {
+   "date": "2026-08-29",
+   "dow": "Sat",
+   "first_videos": 10,
+   "segment_entries": 2,
+   "students_active": 85,
+   "lessons_1_4": 28
+  },
+  {
+   "date": "2026-08-30",
+   "dow": "Sun",
+   "first_videos": 13,
+   "segment_entries": 6,
+   "students_active": 97,
+   "lessons_1_4": 31
+  },
+  {
+   "date": "2026-08-31",
+   "dow": "Mon",
+   "first_videos": 5,
+   "segment_entries": 2,
+   "students_active": 99,
+   "lessons_1_4": 29
+  },
+  {
+   "date": "2026-09-01",
+   "dow": "Tue",
+   "first_videos": 13,
+   "segment_entries": 7,
+   "students_active": 105,
+   "lessons_1_4": 29
+  },
+  {
+   "date": "2026-09-02",
+   "dow": "Wed",
+   "first_videos": 13,
+   "segment_entries": 8,
+   "students_active": 95,
+   "lessons_1_4": 36
+  },
+  {
+   "date": "2026-09-03",
+   "dow": "Thu",
+   "first_videos": 9,
+   "segment_entries": 3,
+   "students_active": 97,
+   "lessons_1_4": 28
+  },
+  {
+   "date": "2026-09-04",
+   "dow": "Fri",
+   "first_videos": 8,
+   "segment_entries": 3,
+   "students_active": 87,
+   "lessons_1_4": 25
+  },
+  {
+   "date": "2026-09-05",
+   "dow": "Sat",
+   "first_videos": 11,
+   "segment_entries": 3,
+   "students_active": 104,
+   "lessons_1_4": 29
+  },
+  {
+   "date": "2026-09-06",
+   "dow": "Sun",
+   "first_videos": 14,
+   "segment_entries": 7,
+   "students_active": 85,
+   "lessons_1_4": 33
+  },
+  {
+   "date": "2026-09-07",
+   "dow": "Mon",
+   "first_videos": 6,
+   "segment_entries": 3,
+   "students_active": 72,
+   "lessons_1_4": 19
+  },
+  {
+   "date": "2026-09-08",
+   "dow": "Tue",
+   "first_videos": 7,
+   "segment_entries": 4,
+   "students_active": 86,
+   "lessons_1_4": 29
+  },
+  {
+   "date": "2026-09-09",
+   "dow": "Wed",
+   "first_videos": 11,
+   "segment_entries": 3,
+   "students_active": 99,
+   "lessons_1_4": 34
+  },
+  {
+   "date": "2026-09-10",
+   "dow": "Thu",
+   "first_videos": 6,
+   "segment_entries": 1,
+   "students_active": 84,
+   "lessons_1_4": 26
+  },
+  {
+   "date": "2026-09-11",
+   "dow": "Fri",
+   "first_videos": 11,
+   "segment_entries": 6,
+   "students_active": 77,
+   "lessons_1_4": 27
+  },
+  {
+   "date": "2026-09-12",
+   "dow": "Sat",
+   "first_videos": 7,
+   "segment_entries": 2,
+   "students_active": 68,
+   "lessons_1_4": 15
+  },
+  {
+   "date": "2026-09-13",
+   "dow": "Sun",
+   "first_videos": 3,
+   "segment_entries": 3,
+   "students_active": 69,
+   "lessons_1_4": 21
+  },
+  {
+   "date": "2026-09-14",
+   "dow": "Mon",
+   "first_videos": 1,
+   "segment_entries": 1,
+   "students_active": 80,
+   "lessons_1_4": 21
+  }
+ ],
+ "window_pipeline": [
+  {
+   "lesson": "1",
+   "segment": 19,
+   "other": 23
+  },
+  {
+   "lesson": "2",
+   "segment": 14,
+   "other": 22
+  },
+  {
+   "lesson": "3",
+   "segment": 20,
+   "other": 20
+  },
+  {
+   "lesson": "4",
+   "segment": 7,
+   "other": 7
+  },
+  {
+   "lesson": "5+",
+   "segment": 13,
+   "other": 26
+  }
+ ],
+ "variation": {
+  "city": [
+   {
+    "value": "NYC",
+    "reached_5": {
+     "num": 479,
+     "den": 958,
+     "pct": 50.0
+    }
+   },
+   {
+    "value": "Sacramento",
+    "reached_5": {
+     "num": 197,
+     "den": 379,
+     "pct": 52.0
+    }
+   },
+   {
+    "value": "Boston",
+    "reached_5": {
+     "num": 54,
+     "den": 110,
+     "pct": 49.1
+    }
+   }
+  ],
+  "language": [
+   {
+    "value": "en",
+    "reached_5": {
+     "num": 595,
+     "den": 1193,
+     "pct": 49.9
+    }
+   },
+   {
+    "value": "es",
+    "reached_5": {
+     "num": 129,
+     "den": 245,
+     "pct": 52.7
+    }
+   },
+   {
+    "value": "ht",
+    "reached_5": {
+     "num": 6,
+     "den": 9,
+     "pct": 66.7
+    }
+   }
+  ],
+  "device": [
+   {
+    "value": "phone",
+    "reached_5": {
+     "num": 470,
+     "den": 945,
+     "pct": 49.7
+    }
+   },
+   {
+    "value": "laptop",
+    "reached_5": {
+     "num": 183,
+     "den": 324,
+     "pct": 56.5
+    }
+   },
+   {
+    "value": "tablet",
+    "reached_5": {
+     "num": 48,
+     "den": 90,
+     "pct": 53.3
+    }
+   },
+   {
+    "value": "shared_computer",
+    "reached_5": {
+     "num": 29,
+     "den": 88,
+     "pct": 33.0
+    }
+   }
+  ],
+  "study_time": [
+   {
+    "value": "morning",
+    "reached_5": {
+     "num": 114,
+     "den": 201,
+     "pct": 56.7
+    }
+   },
+   {
+    "value": "afternoon",
+    "reached_5": {
+     "num": 94,
+     "den": 169,
+     "pct": 55.6
+    }
+   },
+   {
+    "value": "evening",
+    "reached_5": {
+     "num": 218,
+     "den": 391,
+     "pct": 55.8
+    }
+   },
+   {
+    "value": "late_night",
+    "reached_5": {
+     "num": 106,
+     "den": 169,
+     "pct": 62.7
+    }
+   }
+  ],
+  "pool_all": {
+   "num": 730,
+   "den": 1447,
+   "pct": 50.4
+  },
+  "plan_holders": 930
+ },
  "window_days": 21,
  "cutoffs": {
   "fv_ca_signup_by": "2026-09-06",
@@ -56,15 +1733,6 @@
    "pct": 44.8
   },
   "eligible_now": 63,
-  "eligible_now_by_city": {
-   "NYC": 49,
-   "Sacramento": 13,
-   "Boston": 1
-  },
-  "eligible_now_by_language": {
-   "en": 55,
-   "es": 8
-  },
   "chat_gap_plan_holders": 30.2,
   "pool_n": 1447
  },
@@ -385,6 +2053,397 @@
    "permit_cc_excluded": 55
   }
  ],
+ "l5_curve": [
+  {
+   "day": 0,
+   "segment": {
+    "num": 0,
+    "den": 600,
+    "pct": 0.0
+   },
+   "other": {
+    "num": 0,
+    "den": 847,
+    "pct": 0.0
+   }
+  },
+  {
+   "day": 1,
+   "segment": {
+    "num": 0,
+    "den": 600,
+    "pct": 0.0
+   },
+   "other": {
+    "num": 0,
+    "den": 847,
+    "pct": 0.0
+   }
+  },
+  {
+   "day": 2,
+   "segment": {
+    "num": 2,
+    "den": 600,
+    "pct": 0.3
+   },
+   "other": {
+    "num": 5,
+    "den": 847,
+    "pct": 0.6
+   }
+  },
+  {
+   "day": 3,
+   "segment": {
+    "num": 5,
+    "den": 600,
+    "pct": 0.8
+   },
+   "other": {
+    "num": 6,
+    "den": 847,
+    "pct": 0.7
+   }
+  },
+  {
+   "day": 4,
+   "segment": {
+    "num": 20,
+    "den": 600,
+    "pct": 3.3
+   },
+   "other": {
+    "num": 16,
+    "den": 847,
+    "pct": 1.9
+   }
+  },
+  {
+   "day": 5,
+   "segment": {
+    "num": 29,
+    "den": 600,
+    "pct": 4.8
+   },
+   "other": {
+    "num": 34,
+    "den": 847,
+    "pct": 4.0
+   }
+  },
+  {
+   "day": 6,
+   "segment": {
+    "num": 43,
+    "den": 600,
+    "pct": 7.2
+   },
+   "other": {
+    "num": 66,
+    "den": 847,
+    "pct": 7.8
+   }
+  },
+  {
+   "day": 7,
+   "segment": {
+    "num": 76,
+    "den": 600,
+    "pct": 12.7
+   },
+   "other": {
+    "num": 93,
+    "den": 847,
+    "pct": 11.0
+   }
+  },
+  {
+   "day": 8,
+   "segment": {
+    "num": 101,
+    "den": 600,
+    "pct": 16.8
+   },
+   "other": {
+    "num": 129,
+    "den": 847,
+    "pct": 15.2
+   }
+  },
+  {
+   "day": 9,
+   "segment": {
+    "num": 116,
+    "den": 600,
+    "pct": 19.3
+   },
+   "other": {
+    "num": 166,
+    "den": 847,
+    "pct": 19.6
+   }
+  },
+  {
+   "day": 10,
+   "segment": {
+    "num": 141,
+    "den": 600,
+    "pct": 23.5
+   },
+   "other": {
+    "num": 210,
+    "den": 847,
+    "pct": 24.8
+   }
+  },
+  {
+   "day": 11,
+   "segment": {
+    "num": 163,
+    "den": 600,
+    "pct": 27.2
+   },
+   "other": {
+    "num": 254,
+    "den": 847,
+    "pct": 30.0
+   }
+  },
+  {
+   "day": 12,
+   "segment": {
+    "num": 186,
+    "den": 600,
+    "pct": 31.0
+   },
+   "other": {
+    "num": 284,
+    "den": 847,
+    "pct": 33.5
+   }
+  },
+  {
+   "day": 13,
+   "segment": {
+    "num": 202,
+    "den": 600,
+    "pct": 33.7
+   },
+   "other": {
+    "num": 313,
+    "den": 847,
+    "pct": 37.0
+   }
+  },
+  {
+   "day": 14,
+   "segment": {
+    "num": 217,
+    "den": 600,
+    "pct": 36.2
+   },
+   "other": {
+    "num": 337,
+    "den": 847,
+    "pct": 39.8
+   }
+  },
+  {
+   "day": 15,
+   "segment": {
+    "num": 230,
+    "den": 600,
+    "pct": 38.3
+   },
+   "other": {
+    "num": 350,
+    "den": 847,
+    "pct": 41.3
+   }
+  },
+  {
+   "day": 16,
+   "segment": {
+    "num": 237,
+    "den": 600,
+    "pct": 39.5
+   },
+   "other": {
+    "num": 373,
+    "den": 847,
+    "pct": 44.0
+   }
+  },
+  {
+   "day": 17,
+   "segment": {
+    "num": 251,
+    "den": 600,
+    "pct": 41.8
+   },
+   "other": {
+    "num": 395,
+    "den": 847,
+    "pct": 46.6
+   }
+  },
+  {
+   "day": 18,
+   "segment": {
+    "num": 255,
+    "den": 600,
+    "pct": 42.5
+   },
+   "other": {
+    "num": 406,
+    "den": 847,
+    "pct": 47.9
+   }
+  },
+  {
+   "day": 19,
+   "segment": {
+    "num": 260,
+    "den": 600,
+    "pct": 43.3
+   },
+   "other": {
+    "num": 411,
+    "den": 847,
+    "pct": 48.5
+   }
+  },
+  {
+   "day": 20,
+   "segment": {
+    "num": 266,
+    "den": 600,
+    "pct": 44.3
+   },
+   "other": {
+    "num": 422,
+    "den": 847,
+    "pct": 49.8
+   }
+  },
+  {
+   "day": 21,
+   "segment": {
+    "num": 267,
+    "den": 600,
+    "pct": 44.5
+   },
+   "other": {
+    "num": 426,
+    "den": 847,
+    "pct": 50.3
+   }
+  },
+  {
+   "day": 22,
+   "segment": {
+    "num": 270,
+    "den": 600,
+    "pct": 45.0
+   },
+   "other": {
+    "num": 433,
+    "den": 847,
+    "pct": 51.1
+   }
+  },
+  {
+   "day": 23,
+   "segment": {
+    "num": 271,
+    "den": 600,
+    "pct": 45.2
+   },
+   "other": {
+    "num": 435,
+    "den": 847,
+    "pct": 51.4
+   }
+  },
+  {
+   "day": 24,
+   "segment": {
+    "num": 272,
+    "den": 600,
+    "pct": 45.3
+   },
+   "other": {
+    "num": 440,
+    "den": 847,
+    "pct": 51.9
+   }
+  },
+  {
+   "day": 25,
+   "segment": {
+    "num": 273,
+    "den": 600,
+    "pct": 45.5
+   },
+   "other": {
+    "num": 442,
+    "den": 847,
+    "pct": 52.2
+   }
+  },
+  {
+   "day": 26,
+   "segment": {
+    "num": 274,
+    "den": 600,
+    "pct": 45.7
+   },
+   "other": {
+    "num": 444,
+    "den": 847,
+    "pct": 52.4
+   }
+  },
+  {
+   "day": 27,
+   "segment": {
+    "num": 275,
+    "den": 600,
+    "pct": 45.8
+   },
+   "other": {
+    "num": 444,
+    "den": 847,
+    "pct": 52.4
+   }
+  },
+  {
+   "day": 28,
+   "segment": {
+    "num": 278,
+    "den": 600,
+    "pct": 46.3
+   },
+   "other": {
+    "num": 445,
+    "den": 847,
+    "pct": 52.5
+   }
+  }
+ ],
+ "l5_ever": {
+  "segment": {
+   "num": 279,
+   "den": 600,
+   "pct": 46.5
+  },
+  "other": {
+   "num": 451,
+   "den": 847,
+   "pct": 53.2
+  }
+ },
  "stops": [
   {
    "lesson": 1,
