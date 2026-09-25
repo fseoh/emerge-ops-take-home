@@ -1,6 +1,6 @@
 # AI Usage: Key Prompts
 
-This log shows how I used Claude Code to build the analysis, `COMMUNITY_PLAN.md`, and the dashboard. It covers five sessions on 2026-09-23, from about 19:57 to 23:00 ET. Prompts are quoted or lightly shortened.
+This log shows how I used Claude Code to build the analysis, `COMMUNITY_PLAN.md`, and the dashboard. It covers five sessions on 2026-09-23, from about 19:57 to 23:00 ET, and follow-up sessions on 2026-09-25 (Phase 7). Prompts are quoted or lightly shortened.
 
 ## How I worked with Claude
 
@@ -9,6 +9,21 @@ This log shows how I used Claude Code to build the analysis, `COMMUNITY_PLAN.md`
 - **Narrow the question step by step.** All students, then cohorts with time to finish, then the first-video pool, then the lesson 1–4 stall, then the plan × chat segment.
 - **Ask whether data can support a claim.** When a pattern suggested a cause, I first checked whether the data could establish the order of events.
 - **Get an independent review.** A separate session re-derived the numbers from raw data before I built on the plan.
+- **Make the tool audit itself.** I asked Claude to check its own output for drift in a long thread, and to look for damage from a second session editing the same files.
+- **Hold it to a written standard.** I pasted an engineering standard ("the dashboard should be a presentation layer") and asked Claude to confirm its work met it. It said no, and I made the tradeoff knowingly.
+- **Ask for verification, not reassurance.** "Confirm it only reads from analysis/" got a "no" with evidence, which led to a refactor.
+
+## Tools and integrations
+
+| What | How I used it |
+|---|---|
+| `CLAUDE.md` guardrails | Hard rules the tool had to follow: never send messages, drafts only in `outbox/`, `data/` read-only, every rate with its denominator, correlation ≠ cause. Checked against every deliverable in Prompt 21. |
+| Separate sessions | One session built the plan, and a fresh one reviewed it from raw data (Phase 5). Later, two sessions ran in parallel, and I had one audit the other's damage (Phase 7). |
+| Git as an audit trail | Found the overwritten notes by diffing against the last commit. Used `reflog` and `git cherry` to confirm a deleted side branch's work was already on `main`. |
+| Persistent memory | Claude kept a note that `main` is the submission branch and updated it when the side branches were deleted. |
+| Skills | The data-visualization skill's palette validator checked chart colors for colorblind separation and contrast, in light and dark mode. |
+| Headless browser | Chrome (via Puppeteer) and jsdom rendered the dashboard to catch script errors, screenshot it, and measure sideways scrolling at 360–1280 px. |
+| Build gate | `analysis/key_numbers.json`: the dashboard refuses to build if 26 numbers shared with the analysis scripts disagree. |
 
 ---
 
@@ -123,7 +138,7 @@ I asked for honest sample sizing and for every judgment call to be flagged. Clau
 
 ## Phase 5: Independent review
 
-**Prompt 10 (new session)**
+**Prompt 10: fresh-session review from raw data**
 > Review my last chat's community plan and validate the analysis
 
 - **Numbers:** all four scripts reran with the same outputs. Claude wrote a separate script that reads only the raw `data/` files and skips my cleaned file and scripts. It matched every number it checked.
@@ -141,7 +156,7 @@ I asked for honest sample sizing and for every judgment call to be flagged. Clau
 
 ## Phase 6: Dashboard
 
-**Prompt 11**
+**Prompt 11: build the operating dashboard**
 > Can you create a dashboard based on the community plan to show the metrics and insights from the analysis and track them over time. Presented as an HTML document.
 
 - **QA before building:** Claude did a dry run with a stub page first. It confirmed the headline numbers matched the plan (44.5%, 41.8%, 85.2%, 63 eligible, the detectable-lift table) before designing anything.
@@ -152,6 +167,64 @@ I asked for honest sample sizing and for every judgment call to be flagged. Clau
 - **No invented results:** the pilot panel shows "Pilot not started / Waiting on outreach log," not placeholder numbers.
 - **Over time:** each run adds one row to `Dashboard/snapshot_history.csv`.
 - **Definitions:** the new ones are recorded in `DATA_NOTES.md`.
+
+---
+
+## Phase 7: Audit, single source of truth, and making the test explicit (2026-09-25)
+
+I ran a second Claude session on the dashboard at the same time as this one. That created problems of its own, which this phase caught.
+
+**Prompt 12: check the tool's own output**
+> Check my last prompt output for signs of deterioration or inconsistencies due to using the same claude thread for too long
+
+- Claude reran the dashboard script and confirmed it rebuilt the page byte-for-byte. Queue totals added up (60 contactable + 3 withdrawn = 63).
+- It found new judgment calls that lived only in code: the 4-day "quiet" flag, the touch windows, dropping withdrawn students. They're now logged in `DATA_NOTES.md`.
+
+**Prompt 13: look for damage from the parallel session**
+> search for any redundancies based on my last session running at the same time and editing the dashboard while this session edited the dashboard
+
+- Claude found `DATA_NOTES.md` had been overwritten with an older version three minutes after its last edit. The Dashboard section, the group-chat open question, and the committed coach-call work were gone.
+- It didn't restore anything until I confirmed which edit was mine (the note about emailing Gabe). Then it restored the file from the last commit and re-applied both changes.
+
+**Prompt 14: verify a claim instead of trusting it**
+> … confirm it only reads from analysis/ outputs, not from data/ directly.
+
+- Claude said no: it also read 4 raw files from `data/`.
+
+**Prompt 15: stress-test the proposed fix against a failure scenario**
+> by doing the second option do I avoid the following scenario? [pasted: the dashboard should be a presentation layer; two scripts deciding "who counts as a stopper" will eventually disagree]
+
+- Claude said the option on offer (cleaned copies of the raw files) wouldn't fix it. The real risk was that the cutoffs, pool, segment and stopper rules were typed out separately in 6 scripts.
+- It checked that none disagreed yet (44.5% = 267/600, 63 eligible, same detectable lifts) and laid out two fixes: shared definitions (A) or a pure presentation layer (B).
+
+**Prompt 16: pick the design and add a build gate**
+> proceed with A and make a consistency check
+
+- `analysis/definitions.py` now holds every shared rule. All 7 scripts import it. All 10 output files stayed byte-for-byte identical.
+- Each script records its headline numbers in `analysis/key_numbers.json`. `dashboard_data.py` checks 26 of them and refuses to build if one differs or a script is stale. Tested by faking a mismatch.
+
+**Prompt 17: hold it to the standard**
+> Confirm that what you did above addresses the following: The dashboard should be a presentation layer …
+
+- Claude said no, and listed what the dashboard script still computes itself. I chose to keep A. The limits are written down in `DATA_NOTES.md`.
+
+**Prompt 18: make the experiment explicit**
+> Compare what I have in the dashboard--make sure it clearly shows what variable it changes and how to measure whether it has success. Make sure that is addressed explicitly in the community plan file as well
+
+- New section in the plan and on the dashboard: the one variable (chat invite, randomized), what stays the same, the metric, and a decision rule (scale / redesign / no proven effect / pause).
+- Values the data can't set (smallest lift worth scaling, highest acceptable STOP rate) are marked "set before launch," not invented.
+
+**Prompts 19–20: layout fix and a new chart, checked in a real browser**
+
+- Claude rendered each change in headless Chrome at four widths, light and dark, instead of trusting the code. It found a label forcing sideways scrolling on phones.
+- The new chart shows the share reaching lesson 5 by day since first video. The segment keeps pace with everyone else until about day 11, then falls behind: 44.5% (267/600) vs 50.3% (426/847) by day 21. The script checks that the day-21 point equals the baseline.
+
+**Prompt 21: check against the brief**
+> compare the community plan tracker and everything here with the readme.md and claude.md--make sure each prompt is addressed
+
+- Four issues from my Phase 5 review were still open in the plan. They're fixed now: the baseline caveat, city mattering for permits (now computed in `cohort_windows.py`), the "upper bound" judgment call, and send timing for students without a plan.
+- Rates missing their counts got them. Recommendations got an owner, cadence and metric.
+- Draft texts went into `outbox/`: English and Spanish, with Haitian Creole marked NEEDS TRANSLATION. Each was measured under 320 characters.
 
 ---
 
@@ -167,6 +240,11 @@ I asked for honest sample sizing and for every judgment call to be flagged. Clau
 | Segment by chat status at the snapshot | Doesn't match enrollment at first video, so the baseline is likely low. | Flagged in the review |
 | "City doesn't separate students" | False for permit pass rate (p ≈ 0.03). | Flagged in the review |
 | Claude's own first audit | Its mismatch gaps came from test accounts. | Corrected in `DATA_NOTES.md` |
+| "Confirm it only reads from analysis/" | No: it read 4 raw files from `data/`. | Reads documented; shared definitions added |
+| Cleaned copies of raw files would prevent drift | No: the rules themselves were copied across 6 scripts. | `definitions.py` + consistency check |
+| "Confirm A makes the dashboard a presentation layer" | No: listed what it still computes. | Kept A knowingly; limits written down |
+| Claude's own consistency check | First run failed on its own rounding bug (30.2 read as 30). The check stopped the build, as designed. | Fixed before anything was written |
+| Claude's own draft README | Said the longest text was 299 characters; measured 311. | Shortened the drafts, and the README now shows the measured length |
 
 ## Quality assurance checks
 
@@ -177,15 +255,21 @@ I asked for honest sample sizing and for every judgment call to be flagged. Clau
 - **Fail loudly:** the cleaning script stops on unknown city labels instead of guessing.
 - **Behavior checks:** the engagement-window assumption was tested against lesson timestamps.
 - **Dashboard:** numbers were dry-run against `COMMUNITY_PLAN.md` before the page was built.
+- **One definition per rule:** after the refactor, every output file was compared byte-for-byte with the version before it.
+- **Consistency check:** the dashboard won't build if 26 shared numbers differ from the analysis scripts. Tested with a faked mismatch.
+- **Rendering:** checked in a headless browser at 360, 390, 768 and 1280 px, light and dark, with no script errors and no sideways scroll.
 - **Data problems:** they are flagged, counted and kept, not silently fixed. See the "Flagged, not fixed" table in `analysis/DATA_NOTES.md`.
 - **Source data:** nothing in `data/` was modified.
 
 ## Reproduce
 
 ```
+pip install -r analysis/requirements.txt
 python3 analysis/clean_data.py
 python3 analysis/cohort_windows.py
 python3 analysis/lesson_dropoff.py
 python3 analysis/pilot_sizing.py
+python3 analysis/coach_calls_finishers.py
+python3 analysis/coach_calls_engagement.py
 python3 analysis/dashboard_data.py
 ```
