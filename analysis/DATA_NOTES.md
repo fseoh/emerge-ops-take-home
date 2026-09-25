@@ -1,13 +1,23 @@
 # Data Notes
 
-Every count below comes from `analysis/clean_data.py`, `analysis/cohort_windows.py` or `analysis/lesson_dropoff.py`. Rebuild all analysis with:
+Every count below comes from a script in `analysis/`. Rebuild all analysis and the dashboard with:
 
 ```
+pip install -r analysis/requirements.txt
 python3 analysis/clean_data.py
 python3 analysis/cohort_windows.py
 python3 analysis/lesson_dropoff.py
 python3 analysis/pilot_sizing.py
+python3 analysis/coach_calls_finishers.py
+python3 analysis/coach_calls_engagement.py
+python3 analysis/dashboard_data.py
 ```
+
+**One definition per rule.** `analysis/definitions.py` holds the snapshot time, the 95th-percentile cutoffs, the 1,447-student CC/FV pool, the target segment, "stopper" (highest lesson 1–4), the 21-day lesson-5 window, pilot eligibility and the MDE formula. Every script imports these, so changing a rule there changes it everywhere.
+
+**Consistency check.** Each script records its headline numbers in `analysis/key_numbers.json`. `dashboard_data.py` runs last and compares 26 numbers it shares with the other scripts, including the cutoffs, pool n, segment n, the 44.5% baseline (267/600), stoppers, eligible count and the chat gap. If any differs, or a script hasn't been rerun on the current snapshot, it stops and writes nothing.
+
+**What the dashboard script still does itself.** `dashboard_data.py` is not a pure presentation layer. It uses the shared rules above but still reads `students_clean.csv` and `data/` and computes its own numbers. Some exist only on the dashboard: the monthly series, today's outreach list, the daily charts, the 21-day window table and the profile bars. Others repeat tables in other outputs and are not in the check: stop rates by lesson, plan × chat groups, and rates by city, language and device (`lesson_dropoff.py` tables 1, 5 and 6); the segment profile and seats vs permits (`pilot_sizing.py`); and the data-handling counts (`clean_data.py`). They use the same rules, so they should match, but nothing verifies it. **Judgment call:** shared rules plus the check were enough for this take-home. The stricter design has each analysis script write JSON and the dashboard only assemble it, with no computing of its own.
 
 It reads `data/` (read-only) and writes:
 
@@ -114,7 +124,8 @@ If calls went to more engaged students, the ≥1 call group would look more enga
 
 **How we'd test whether calls help.** The plan doesn't rely on calls, so this comes after the chat pilot. First, use the dated call log to compare lesson pace before and after each student's first call. If Emerge confirms coaches start calls, randomize *when* the first call is offered: in week 1 after the first video for the treatment group, the usual timing for control. Measure % reaching lesson 5 within 21 days, intent-to-treat, the same metric as the chat pilot. Enroll only students not in the chat pilot, so the two tests don't mix.
 
-**Ask Emerge:**
+**Asked Emerge:**
+Emailed Gabe, CEO, the following:
 1. Is a coach call required or automatically triggered at a specific lesson? Who starts it: the student or the coach?
 2. Can we get the call log with dates? That would let us measure lesson progress before and after the first call.
 
@@ -153,6 +164,8 @@ If students join the chat *after* progressing, some of this gap runs the other w
    - The data can't tell a rolling 72 hours apart from calendar days starting Sep 12. That only matters for activity between midnight and 06:00 on Sep 12.
 3. **Test accounts are the rows that fail the `u_######` pattern or have `referral_source = internal`.** The two rules pick out the same 9 rows.
 4. **Each stage rate only counts students who have had time to reach that stage.** Details below.
+5. **The 44.5% segment baseline is probably low for a real control group.** The segment (600 students) uses `joined_group_chat` as of the snapshot. The pilot enrolls students by their status at first video. Students who were out of the chat at first video but joined later, perhaps after making progress, are missing from the 600. With no join dates this can't be measured. The plan judges the pilot against its own control group, not against 44.5%.
+6. **City matters after the course, not before it.** Reaching lesson 5 doesn't differ by city (p ≈ 0.78, `lesson_dropoff_output.txt`). Permit / Course Complete does: Sacramento 51.7% (74/143), NYC 42.3% (149/352), Boston 31.6% (12/38), p ≈ 0.04, for students who completed by Aug 6 (`cohort_windows_output.txt`). The mature cohort (signed up by Jun 19) shows the same pattern, p ≈ 0.03. Pass/fail doesn't separate "failed" from "no exam on record," so this may be about who takes the exam, not who passes.
 
 ## Signup-window cutoffs
 
@@ -205,3 +218,25 @@ Built by `analysis/dashboard_data.py` from `students_clean.csv` and `data/`. It 
 - **Group chat share by month** (in `dashboard_data.json`, not charted) uses the current `joined_group_chat` flag. There is no join date, so it can't show when students joined.
 - **Snapshot history.** `Dashboard/snapshot_history.csv` gets one row per export, keyed by `SNAPSHOT`. Update `SNAPSHOT` in the scripts when a new export arrives. Rerunning on the same export replaces that row.
 - **Pilot readout** shows no treatment or control numbers. No outreach log exists yet.
+
+### Today's outreach list
+
+The "Who to reach today" section turns the outreach rules in `COMMUNITY_PLAN.md` into a daily list. These are the choices it makes. All counts are as of the 2026-09-15 06:00 snapshot.
+
+| Choice | What the script does | Why | Rows affected |
+|---|---|---|---|
+| Who is eligible | Target segment (first video, training plan, not in the chat), highest lesson 1–4, first video in the last 21 days | Same definition as the pilot | 63 students |
+| Withdrawn students | Listed as "Do not contact", left out of every count of contactable students | **Judgment call.** A student who withdrew shouldn't get a re-engagement text. | 3 of 63. The other 60 are 56 `in_progress` and 4 `inactive`. |
+| Day count | Full days since first video, rounded down. Day 0 = first video less than 24 hours ago. | Needed to apply the touch windows | – |
+| First touch window | Days 0–2 | **Judgment call.** The plan says "within 1–2 days". Day 0 is included so a student isn't skipped before day 1. | 6 due (1 on day 0) |
+| Second touch window | Days 4–5, only if still not in the chat | The plan says "about day 4–5". Everyone on the list is not in the chat, per the current `joined_group_chat` flag. | 5 due |
+| Quiet flag | No lesson completed in 4+ days (from `lesson_events.csv`) | **Judgment call.** About 2× the 1.95-day median gap from lesson 1 to lesson 2. It flags students for review. It doesn't trigger an extra touch. | 33 of 60 contactable |
+| Active in the last 3 days | `engagement_3d_minutes` > 0 | Field definition in `DATA_DICTIONARY.md` | 32 of 60 contactable |
+| Send day | First `plan_study_days` day on or after the snapshot date, in the `plan_study_time` window | CLAUDE.md: time messages to the student's plan | 7 of the 11 due students have a study day today |
+| Touch window vs study day | Flagged "study day after window". The student stays on the list. | **Open question.** The plan doesn't say which rule wins. The community lead decides. | 3 students: 2 due a first touch, 1 due a second touch |
+
+**Students inside their 21-day window** (the table under "Day to day") counts everyone with a first video in the last 21 days, segment or not, and leaves out withdrawn students: 4 of 175. That leaves 73 in the segment (60 at lessons 1–4 plus 13 at lesson 5+) and 98 others.
+
+**Daily charts** cover the 60 full days before the snapshot date. The snapshot day is left out because it runs only to 06:00.
+
+**Student profile bars** ("By student profile") use the same pool as plan × chat: first video by 2026-07-18, n = 1,447. Study time uses plan holders only. Groups under 100 students are marked "small group".

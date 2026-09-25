@@ -2,13 +2,35 @@
 
 ## Summary
 
-- **Where students are lost:** between their first video and the end of lesson 4. 85.2% of students who don't finish the course stop there. Once students reach lesson 5, 82.9% finish.
-- **Who we target:** students who watched the first video and made a training plan but never joined their city's group chat. That's 600 students, 41.5% of the cohort, and they include 44.8% of everyone who stopped at lessons 1–4.
-- **What we do:** personal outreach in the first week after the first video, inviting them into the group chat.
-- **What we measure:** % reaching lesson 5 within 21 days of first video. We'd run it as a randomized pilot and count everyone assigned to outreach, not only the students who respond.
-- **The honest caveat:** chat members reach lesson 5 far more often (76.7% vs 46.5% among plan holders). But students choose to join, and we don't know when they joined. The pilot exists to find out how much of that gap the chat actually causes. At current volume it can only detect a large effect in one quarter. That is the main risk to this plan.
+- **Where students are lost:** between their first video and the end of lesson 4. Of students in the first-video pool who don't finish the course, 85.2% (717/842) stop there. Once students reach lesson 5, 82.9% (605/730) finish.
+- **Who we target:** students who watched the first video and made a training plan but never joined their city's group chat. That's 600 of the 1,447 students in the first-video pool (41.5%), and 321 of the 717 who stopped at lessons 1–4 (44.8%).
+- **What we change:** one thing. Whether a new student in the segment gets a personal, first-week text inviting them into the group chat. Half get it and half don't, chosen at random.
+- **How we know it worked:** students who got the invite reach lesson 5 within 21 days of their first video more often than students who didn't, and the 95% confidence interval for the difference stays above zero. We count everyone assigned to outreach, not only the students who respond. Full rule in "The test" below.
+- **The honest caveat:** chat members reach lesson 5 far more often (among plan holders, 76.7%, 253/330, vs 46.5%, 279/600). But students choose to join, and we don't know when they joined. The pilot exists to find out how much of that gap the chat actually causes. At current volume it can only detect a large effect in one quarter. That is the main risk to this plan.
 
 Every number here comes from the scripts in `analysis/`. Data problems and assumptions are in `analysis/DATA_NOTES.md`. Sentences marked **Judgment call** are my reasoning, not something the data shows.
+
+**To run it:** open `Dashboard/index.html` in a browser. It has today's outreach list, the lesson-5 metric by month, and the pilot's decision rule. Draft texts for the two touches are in `outbox/`. Nothing is sent from either.
+
+---
+
+## The test: what we change and how we know it worked
+
+| | |
+|---|---|
+| **The one thing we change** | Whether a student gets the personal chat invite: up to 2 texts in the first week after their first video, from their city's coach or community lead, with the WhatsApp join link. |
+| **Who decides who gets it** | Random, 50/50, when the student enters the segment. Not the coach and not the student. |
+| **What stays the same for both groups** | The chat invite at signup, the lessons, the training plan, coach calls and study hall. Coach calls are logged in both groups to check this. |
+| **What it should move first** | Joining the chat within 7 days. If the invite doesn't raise joins, it can't work through the chat. |
+| **The outcome that decides it** | % reaching lesson 5 within 21 days of first video. Everyone assigned to a group counts, whether or not they read the text or joined. |
+| **Starting point** | 44.5% (267/600) of the segment did this historically. If we widen to everyone not in the chat: 36.5% (337/924). **Judgment call: the real control rate is probably higher.** The segment uses chat status at the snapshot, but the pilot enrolls students by their status at first video. Students who joined the chat later, perhaps after making progress, aren't in the 600. Without join dates we can't say by how much. So judge the pilot against its own control group, never against 44.5%. |
+| **Success: scale it** | At the final read, the invited group's rate minus the control group's rate is above zero, the 95% confidence interval stays above zero, and the lift is at least the smallest lift worth scaling (set before launch, see below). The opt-out rate stays under its limit. |
+| **Redesign the message** | At the end of month 1, the invited group joins the chat no more often than the control group. The text isn't changing the thing it's meant to change. |
+| **No proven effect** | The interval includes zero. Report it as "no lift as large as the pilot could detect" (14.7 points at 3 months for the segment, 11.7 if widened), not as "no effect". |
+| **Decided before launch** | Program manager, in writing: (1) segment only or widened; (2) the smallest lift worth scaling; (3) the highest acceptable opt-out (STOP) rate; (4) if widened, when to text students with no training plan. They have no study days or times, and the timing rule depends on those. **Judgment call:** the data can't set these. There are no past texts to learn from, and the value of an extra lesson-5 student is a program decision. |
+| **Needed before we can measure** | An outreach log (group, send times, replies, STOP) and chat join dates. Today the data has neither, so "joined within 7 days" can't be measured yet. See "What to track going forward". |
+
+**Why randomize instead of comparing joiners with non-joiners:** students choose to join the chat, so comparing joiners with non-joiners mixes up the chat's effect with who chooses to join (CLAUDE.md rule 7). Randomizing the invite is the only way to measure the chat's effect with this data.
 
 ---
 
@@ -62,11 +84,11 @@ Planned study time: evening 252, morning 136, afternoon 116, late night 96.
 | Element | Design | Basis |
 |---|---|---|
 | Trigger | Student completes lesson 1, has a plan, isn't in the chat | Segment definition |
-| First touch | Within 1–2 days of first video | Median gap from lesson 1 to 2 is 1.95 days, and 13.4% stop after lesson 1. **Judgment call:** reach them before the next lesson is due. |
+| First touch | Within 1–2 days of first video | Median gap from lesson 1 to 2 is 1.95 days, and 13.4% (194/1,447) stop after lesson 1. **Judgment call:** reach them before the next lesson is due. |
 | Second touch | Once, about day 4–5, only if still not in the chat | **Judgment call.** Two touches max, to avoid pestering. |
 | Timing | Sent in the student's `plan_study_time` window, on a `plan_study_days` day | CLAUDE.md. Every student in the segment has these fields. |
 | Channel & sender | SMS from the student's city coach or community lead, with the WhatsApp join link | **Judgment call.** A personal sender is more likely to work than a system blast. Untested. |
-| Content | Warm, plain, one step: "Join your city group. Study hall times are posted there." Offer of help. "Reply STOP to stop texts." | CLAUDE.md writing rules. Study hall is announced only in the chat (data dictionary). |
+| Content | Warm, plain, one step: "Join your city group. Study hall times are posted there." Offer of help. "Reply STOP to stop texts." Drafts in English and Spanish are in `outbox/`; Haitian Creole is marked NEEDS TRANSLATION. | CLAUDE.md writing rules. Study hall is announced only in the chat (data dictionary). |
 | Language | Student's `preferred_language`. Haitian Creole drafts marked NEEDS TRANSLATION until reviewed | CLAUDE.md |
 | Never | Mention of record, parole, or probation. Deadlines, urgency, or job or pay promises | CLAUDE.md |
 
@@ -82,10 +104,10 @@ Planned study time: evening 252, morning 136, afternoon 116, late night 96.
 
 | Lever | Observed link | How sure we are about the order of events | Confidence |
 |---|---|---|---|
-| **Training plan** | Plan holders reach lesson 5 more often (57.2% vs 38.3%) | **Known.** 928 of 930 plans (99.8%) were made before the student completed lesson 2. The plan comes before the drop-off zone. | Higher. Students still choose to make a plan. |
-| **Group chat** | Among plan holders, 76.7% vs 46.5% reach lesson 5 (a 30.2-point gap). This is the largest gap observed. | **Unknown.** There's no join date. Some students may join *because* they're progressing. | Lower. The gap is bigger, but the cause is unproven. |
+| **Training plan** | Plan holders reach lesson 5 more often (57.2%, 532/930, vs 38.3%, 198/517) | **Known.** 928 of 930 plans (99.8%) were made before the student completed lesson 2. The plan comes before the drop-off zone. | Higher. Students still choose to make a plan. |
+| **Group chat** | Among plan holders, 76.7% (253/330) vs 46.5% (279/600) reach lesson 5 (a 30.2-point gap). This is the largest gap observed. | **Unknown.** There's no join date. Some students may join *because* they're progressing. | Lower. The gap is bigger, but the cause is unproven. |
 
-So why pilot the chat and not the plan? **Judgment call:** most students already have plans (64.3% of the pool), and plan-making happens in onboarding. The chat has the bigger possible upside and the bigger unknown. A randomized pilot settles that unknown, which the observational data can't.
+So why pilot the chat and not the plan? **Judgment call:** most students already have plans (930 of 1,447, 64.3% of the pool), and plan-making happens in onboarding. The chat has the bigger possible upside and the bigger unknown. A randomized pilot settles that unknown, which the observational data can't.
 
 ---
 
@@ -93,11 +115,11 @@ So why pilot the chat and not the plan? **Judgment call:** most students already
 
 ### Pilot design
 
-- **Population:** every new student who enters the segment (first video, plan, no chat), enrolled on a rolling basis.
+- **Population:** every new student who enters the segment (first video, plan, no chat), enrolled on a rolling basis. Widening it is recommended below; the program manager picks before launch.
 - **Randomization:** 50/50 at entry, by the ops analyst, before any outreach. The control group gets business as usual (the signup invite they already had).
 - **Primary metric:** % reaching lesson 5 within **21 days** of first video.
-  - Why lesson 5: it's where the drop-off ends. Past it, 82.9% finish.
-  - Why 21 days: among pool students who ever reached lesson 5, 94.9% did so within 21 days (median 10.1 days).
+  - Why lesson 5: it's where the drop-off ends. Past it, 82.9% (605/730) finish.
+  - Why 21 days: among pool students who ever reached lesson 5, 94.9% (693/730) did so within 21 days (median 10.1 days).
   - Why not course completion: it takes up to 59 days after the first video, and permits up to 88 days after signup. Lesson 5 at 21 days reads out 1–2 months sooner.
 - **Control baseline:** historically 44.5% (267/600) of this segment reached lesson 5 within 21 days.
 - **Secondary metrics:**
@@ -122,7 +144,7 @@ Assumptions: 120 new segment students per month (the lowest full month), 50/50 s
 | 3 months | 180 | 14.7 |
 | 4 months | 240 | 12.8 |
 
-What might a realistic effect be? Intent-to-treat effect ≈ (share who join *because of* the outreach) × (true effect of joining). The observed 30.2-point gap is an upper bound on that true effect, because it includes self-selection. These are hypotheticals, not predictions:
+What might a realistic effect be? Intent-to-treat effect ≈ (share who join *because of* the outreach) × (true effect of joining). **Judgment call:** the observed 30.2-point gap is probably an upper bound on that true effect, because it includes self-selection: students who choose to join may be more motivated to begin with. The data can't confirm this. These are hypotheticals, not predictions:
 
 | Extra joins from outreach | If joining is worth the full 30.2 pts | If it's worth half |
 |---|---|---|
@@ -133,9 +155,9 @@ What might a realistic effect be? Intent-to-treat effect ≈ (share who join *be
 
 **What this means:** a 3-month pilot on this segment only detects a lift of about 15 points. That requires both high uptake and a chat effect close to the observed gap. More modest (and more likely) effects would show up as "no significant difference." Three ways to respond:
 
-1. **Widen the randomized population** to all first-video students not in the chat, plan or no plan. Baseline is 36.5% (337/924), with at least 185 new students per month. The smallest detectable lift improves to 14.4 pts at 2 months, 11.7 at 3 and 10.1 at 4. Pre-register plan holders as the main subgroup. **Recommended.**
-2. **Use the join rate as an early go/no-go.** It moves more and needs fewer students. If outreach doesn't lift joins within the first month, redesign the message before waiting on lesson 5.
-3. **Treat a null result as "not large," not as "zero."** Report the confidence interval, not just the p-value.
+1. **Widen the randomized population** to all first-video students not in the chat, plan or no plan. Baseline is 36.5% (337/924), with at least 185 new students per month. The smallest detectable lift improves to 14.4 pts at 2 months, 11.7 at 3 and 10.1 at 4. Pre-register plan holders as the main subgroup. Students without a plan need a default send time (see "The test"). **Recommended.** Owner: program manager, before launch. Metric: smallest detectable lift at the planned enrollment.
+2. **Use the join rate as an early go/no-go.** It moves more and needs fewer students. If outreach doesn't lift joins within the first month, redesign the message before waiting on lesson 5. Owner: program manager, end of month 1. Metric: % joining the chat within 7 days, treatment vs control. This needs chat join dates, which the data doesn't have yet.
+3. **Treat a null result as "not large," not as "zero."** Report the confidence interval, not just the p-value. Owner: ops analyst, at every readout (every 2 weeks). Metric: 95% confidence interval of the lift.
 
 ---
 
@@ -144,6 +166,7 @@ What might a realistic effect be? Intent-to-treat effect ≈ (share who join *be
 Full detail and data problems are in `analysis/DATA_NOTES.md`. Rebuild everything from `data/` with:
 
 ```
+pip install -r analysis/requirements.txt
 python3 analysis/clean_data.py
 python3 analysis/cohort_windows.py
 python3 analysis/lesson_dropoff.py
@@ -192,7 +215,7 @@ Pool: first video by Jul 18, n = 1,447. Source: `lesson_dropoff_output.txt`.
 - **It's a cliff, not a steady leak.** Stop rates fall from 13–19% per lesson to about 1% after lesson 4.
 - **Pace changes at the same point.** Median days between lessons is about 2 for lessons 1→5, then about 1 for every lesson after.
 - **Students who stop at lessons 1–4 are gone, not paused.** The most recent of them did a lesson 49.5 days before the snapshot, and none was seen in the last 14 days.
-- **Lessons 2–4 have the three longest videos** (32–44 min vs 12–26 for lessons 5–21). **Judgment call:** that is worth testing (for example, splitting lesson 3), but the data only shows they go together.
+- **Lessons 2–4 have the three longest videos** (32–44 min vs 12–26 for lessons 5–21). **Judgment call:** that is worth testing (for example, splitting lesson 3), but the data only shows they go together. Owner: curriculum lead (placeholder), after the chat pilot so the two tests don't mix. Metric: lesson 3 stop rate, now 19.2% (209/1,086).
 
 ### 3. Training plan × group chat
 
@@ -220,22 +243,23 @@ Share reaching lesson 5+ by fields known at signup. Pool: first video by Jul 18,
 
 | Field | Range of reach-5 rates across values | p | Separates? |
 |---|---|---|---|
-| Group chat | 38.4% (no) to 71.7% (yes) | ~5e-22 | Strongly |
-| Training plan | 38.3% (no) to 57.2% (yes) | ~8e-10 | Strongly |
-| Primary device | 33.0% (shared computer, n=88) to 56.5% (laptop) | ~0.001 | Moderately; the low group is small |
-| Referral source | 41.9% (paid social) to 55.9% (reentry org) | ~0.003 | Moderately |
-| City | 49.1–52.0% | ~0.78 | No |
-| Age band | 45.5–54.4% | ~0.73 | No |
-| Preferred language | 49.9–66.7% (Haitian Creole n=9) | ~0.46 | No |
-| Signup month | 48.1–52.2% | ~0.87 | No |
+| Group chat | 38.4% (no, n=924) to 71.7% (yes, n=523) | ~5e-22 | Strongly |
+| Training plan | 38.3% (no, n=517) to 57.2% (yes, n=930) | ~8e-10 | Strongly |
+| Primary device | 33.0% (shared computer, n=88) to 56.5% (laptop, n=324) | ~0.001 | Moderately; the low group is small |
+| Referral source | 41.9% (paid social, n=339) to 55.9% (reentry org, n=424) | ~0.003 | Moderately |
+| City | 49.1% (Boston, n=110) to 52.0% (Sacramento, n=379) | ~0.78 | No |
+| Age band | 45.5% (55+, n=77) to 54.4% (45–54, n=193) | ~0.73 | No |
+| Preferred language | 49.9% (English, n=1,193) to 66.7% (Haitian Creole, n=9) | ~0.46 | No |
+| Signup month | 48.1% (Jul, n=158) to 52.2% (Jun, n=291) | ~0.87 | No |
 
-- City doesn't separate students, so the plan runs the same way in all three cities.
+- City doesn't separate students up to lesson 5, so the outreach runs the same way in all three cities.
+- City does matter after the course. Permit / Course Complete: Sacramento 51.7% (74/143), NYC 42.3% (149/352), Boston 31.6% (12/38), p ≈ 0.04 (course complete by Aug 6; `cohort_windows_output.txt`). This plan doesn't change that, but the next one should look at it.
 - Referral source is for analysis only and never appears in student messages (CLAUDE.md).
 - **Judgment call:** shared-computer users (library, reentry center) may need a different touch, such as study-hall times they can attend in person. The group is too small (88) to design around yet.
 
 ### 5. Related findings outside this plan
 
-- **Finishing the course doesn't mean taking the exam.** In the Jun 19 cohort, 487 finished the course and 212 passed the permit. 233 of the 275 who didn't pass still have `course_complete` status with no exam on record. They look like non-takers, not failures. That makes it a candidate for the next plan.
+- **Finishing the course doesn't mean taking the exam.** In the Jun 19 cohort, 487 finished the course and 212 passed the permit. 233 of the 275 who didn't pass still have `course_complete` status with no exam on record. They look like non-takers, not failures. That makes it a candidate for the next plan. Owner: program manager, scoped after the chat pilot's first readout. Metric: Permit / Course Complete, now 44.1% (235/533).
 - **Seats.** The funded seats in `seats_by_city.csv` compare to permits passed so far as follows:
 
 | City | Seats | Permits passed so far |
