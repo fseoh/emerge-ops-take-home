@@ -110,7 +110,9 @@ Both need answers before any analysis treats these fields as levers.
 
 If calls went to more engaged students, the ≥1 call group would look more engaged. It doesn't.
 
-**Working assumption.** Before lesson 5, calls look unrelated to progress or engagement: 39–45% of early stoppers have none, at every stopping lesson (the "Stopped at" table above). From lesson 5 on, every student has at least one call and counts rise. We can't tell whether that line is a program step (for example, a check-in around lesson 4–5), an effect of calls, or a rule built into the synthetic data. So "every lesson 5+ student had a call" is not evidence that calls cause progress.
+**Working assumption: a call is not required to unlock lessons.** If it were, students without a call would pile up at lesson 4. They don't: 39–45% of early stoppers have no call at every stopping lesson (the "Stopped at" table above). Before lesson 5, calls look unrelated to progress or engagement. From lesson 5 on, every student has at least one call and counts rise. So calls look like a program touchpoint that continuing students get around lesson 4–5, not a lock and not a reward for engagement. We can't rule out that calls help, or that the pattern is built into the synthetic data. Either way, "every lesson 5+ student had a call" is not evidence that calls cause progress.
+
+**How we'd test whether calls help.** The plan doesn't rely on calls, so this comes after the chat pilot. First, use the dated call log to compare lesson pace before and after each student's first call. If Emerge confirms coaches start calls, randomize *when* the first call is offered: in week 1 after the first video for the treatment group, the usual timing for control. Measure % reaching lesson 5 within 21 days, intent-to-treat, the same metric as the chat pilot. Enroll only students not in the chat pilot, so the two tests don't mix.
 
 **Ask Emerge:**
 1. Is a coach call required or automatically triggered at a specific lesson? Who starts it: the student or the coach?
