@@ -10,6 +10,7 @@ python3 analysis/lesson_dropoff.py
 python3 analysis/pilot_sizing.py
 python3 analysis/coach_calls_finishers.py
 python3 analysis/coach_calls_engagement.py
+python3 analysis/coach_calls_segments.py
 python3 analysis/dashboard_data.py
 ```
 
@@ -75,7 +76,7 @@ The raw values stay in the cleaned file. A `flag_*` column marks each affected r
 
 ## Open questions for Emerge
 
-Both need answers before any analysis treats these fields as levers.
+All three need answers before any analysis treats these fields as levers.
 
 ### 1. Coach calls and lesson 5
 
@@ -120,7 +121,7 @@ Both need answers before any analysis treats these fields as levers.
 
 If calls went to more engaged students, the ≥1 call group would look more engaged. It doesn't.
 
-**Working assumption: a call is not required to unlock lessons.** If it were, students without a call would pile up at lesson 4. They don't: 39–45% of early stoppers have no call at every stopping lesson (the "Stopped at" table above). Before lesson 5, calls look unrelated to progress or engagement. From lesson 5 on, every student has at least one call and counts rise. So calls look like a program touchpoint that continuing students get around lesson 4–5, not a lock and not a reward for engagement. We can't rule out that calls help, or that the pattern is built into the synthetic data. Either way, "every lesson 5+ student had a call" is not evidence that calls cause progress.
+**Working assumption: a call is not required to unlock lessons.** If it were, students without a call would pile up at lesson 4. They don't: 39–45% of early stoppers have no call at every stopping lesson (the "Stopped at" table above). Before lesson 5, calls look unrelated to progress or engagement. From lesson 5 on, every student has at least one call and counts rise. So calls look like a program touchpoint that continuing students get around lesson 4–5, not a lock and not a reward for engagement. We can't rule out that calls help, or that the pattern is built into the synthetic data. Either way, "every lesson 5+ student had a call" is not evidence that calls cause progress. Item 3 asks whether that touchpoint is a program rule or a student choice.
 
 **How we'd test whether calls help.** The plan doesn't rely on calls, so this comes after the chat pilot. First, use the dated call log to compare lesson pace before and after each student's first call. If Emerge confirms coaches start calls, randomize *when* the first call is offered: in week 1 after the first video for the treatment group, the usual timing for control. Measure % reaching lesson 5 within 21 days, intent-to-treat, the same metric as the chat pilot. Enroll only students not in the chat pilot, so the two tests don't mix.
 
@@ -153,6 +154,20 @@ If students join the chat *after* progressing, some of this gap runs the other w
 **Ask Emerge:**
 1. Can we get WhatsApp group join dates per student (from the group admin log or the invite-link tracking)?
 2. Is the invite sent only at signup, or again later (for example, by a coach, or after a milestone)?
+
+### 3. Are coach calls a program rule or a student choice?
+
+**Assumption:** Coach calls are likely triggered by a program rule (for example, a check-in around lesson 4–5), not freely initiated by students. The pattern is too clean for pure self-selection: 0 of 1,423 students with zero calls ever progressed past lesson 4, and 0 of 696 students who completed the full course had zero calls. A boundary that sharp, with no exceptions in either direction, looks structural rather than behavioral. This fits item 1: a routine program step, not a lock that stops students from continuing.
+
+**Why this isn't a lever in the current plan:** Unlike group chat, we can't confirm students control this action at all. `coach_calls_completed` may reflect staff-initiated outreach rather than something a student requests. If so, "nudge students to book a call" isn't a valid community-outreach intervention; it's a staffing/process question. This is parked, not ruled out.
+
+**What would confirm or resolve it:**
+1. Call timestamps, to see whether the first call lines up with a specific lesson (evidence of a checkpoint) or is scattered (evidence of tracking already-engaged students).
+2. Direct confirmation from the coaching team: is a call required or auto-scheduled at a threshold, and who initiates it: student or coach?
+
+**Supporting evidence beyond the clean cutoff:** among the 717 students in the first-video pool who stopped at lessons 1–4, those with and without calls look the same on plan (54.5%, 163/299, vs 56.2%, 235/418) and chat (20.4%, 61/299, vs 20.8%, 87/418) rates (`coach_calls_engagement_output.txt`), and the zero-call share stays at 39–45% at every stopping lesson (`lesson_dropoff_output.txt`, table 4). This is harder to explain under pure self-selection than under a structural rule.
+
+**If students do control this action, the test would mirror the chat pilot:** randomize outreach pushing lesson 1–4 students with zero calls to schedule one, vs. a control group, measuring % reaching lesson 5 within 21 days, intent-to-treat. Sequence this after the chat pilot rather than running both at once. Historically, 129 of the chat segment's 600 students (21.5%) had zero calls (`coach_calls_segments_output.txt`), so about a fifth of chat-pilot students would also qualify for this test.
 
 ## Assumptions
 

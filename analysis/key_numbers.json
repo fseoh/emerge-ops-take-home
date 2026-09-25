@@ -8,6 +8,11 @@
   "pool_n": 1447,
   "snapshot": "2026-09-15 06:00"
  },
+ "coach_calls_segments": {
+  "segment_n": 600,
+  "segment_zero_calls": 129,
+  "snapshot": "2026-09-15 06:00"
+ },
  "cohort_windows": {
   "cc_fv_den": 1447,
   "cc_fv_num": 605,

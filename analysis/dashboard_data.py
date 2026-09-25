@@ -12,6 +12,7 @@ without writing anything if one disagrees:
   python3 analysis/pilot_sizing.py
   python3 analysis/coach_calls_finishers.py
   python3 analysis/coach_calls_engagement.py
+  python3 analysis/coach_calls_segments.py
   python3 analysis/dashboard_data.py
 
 Reads:
