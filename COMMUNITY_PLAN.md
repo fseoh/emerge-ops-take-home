@@ -10,7 +10,7 @@
 
 Every number here comes from the scripts in `analysis/`. Data problems and assumptions are in `analysis/DATA_NOTES.md`. Sentences marked **Judgment call** are my reasoning, not something the data shows.
 
-**To run it:** open `Dashboard/index.html` in a browser. It has today's outreach list, the lesson-5 metric by month, and the pilot's decision rule. Draft texts for the two touches are in `outbox/`. Nothing is sent from either.
+**To run it:** open the live dashboard at https://fseoh.github.io/emerge-ops-takehome/Dashboard/ (or `Dashboard/index.html` locally). It has today's outreach list, the lesson-5 metric by month, and the pilot's decision rule. Draft texts for the two touches are in `outbox/`. Nothing is sent from either.
 
 ---
 
