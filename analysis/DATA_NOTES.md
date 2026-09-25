@@ -86,6 +86,7 @@ Both need answers before any analysis treats these fields as levers.
 - None of the 1,002 students with no lessons had a call.
 - **None of the 1,423 students with 0 calls got past lesson 4.**
 - 3 calls only appear among students at lesson 5 or later.
+- None of the 696 students who finished the course had 0 calls (row 21; `coach_calls_finishers.py`).
 
 **Evidence against a hard gate at lesson 5** (from `lesson_dropoff.py`). This uses students whose first video was by Jul 18 and who stopped at lessons 1–4 (n = 717). If a call were required to unlock lesson 5, students without a call would bunch up at lesson 4. They don't. The share with a call is flat across stopping points:
 
@@ -98,10 +99,21 @@ Both need answers before any analysis treats these fields as levers.
 
 418 of 717 (58.3%) had at least one call and stopped anyway: 408 `inactive`, 10 `withdrawn`.
 
-**Working assumption.** Calls follow progress: they start after lesson 1 and pile up as a student keeps going. So "every lesson 5+ student had a call" is not evidence that calls cause progress. But a rule as absolute as 0 of 1,423 may be a real process step (for example, a check-in around lesson 4–5) or a rule built into the synthetic data. We can't tell which.
+**Calls don't track engagement before lesson 5** (from `coach_calls_engagement.py`). Same 717 students. Those with and without a call look alike:
+
+| Signal | 0 calls (n = 299) | ≥1 call (n = 418) |
+|---|---|---|
+| Training plan | 54.5% (163) | 56.2% (235) |
+| Group chat | 20.4% (61) | 20.8% (87) |
+| Any study hall | 13.0% (39) | 14.4% (60) |
+| Lesson 1 quiz, median | 79 | 78 |
+
+If calls went to more engaged students, the ≥1 call group would look more engaged. It doesn't.
+
+**Working assumption.** Before lesson 5, calls look unrelated to progress or engagement: 39–45% of early stoppers have none, at every stopping lesson (the "Stopped at" table above). From lesson 5 on, every student has at least one call and counts rise. We can't tell whether that line is a program step (for example, a check-in around lesson 4–5), an effect of calls, or a rule built into the synthetic data. So "every lesson 5+ student had a call" is not evidence that calls cause progress.
 
 **Ask Emerge:**
-1. Is a coach call required or automatically triggered at a specific lesson?
+1. Is a coach call required or automatically triggered at a specific lesson? Who starts it: the student or the coach?
 2. Can we get the call log with dates? That would let us measure lesson progress before and after the first call.
 
 ### 2. When students join the group chat

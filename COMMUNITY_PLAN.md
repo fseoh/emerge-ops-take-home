@@ -148,6 +148,9 @@ python3 analysis/clean_data.py
 python3 analysis/cohort_windows.py
 python3 analysis/lesson_dropoff.py
 python3 analysis/pilot_sizing.py
+python3 analysis/coach_calls_finishers.py
+python3 analysis/coach_calls_engagement.py
+python3 analysis/dashboard_data.py
 ```
 
 **Data handling:** 9 test accounts dropped, 43 city labels normalized, and funnel stages taken from `lesson_events.csv`. That leaves 3,000 real students: NYC 2,000, Sacramento 750, Boston 250.

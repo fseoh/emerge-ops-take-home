@@ -1,0 +1,45 @@
+Pool: first video on or before 2026-07-18 06:00:00 -> 1447 students
+plan_* medians use plan holders only; l1_to_l2_days uses students who reached lesson 2
+
+== A. Whole pool (confounded: 0-call students all stopped at lessons 1-4)
+0 calls: 299; 1+ calls: 1148
+                        signal         0 calls         1+ calls p (2-prop z)
+                      plan_yes 163/299 = 54.5% 767/1148 = 66.8%     7.74e-05
+                      chat_yes  61/299 = 20.4% 462/1148 = 40.2%        2e-10
+                any_study_hall  39/299 = 13.0% 344/1148 = 30.0%     3.47e-09
+               shared_computer  32/299 = 10.7%   56/1148 = 4.9%     0.000174
+                     withdrawn    2/299 = 0.7%   14/1148 = 1.2%        0.417
+    signup_to_fv_days (median)    1.20 (n=299)    0.84 (n=1148)             
+  plan_hours_per_week (median)    2.80 (n=163)     2.80 (n=767)             
+plan_lessons_per_week (median)    5.00 (n=163)     5.00 (n=767)             
+       l1_watch_ratio (median)    1.12 (n=299)    1.12 (n=1148)             
+              l1_quiz (median)   79.00 (n=299)   79.00 (n=1148)             
+        l1_to_l2_days (median)    1.94 (n=220)    1.95 (n=1033)             
+
+== B. Students who stopped at lessons 1-4 (main comparison)
+0 calls: 299; 1+ calls: 418
+                        signal         0 calls        1+ calls p (2-prop z)
+                      plan_yes 163/299 = 54.5% 235/418 = 56.2%        0.651
+                      chat_yes  61/299 = 20.4%  87/418 = 20.8%        0.893
+                any_study_hall  39/299 = 13.0%  60/418 = 14.4%        0.616
+               shared_computer  32/299 = 10.7%   27/418 = 6.5%       0.0415
+                     withdrawn    2/299 = 0.7%   10/418 = 2.4%       0.0761
+    signup_to_fv_days (median)    1.20 (n=299)    1.02 (n=418)             
+  plan_hours_per_week (median)    2.80 (n=163)    2.90 (n=235)             
+plan_lessons_per_week (median)    5.00 (n=163)    5.00 (n=235)             
+       l1_watch_ratio (median)    1.12 (n=299)    1.12 (n=418)             
+              l1_quiz (median)   79.00 (n=299)   78.00 (n=418)             
+        l1_to_l2_days (median)    1.94 (n=220)    1.99 (n=303)             
+
+== C. Within each stopping lesson: plan, chat, signup->first video, lesson 1 quiz
+ stopped_at  n_0  n_1+ plan_0 plan_1+ chat_0 chat_1+ su_fv_med_0 su_fv_med_1+ quiz_med_0 quiz_med_1+
+          1   79   115  43.0%   45.2%  20.3%   19.1%        1.76         1.36         78          79
+          2   75    92  58.7%   58.7%  13.3%   16.3%        1.27         1.00         78          78
+          3   81   128  58.0%   59.4%  16.0%   26.6%        1.12         0.91         79          78
+          4   64    83  59.4%   63.9%  34.4%   19.3%        0.79         0.92         83          80
+
+== D. Share with 0 calls by stopping lesson (students who stopped at 1-4)
+lesson 1: 79/194 = 40.7%
+lesson 2: 75/167 = 44.9%
+lesson 3: 81/209 = 38.8%
+lesson 4: 64/147 = 43.5%
