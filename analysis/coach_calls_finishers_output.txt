@@ -1,0 +1,19 @@
+Real students: 3000 (test accounts excluded by clean_data.py)
+CC/FV pool: first video on or before 2026-07-18 06:00:00 -> 1447 students
+
+== 1. CC/FV pool (first video <= 2026-07-18)
+finishers (ev_max_lesson == 21): 605
+coach_calls_completed  students  share
+                    1       252  252/605 = 41.7%
+                    2       236  236/605 = 39.0%
+                    3       117  117/605 = 19.3%
+coach_calls_completed == 0: 0 of 605
+
+== 2. All real students, no window
+finishers (ev_max_lesson == 21): 696
+coach_calls_completed  students  share
+                    1       290  290/696 = 41.7%
+                    2       272  272/696 = 39.1%
+                    3       134  134/696 = 19.3%
+coach_calls_completed == 0: 0 of 696
+
